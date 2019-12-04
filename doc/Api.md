@@ -161,3 +161,32 @@ Response Field
 | offerUrl   | String   | offer url    |
 | examphotoUrls   | Array(String)   | 笔试题Urls    |
 | audiorecordUrl   | String   | 录音Url    |
+
+## 3.1 笔试题上传
+
+URL: /examphoto/upload?interviewId={interviewId}  
+Method：POST  
+Request Content-Type: multipart/formdata  
+RequestParam: audiorecords  
+
+ResponseBody:  
+```json
+[
+    "http://xxx.com/xxx1.jpg",
+    "http://xxx.com/xxx2.jpg"
+]
+
+```
+
+Request Field  
+
+| 字段     |     类型 |   描述   | 
+| :--------------: | :--------:| :------: |
+| interviewId   | Integer   | 面试Id    |
+| audiorecords   | String   | 上床文件key    |
+
+Response Field  
+
+| 字段     |     类型 |   描述   | 
+| :--------------: | :--------:| :------: |
+|    | Array(String)   | 上传图片后Urls    |
