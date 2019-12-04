@@ -190,3 +190,69 @@ Response Field
 | 字段     |     类型 |   描述   | 
 | :--------------: | :--------:| :------: |
 |    | Array(String)   | 上传图片后Urls    |
+
+## 4.1 查询试题列表
+
+URL: /exam/search?keyword={keyword}&time={time}  
+Method：GET  
+
+ResponseBody:  
+```json
+{
+    "company": "腾讯",
+    "student": "李维",
+    "time": 1575448390345,
+    "likes":50
+}
+
+```
+
+Request Field  
+
+| 字段     |     类型 |   描述   | 
+| :--------------: | :--------:| :------: |
+| keyword   | String   | 关键字    |
+| time   | Long   | 时间戳    |
+
+Response Field  
+
+| 字段     |     类型 |   描述   | 
+| :--------------: | :--------:| :------: |
+| company   | String   | 公司名    |
+| student   | String   | 面试学生    |
+| time   | Long   | 面试时间    |
+| likes   | int   | 点赞    |
+
+## 4.2 查看试题详情
+
+URL: /exam/getExamById?interviewId={interviewId}  
+Method：GET  
+
+ResponseBody:  
+```json
+{
+    "interviewId": 123456,
+    "content":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "student": "李维",
+    "time": 1575448390345,
+    "likes":50
+
+}
+
+```
+
+Request Field  
+
+| 字段     |     类型 |   描述   | 
+| :--------------: | :--------:| :------: |
+| interviewId   | Integer   | 面试Id    |
+
+Response Field  
+
+| 字段     |     类型 |   描述   | 
+| :--------------: | :--------:| :------: |
+| interviewId   | Integer   | 面试Id    |
+| student   | String   | 面试学生    |
+| time   | Long   | 面试时间    |
+| likes   | int   | 点赞    |
+|
