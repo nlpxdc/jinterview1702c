@@ -42,17 +42,17 @@ Request Field
 |    | Integer   | 学生Id    |
 
 
-## 1.3 学生手机获取激活验证码
+## 1.3 学生手机获取激活验证码  
 
 URL: /student/getMobileCaptcha  
 Method：GET  
 
-## 1.4 学生提交手机验证码激活
+## 1.4 学生提交手机验证码激活  
 
 URL: /student/submitMobileCaptcha?captcha={captcha}  
 Method：GET  
 
-Request Field
+Request Field  
 | 字段     |     类型 |   描述   | 
 | :--------------: | :--------:| :------: |
 |  captcha  | String   | 验证码（4位字符）    |
