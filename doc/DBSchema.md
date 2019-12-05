@@ -40,14 +40,14 @@
 | 字段  | 类型  | 约束  |  说明 |
 |---|---|---|---|
 | exam_photo_id  | int(11)  | 主键 自增 | Id  |
-| exam_id | int(11)  | 外键 索引 | 笔试题Id  |
+| exam_id | int(11)  | 非空 外键 索引 | 笔试题Id  |
 | url  | varchar(300)  | 非空 | 图片Url  |
 
 # AudioRecord
 | 字段  | 类型  | 约束  |  说明 |
 |---|---|---|---|
 | audio_record_id  | int(11)  | 主键 自增 | Id  |
-| interview_id | int(11)  | 外键 索引 | 面试Id  |
+| interview_id | int(11)  | 非空 外键 索引 | 面试Id  |
 | title  | varchar(100)  |  | 标题  |
 | content  | text  |  | 语音识别内容  |
 | likes  | int(11)  | 非空 默认0  | 点赞数  |

@@ -1,6 +1,6 @@
 SET
   FOREIGN_KEY_CHECKS = 0;
---------------------------------------------------------------------------
+#------------------------------------------------------------------------
   DROP TABLE IF EXISTS `student`;
 CREATE TABLE `student` (
     `student_id` int(11) NOT NULL auto_increment,
@@ -18,7 +18,7 @@ CREATE TABLE `student` (
     unique `idx_openid` (`openid`),
     unique `idx_mobile` (`mobile`)
   ) ENGINE = InnoDB DEFAULT CHARSET = utf8 auto_increment = 1;
---------------------------------------------------------------------------
+#--------------------------------------------------------------------------
   DROP TABLE IF EXISTS `interview`;
 CREATE TABLE `interview` (
     `interview_id` int(11) NOT NULL auto_increment,
@@ -35,7 +35,7 @@ CREATE TABLE `interview` (
     index `idx_student_id` (`student_id`),
     index `idx_interview_time` (`interview_time`)
   ) ENGINE = InnoDB DEFAULT CHARSET = utf8 auto_increment = 1;
---------------------------------------------------------------------------
+#--------------------------------------------------------------------------
   DROP TABLE IF EXISTS `examination`;
 CREATE TABLE `examination` (
     `exam_id` int(11) NOT NULL auto_increment,
@@ -46,4 +46,25 @@ CREATE TABLE `examination` (
     PRIMARY KEY (`exam_id`),
     index `idx_interview_id` (`interview_id`)
   ) ENGINE = InnoDB DEFAULT CHARSET = utf8 auto_increment = 1;
---------------------------------------------------------------------------
+#--------------------------------------------------------------------------
+  DROP TABLE IF EXISTS `exam_photo`;
+CREATE TABLE `exam_photo` (
+    `exam_photo_id` int(11) NOT NULL auto_increment,
+    `exam_id` int(11) not null,
+    `url` varchar(300) not null,
+    PRIMARY KEY (`exam_photo_id`),
+    index `idx_exam_id` (`exam_id`)
+  ) ENGINE = InnoDB DEFAULT CHARSET = utf8 auto_increment = 1;
+#--------------------------------------------------------------------------
+  DROP TABLE IF EXISTS `audio_record`;
+CREATE TABLE `audio_record` (
+    `audio_record_id` int(11) NOT NULL auto_increment,
+    `interview_id` int(11) not null,
+    `title` varchar(100),
+    `content` text,
+    `likes` int(11) not null,
+    `url` varchar(300) not null,
+    PRIMARY KEY (`audio_record_id`),
+    index `idx_interview_id` (`interview_id`)
+  ) ENGINE = InnoDB DEFAULT CHARSET = utf8 auto_increment = 1;
+#--------------------------------------------------------------------------
