@@ -53,6 +53,7 @@ URL: /student/submitMobileCaptcha?captcha={captcha}
 Method：GET  
 
 Request Field  
+
 | 字段     |     类型 |   描述   | 
 | :--------------: | :--------:| :------: |
 |  captcha  | String   | 验证码（4位字符）    |
