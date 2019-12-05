@@ -183,7 +183,7 @@ Request Field
 | 字段     |     类型 |   描述   | 
 | :--------------: | :--------:| :------: |
 | interviewId   | Integer   | 面试Id    |
-| audiorecords   | String   | 上床文件key    |
+| audiorecords   | String   | 上传文件key    |
 
 Response Field  
 
@@ -225,13 +225,13 @@ Response Field
 
 ## 4.2 查看试题详情
 
-URL: /exam/getExamById?interviewId={interviewId}  
+URL: /exam/getExamById?examId={examId}  
 Method：GET  
 
 ResponseBody:  
 ```json
 {
-    "interviewId": 123456,
+    "examId": 123456,
     "content":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     "student": "李维",
     "time": 1575448390345,
@@ -251,8 +251,69 @@ Response Field
 
 | 字段     |     类型 |   描述   | 
 | :--------------: | :--------:| :------: |
-| interviewId   | Integer   | 面试Id    |
+| examId   | Integer   | 试题Id    |
+| content   | String   | 试题内容    |
 | student   | String   | 面试学生    |
 | time   | Long   | 面试时间    |
 | likes   | int   | 点赞    |
-|
+
+## 5.1 查询录音列表
+
+URL: /audiorecord/search?keyword={keyword}&time={time}  
+Method：GET  
+
+ResponseBody:  
+```json
+{
+    "company": "百度",
+    "student": "wsh",
+}
+
+```
+
+Request Field  
+
+| 字段     |     类型 |   描述   | 
+| :--------------: | :--------:| :------: |
+| keyword   | String   | 关键字    |
+| time   | Long   | 时间戳    |
+
+Response Field  
+
+| 字段     |     类型 |   描述   | 
+| :--------------: | :--------:| :------: |
+| company   | String   | 公司名    |
+| student   | String   | 面试学生    |
+
+## 5.2 查看录音
+
+URL: /audiorecord/getById?audiorecordId={audiorecordId}  
+Method：GET  
+
+ResponseBody:  
+```json
+{
+    "audiorecordId": 2,
+    "title": "SpringMVC运行原理",
+    "content": "用户发送请求...",
+    "likes": 111,
+    "audiorecordUrl": "http://xxx.com/xxx.mp3"
+}
+
+```
+
+Request Field  
+
+| 字段     |     类型 |   描述   | 
+| :--------------: | :--------:| :------: |
+| interviewId   | Integer   | 面试Id    |
+
+Response Field  
+
+| 字段     |     类型 |   描述   | 
+| :--------------: | :--------:| :------: |
+| audiorecordId   | Integer   | 录音Id    |
+| title   | String   | 录音标题    |
+| content   | String   | 语音识别内容    |
+| likes   | Long   | 点赞数    |
+| audiorecordUrl   | String   | 录音Url    |
