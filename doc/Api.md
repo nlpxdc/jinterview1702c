@@ -68,12 +68,20 @@ Method：GET
 
 ResponseBody:  
 ```json
-{
-    "company": "华为",
-    "student": "cjf",
-    "time": 1575448390345,
-    "status": 1
-}
+[
+    {
+        "company": "华为",
+        "student": "cjf",
+        "time": 1575448390345,
+        "status": 1
+    },
+    {
+        "company": "华为",
+        "student": "cjf",
+        "time": 1575448390345,
+        "status": 1
+    }
+]
 
 ```
 
@@ -206,7 +214,7 @@ Response Field
 URL: /examphoto/upload?interviewId={interviewId}  
 Method：POST  
 Request Content-Type: multipart/formdata  
-RequestParam: audiorecords  
+RequestParam: examphotos  
 
 ResponseBody:  
 ```json
@@ -222,7 +230,7 @@ Request Field
 | 字段     |     类型 |   描述   | 
 | :--------------: | :--------:| :------: |
 | interviewId   | Integer   | 面试Id    |
-| audiorecords   | String   | 上传文件key    |
+| examphotos   | String   | 上传文件key    |
 
 Response Field  
 
@@ -238,6 +246,8 @@ Method：GET
 ResponseBody:  
 ```json
 {
+    "examId": 123,
+    "interviewId": 234,
     "company": "腾讯",
     "student": "李维",
     "time": 1575448390345,
@@ -257,6 +267,8 @@ Response Field
 
 | 字段     |     类型 |   描述   | 
 | :--------------: | :--------:| :------: |
+| examId   | Integer   | 笔试题Id    |
+| interviewId   | Integer   | 面试Id    |
 | company   | String   | 公司名    |
 | student   | String   | 面试学生    |
 | time   | Long   | 面试时间    |
@@ -308,6 +320,8 @@ Method：GET
 ResponseBody:  
 ```json
 {
+    "audiorecordId": 123,
+    "interviewId": 234,
     "company": "百度",
     "student": "wsh",
     "likes": 50
@@ -326,6 +340,8 @@ Response Field
 
 | 字段     |     类型 |   描述   | 
 | :--------------: | :--------:| :------: |
+| audiorecordId   | Integer   | 录音Id    |
+| interviewId   | Integer   | 面试Id    |
 | company   | String   | 公司名    |
 | student   | String   | 面试学生    |
 | likes   | Integer   | 点赞数    |
