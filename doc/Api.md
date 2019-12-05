@@ -346,3 +346,33 @@ Response Field
 | 字段     |     类型 |   描述   | 
 | :--------------: | :--------:| :------: |
 |    | Array(String)   | 上传音频后Urls    |
+## 6.1 报表图详情
+
+URL: /chart/api/getmessage 
+Method：Get  
+
+RequestBody:  
+```json
+{
+    "interviewId": 11,
+    "create_time": 1575448390345,
+    "company_num": 5,
+    "realname": "柏腾杰",
+},
+{
+    "interviewId": 11,
+    "create_time": 1575448390345,
+    "company_num": 5,
+    "realname": "柏腾杰",
+}
+
+```
+
+Request Field  
+
+| 字段     |     类型 |   描述   | 
+| :--------------: | :--------:| :------: |
+| interviewId   | Integer   | 面试Id    |
+| create_time   | datetime   | 创建时间    |
+| company_num   | int   | 公司数量    |
+| realname   | varchar(20)   | 面试人    |
