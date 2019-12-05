@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.cjf.jinterviewsite.dao.InterviewMapper">
+  <resultMap id="BaseResultMap" type="io.cjf.jinterviewsite.po.Interview">
+    <id column="interview_id" jdbcType="INTEGER" property="interviewId" />
+    <result column="student_id" jdbcType="INTEGER" property="studentId" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="interview_time" jdbcType="TIMESTAMP" property="interviewTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="stars" jdbcType="TINYINT" property="stars" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+    <result column="offer_url" jdbcType="VARCHAR" property="offerUrl" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    interview_id, student_id, company, address, interview_time, create_time, status, 
+    stars, note, offer_url
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from interview
+    where interview_id = #{interviewId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from interview
+    where interview_id = #{interviewId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="io.cjf.jinterviewsite.po.Interview">
+    insert into interview (interview_id, student_id, company, 
+      address, interview_time, create_time, 
+      status, stars, note, 
+      offer_url)
+    values (#{interviewId,jdbcType=INTEGER}, #{studentId,jdbcType=INTEGER}, #{company,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{interviewTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=TINYINT}, #{stars,jdbcType=TINYINT}, #{note,jdbcType=VARCHAR}, 
+      #{offerUrl,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="io.cjf.jinterviewsite.po.Interview">
+    insert into interview
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="interviewId != null">
+        interview_id,
+      </if>
+      <if test="studentId != null">
+        student_id,
+      </if>
+      <if test="company != null">
+        company,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="interviewTime != null">
+        interview_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="stars != null">
+        stars,
+      </if>
+      <if test="note != null">
+        note,
+      </if>
+      <if test="offerUrl != null">
+        offer_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="interviewId != null">
+        #{interviewId,jdbcType=INTEGER},
+      </if>
+      <if test="studentId != null">
+        #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="company != null">
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="interviewTime != null">
+        #{interviewTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="stars != null">
+        #{stars,jdbcType=TINYINT},
+      </if>
+      <if test="note != null">
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="offerUrl != null">
+        #{offerUrl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="io.cjf.jinterviewsite.po.Interview">
+    update interview
+    <set>
+      <if test="studentId != null">
+        student_id = #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="company != null">
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="interviewTime != null">
+        interview_time = #{interviewTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="stars != null">
+        stars = #{stars,jdbcType=TINYINT},
+      </if>
+      <if test="note != null">
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="offerUrl != null">
+        offer_url = #{offerUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where interview_id = #{interviewId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="io.cjf.jinterviewsite.po.Interview">
+    update interview
+    set student_id = #{studentId,jdbcType=INTEGER},
+      company = #{company,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      interview_time = #{interviewTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=TINYINT},
+      stars = #{stars,jdbcType=TINYINT},
+      note = #{note,jdbcType=VARCHAR},
+      offer_url = #{offerUrl,jdbcType=VARCHAR}
+    where interview_id = #{interviewId,jdbcType=INTEGER}
+  </update>
+</mapper>
