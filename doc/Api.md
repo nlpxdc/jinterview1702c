@@ -317,3 +317,32 @@ Response Field
 | content   | String   | 语音识别内容    |
 | likes   | Long   | 点赞数    |
 | audiorecordUrl   | String   | 录音Url    |
+
+
+## 5.3 录音上传
+
+URL: /audioRecord/upload?interviewId={interviewId}  
+Method：POST  
+Request Content-Type: multipart/formdata  
+RequestParam: audiorecords  
+
+ResponseBody:  
+```json
+[
+    "http://xxx.com/xxx1.mp3"
+]
+
+```
+
+Request Field  
+
+| 字段     |     类型 |   描述   | 
+| :--------------: | :--------:| :------: |
+| interviewId   | Integer   | 录音Id    |
+| audiorecords   | String   | 上传文件key    |
+
+Response Field  
+
+| 字段     |     类型 |   描述   | 
+| :--------------: | :--------:| :------: |
+|    | Array(String)   | 上传音频后Urls    |
