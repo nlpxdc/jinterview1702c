@@ -21,6 +21,43 @@ ResponseBody:
 | email   | String   | 邮箱    |
 | avatarUrl   | String   | 头像Url    |
 
+## 1.2 学生自动注册登陆
+
+URL: /student/autoRegisterLogin?code={code}  
+Method：GET  
+
+ResponseBody:  
+```
+123
+
+```
+
+Request Field
+| 字段     |     类型 |   描述   | 
+| :--------------: | :--------:| :------: |
+|  code  | String   | 授权码code    |
+
+| 字段     |     类型 |   描述   | 
+| :--------------: | :--------:| :------: |
+|    | Integer   | 学生Id    |
+
+
+## 1.3 学生手机获取激活验证码
+
+URL: /student/getMobileCaptcha  
+Method：GET  
+
+## 1.4 学生提交手机验证码激活
+
+URL: /student/submitMobileCaptcha?captcha={captcha}  
+Method：GET  
+
+Request Field
+| 字段     |     类型 |   描述   | 
+| :--------------: | :--------:| :------: |
+|  captcha  | String   | 验证码（4位字符）    |
+
+
 
 ## 2.1 查询面试列表
 
@@ -232,11 +269,14 @@ ResponseBody:
 ```json
 {
     "examId": 123456,
-    "content":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "examphotoUrls": [
+        "http://xxx.com/xxx1.jpg",
+        "http://xxx.com/xxx2.jpg"
+    ],
+    "content": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     "student": "李维",
     "time": 1575448390345,
-    "likes":50
-
+    "likes": 50
 }
 
 ```
@@ -252,6 +292,7 @@ Response Field
 | 字段     |     类型 |   描述   | 
 | :--------------: | :--------:| :------: |
 | examId   | Integer   | 试题Id    |
+| examphotoUrls   | Array(String)   | 试题照片    |
 | content   | String   | 试题内容    |
 | student   | String   | 面试学生    |
 | time   | Long   | 面试时间    |
@@ -267,6 +308,7 @@ ResponseBody:
 {
     "company": "百度",
     "student": "wsh",
+    "likes": 50
 }
 
 ```
@@ -284,6 +326,7 @@ Response Field
 | :--------------: | :--------:| :------: |
 | company   | String   | 公司名    |
 | student   | String   | 面试学生    |
+| likes   | Integer   | 点赞数    |
 
 ## 5.2 查看录音
 
@@ -329,6 +372,7 @@ RequestParam: audiorecords
 ResponseBody:  
 ```json
 [
+    "http://xxx.com/xxx1.mp3",
     "http://xxx.com/xxx1.mp3"
 ]
 
@@ -346,25 +390,26 @@ Response Field
 | 字段     |     类型 |   描述   | 
 | :--------------: | :--------:| :------: |
 |    | Array(String)   | 上传音频后Urls    |
-## 6.1 报表图详情
 
-URL: /chart/api/getmessage 
-Method：Get  
+## 6.1 获取学生面试量报表
+
+URL: /chart/getStudentInterview  
+Method：GET  
 
 RequestBody:  
 ```json
-{
-    "interviewId": 11,
-    "create_time": 1575448390345,
-    "company_num": 5,
-    "realname": "柏腾杰",
-},
-{
-    "interviewId": 11,
-    "create_time": 1575448390345,
-    "company_num": 5,
-    "realname": "柏腾杰",
-}
+[
+    {
+        "studentId": "123",
+        "realname": "柏腾杰",
+        "interviewCount": 12
+    },
+    {
+        "studentId": "123",
+        "realname": "柏腾杰",
+        "interviewCount": 12
+    }
+]
 
 ```
 
@@ -372,7 +417,6 @@ Request Field
 
 | 字段     |     类型 |   描述   | 
 | :--------------: | :--------:| :------: |
-| interviewId   | Integer   | 面试Id    |
-| create_time   | datetime   | 创建时间    |
-| company_num   | int   | 公司数量    |
-| realname   | varchar(20)   | 面试人    |
+| studentId   | Integer   | 学生Id    |
+| realname   | String   | 姓名    |
+| interviewCount   | Integer   | 面试量    |
