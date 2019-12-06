@@ -11,7 +11,7 @@ public class Interview {
 
     private String address;
 
-    private Date interviewTime;
+    private Long interviewTime;
 
     private Date createTime;
 
@@ -55,11 +55,11 @@ public class Interview {
         this.address = address == null ? null : address.trim();
     }
 
-    public Date getInterviewTime() {
+    public Long getInterviewTime() {
         return interviewTime;
     }
 
-    public void setInterviewTime(Date interviewTime) {
+    public void setInterviewTime(Long interviewTime) {
         this.interviewTime = interviewTime;
     }
 
