@@ -2,6 +2,8 @@ package io.cjf.jinterviewsite.dao;
 
 import io.cjf.jinterviewsite.po.Interview;
 
+import java.util.List;
+
 public interface InterviewMapper {
     int deleteByPrimaryKey(Integer interviewId);
 
@@ -14,4 +16,6 @@ public interface InterviewMapper {
     int updateByPrimaryKeySelective(Interview record);
 
     int updateByPrimaryKey(Interview record);
+    //
+    List<Interview> getStudentInterview();
 }

@@ -150,4 +150,13 @@
       offer_url = #{offerUrl,jdbcType=VARCHAR}
     where interview_id = #{interviewId,jdbcType=INTEGER}
   </update>
+
+
+  <select id="getStudentInterview"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from interview
+
+  </select>
+
 </mapper>
