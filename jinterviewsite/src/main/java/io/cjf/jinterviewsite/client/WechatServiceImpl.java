@@ -27,4 +27,11 @@ public class WechatServiceImpl implements WechatService{
         final String access_token = userAccessTokenJsonObj.getString("access_token");
         return access_token;
     }
+
+    @Override
+    public JSONObject getUserInfo(String accessToken) {
+        final String userInfoJsonStr = wechatApi.getUserInfo(accessToken, "myopenId", "zh_CN");
+        final JSONObject userInfoJsonObj = JSON.parseObject(userInfoJsonStr);
+        return userInfoJsonObj;
+    }
 }
