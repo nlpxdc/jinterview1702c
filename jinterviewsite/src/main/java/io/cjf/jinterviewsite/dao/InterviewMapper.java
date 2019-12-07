@@ -18,4 +18,6 @@ public interface InterviewMapper {
     int updateByPrimaryKey(Interview record);
     //
     List<Interview> getStudentInterview();
+
+    Interview selectByinterview(Integer interviewId);
 }

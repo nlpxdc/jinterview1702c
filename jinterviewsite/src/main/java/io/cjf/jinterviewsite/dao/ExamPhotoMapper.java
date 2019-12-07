@@ -2,6 +2,8 @@ package io.cjf.jinterviewsite.dao;
 
 import io.cjf.jinterviewsite.po.ExamPhoto;
 
+import java.util.List;
+
 public interface ExamPhotoMapper {
     int deleteByPrimaryKey(Integer examPhotoId);
 
@@ -14,4 +16,6 @@ public interface ExamPhotoMapper {
     int updateByPrimaryKeySelective(ExamPhoto record);
 
     int updateByPrimaryKey(ExamPhoto record);
+
+    List<ExamPhoto> selectExaminationPhotoById(Integer c);
 }

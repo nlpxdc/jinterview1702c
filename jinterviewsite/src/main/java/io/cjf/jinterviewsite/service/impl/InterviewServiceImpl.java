@@ -21,4 +21,9 @@ public class InterviewServiceImpl implements InterviewService {
     public int updateByPrimaryKey(Interview record) {
         return interviewMapper.updateByPrimaryKey(record);
     }
+
+    @Override
+    public Interview getByinterviewid(Integer interviewId) {
+        return interviewMapper.selectByinterview(interviewId);
+    }
 }

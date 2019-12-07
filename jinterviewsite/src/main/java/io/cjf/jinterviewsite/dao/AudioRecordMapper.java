@@ -16,4 +16,6 @@ public interface AudioRecordMapper {
     int updateByPrimaryKeyWithBLOBs(AudioRecord record);
 
     int updateByPrimaryKey(AudioRecord record);
+
+    AudioRecord selectAudioRecordByid(Integer interviewId);
 }

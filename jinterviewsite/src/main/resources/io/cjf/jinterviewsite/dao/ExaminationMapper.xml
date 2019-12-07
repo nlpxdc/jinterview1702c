@@ -90,4 +90,10 @@
       likes = #{likes,jdbcType=INTEGER}
     where exam_id = #{examId,jdbcType=INTEGER}
   </update>
+
+  <select id="selectExaminationById" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM `examination` where interview_id=#{interviewId}
+  </select>
 </mapper>

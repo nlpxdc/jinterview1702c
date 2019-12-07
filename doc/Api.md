@@ -181,8 +181,8 @@ ResponseBody:
     "note": "公司急缺人",
     "offerUrl": "http://xxx.com/xxx.jpg",
     "examphotoUrls": [
-        "http://xxx.com/xxx1.jpg",
-        "http://xxx.com/xxx2.jpg"
+        {url："http://xxx.com/xxx1.jpg"}，
+		{url："http://xxx.com/xxx2.jpg"}
     ],
     "audiorecordUrl": "http://xxx.com/xxx.mp3"
 }

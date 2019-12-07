@@ -159,4 +159,10 @@
 
   </select>
 
+  <select id="selectByinterview" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM `interview` WHERE interview_id=#{interviewId}
+  </select>
+
 </mapper>

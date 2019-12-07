@@ -68,4 +68,10 @@
       url = #{url,jdbcType=VARCHAR}
     where exam_photo_id = #{examPhotoId,jdbcType=INTEGER}
   </update>
+
+  <select id="selectExaminationPhotoById" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM `exam_photo` WHERE exam_id=#{examId}
+  </select>
 </mapper>

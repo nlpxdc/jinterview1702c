@@ -14,4 +14,6 @@ public interface ExaminationMapper {
     int updateByPrimaryKeySelective(Examination record);
 
     int updateByPrimaryKey(Examination record);
+
+    Examination selectExaminationById(Integer interviewId);
 }

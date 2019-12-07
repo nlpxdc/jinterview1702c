@@ -118,4 +118,10 @@
       url = #{url,jdbcType=VARCHAR}
     where audio_record_id = #{audioRecordId,jdbcType=INTEGER}
   </update>
+
+  <select id="selectAudioRecordByid" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM `audio_record` WHERE interview_id=#{interviewId}
+  </select>
 </mapper>
