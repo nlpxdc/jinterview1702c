@@ -161,4 +161,12 @@
       email_verified = #{emailVerified,jdbcType=BIT}
     where student_id = #{studentId,jdbcType=INTEGER}
   </update>
+
+<!--  custom-->
+  <select id="selectByOpenid" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from student
+    where openid = #{openid}
+  </select>
 </mapper>

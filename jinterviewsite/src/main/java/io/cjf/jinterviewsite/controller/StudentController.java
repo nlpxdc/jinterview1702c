@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import io.cjf.jinterviewsite.client.WechatService;
 import io.cjf.jinterviewsite.constant.WechatExceptionConstant;
 import io.cjf.jinterviewsite.exception.ClientException;
+import io.cjf.jinterviewsite.po.Student;
+import io.cjf.jinterviewsite.service.StudentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,9 @@ public class StudentController {
     @Autowired
     private WechatService wechatService;
 
+    @Autowired
+    private StudentService studentService;
+
     @GetMapping("/autoRegisterLogin")
     public String autoRegisterLogin(@RequestParam String code) throws ClientException {
         logger.info("code: {}", code);
@@ -35,8 +40,9 @@ public class StudentController {
             throw new ClientException(WechatExceptionConstant.OPENID_NOT_EXIST_ERRCODE, WechatExceptionConstant.OPENID_NOT_EXIST_ERRMSG);
         }
 
-        
-
+        final Student student = studentService.getByOpenid(openid);
+        //todo not exist, insert
+        //todo login, generate token
 
         return null;
     }
