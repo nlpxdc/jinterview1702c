@@ -74,32 +74,6 @@ public class InterviewController {
         return null;
     }
 
-    @PostMapping("/update")
-    public void update(@RequestBody InterviewUpdateDTO interviewUpdateDTO) throws ParseException {
-        Interview interview = interviewService.selectByPrimaryKey(interviewUpdateDTO.getInterviewId());
-        interview.setNote(interviewUpdateDTO.getNote());
-        interview.setStars(interviewUpdateDTO.getStars());
-        interview.setStatus(interviewUpdateDTO.getStatus());
-
-        long msl=(long)interviewUpdateDTO.getTime()*1000;
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date temp=null;
-        if(interviewUpdateDTO.getTime()!=null){
-            try {
-                String str=sdf.format(msl);
-                temp=sdf.parse(str);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }
-
-
-        interview.setInterviewTime(temp);
-        interview.setInterviewId(interviewUpdateDTO.getInterviewId());
-
-        interviewService.updateByPrimaryKey(interview);
-    }
-
 
 
 
