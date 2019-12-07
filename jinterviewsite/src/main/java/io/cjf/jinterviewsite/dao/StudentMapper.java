@@ -2,8 +2,9 @@ package io.cjf.jinterviewsite.dao;
 
 import io.cjf.jinterviewsite.po.Student;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface StudentMapper {
     int deleteByPrimaryKey(Integer studentId);
 

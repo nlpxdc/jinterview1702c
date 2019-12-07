@@ -1,16 +1,13 @@
 package io.cjf.jinterviewsite.service.impl;
 
 import io.cjf.jinterviewsite.dao.StudentMapper;
-import io.cjf.jinterviewsite.enumeration.Gender;
 import io.cjf.jinterviewsite.enumeration.StudentStatus;
 import io.cjf.jinterviewsite.po.Student;
 import io.cjf.jinterviewsite.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Service;
 
 @Service
-@EnableAutoConfiguration
 public class StudentServiceImpl implements StudentService {
 
     @Autowired
