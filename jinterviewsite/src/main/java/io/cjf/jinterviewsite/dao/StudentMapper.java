@@ -1,6 +1,8 @@
 package io.cjf.jinterviewsite.dao;
 
 import io.cjf.jinterviewsite.po.Student;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.web.bind.annotation.PathVariable;
 
 public interface StudentMapper {
     int deleteByPrimaryKey(Integer studentId);
@@ -14,4 +16,8 @@ public interface StudentMapper {
     int updateByPrimaryKeySelective(Student record);
 
     int updateByPrimaryKey(Student record);
+
+//    custom
+
+    Student selectByOpenid(@Param("openid") String openid);
 }
