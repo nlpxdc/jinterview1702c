@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,11 +21,18 @@ class WechatApiTest {
     @Autowired
     private WechatApi wechatApi;
 
-    private String appid = "wx0c14a6dfeab19166";
-    private String secret = "02a53bc213a98bb9fa6aae4157fd55eb";;
+    @Value("${wechat.appId}")
+    private String appid;
+
+    @Value("${wechat.appSecret}")
+    private String secret;
+
+    @Value("${wechat.user.authcode}")
     private String code;
     private String grant_type = "authorization_code";
-    private String access_token = "28_E7LRPOxOIxb9O6yqS4q_-qIG6hGz97epnTbXHuKaA1w52FfUkpAwc2ll5PsSRXLv_vhjz15J2fE9RREkdgxWRaQKeeQran5BOI4r0OCtnwk";
+
+    @Value("${wechat.user.access_token}")
+    private String access_token;
 
     @BeforeEach
     void setUp() {
