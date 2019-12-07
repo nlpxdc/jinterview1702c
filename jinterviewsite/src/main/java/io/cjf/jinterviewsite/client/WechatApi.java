@@ -10,7 +10,12 @@ public interface WechatApi {
 
     @GetMapping("/sns/oauth2/access_token")
     String getUserAccessToken(@RequestParam String appid,
-                                  @RequestParam String secret,
-                                  @RequestParam String code,
-                                  @RequestParam String grant_type);
+                              @RequestParam String secret,
+                              @RequestParam String code,
+                              @RequestParam String grant_type);
+
+    @GetMapping("/sns/userinfo")
+    String getUserInfo(@RequestParam String access_token,
+                       @RequestParam String openid,
+                       @RequestParam String lang);
 }
