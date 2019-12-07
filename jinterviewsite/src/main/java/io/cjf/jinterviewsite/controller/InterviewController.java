@@ -8,6 +8,9 @@ import io.cjf.jinterviewsite.service.InterviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -40,7 +43,18 @@ public class InterviewController {
         interview.setNote(interviewUpdateDTO.getNote());
         interview.setStars(interviewUpdateDTO.getStars());
         interview.setStatus(interviewUpdateDTO.getStatus());
-        interview.setInterviewTime(interviewUpdateDTO.getTime());
+        long msl=(long)interviewUpdateDTO.getTime()*1000;
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date temp=null;
+        if(interviewUpdateDTO.getTime()!=null){
+            try {
+                String str=sdf.format(msl);
+                temp=sdf.parse(str);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        interview.setInterviewTime(temp);
         interview.setInterviewId(interviewUpdateDTO.getInterviewId());
 
         interviewService.updateByPrimaryKey(interview);
