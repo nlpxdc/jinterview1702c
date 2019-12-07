@@ -28,12 +28,12 @@
     delete from student
     where student_id = #{studentId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="io.cjf.jinterviewsite.po.Student">
-    insert into student (student_id, nickname, realname, 
+  <insert id="insert" parameterType="io.cjf.jinterviewsite.po.Student" useGeneratedKeys="true" keyProperty="studentId">
+    insert into student (nickname, realname,
       openid, avatar_url, status, 
       gender, mobile, email, 
       mobile_verified, email_verified)
-    values (#{studentId,jdbcType=INTEGER}, #{nickname,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR}, 
+    values (#{nickname,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR},
       #{openid,jdbcType=VARCHAR}, #{avatarUrl,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
       #{gender,jdbcType=TINYINT}, #{mobile,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
       #{mobileVerified,jdbcType=BIT}, #{emailVerified,jdbcType=BIT})

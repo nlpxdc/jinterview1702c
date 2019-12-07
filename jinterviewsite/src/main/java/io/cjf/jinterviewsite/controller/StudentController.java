@@ -42,6 +42,12 @@ public class StudentController {
 
         final Student student = studentService.getByOpenid(openid);
         //todo not exist, insert
+        if (student == null){
+            final String nickname = userInfoJsonObj.getString("nickname");
+            final String headimgurl = userInfoJsonObj.getString("headimgurl");
+            final Byte sex = userInfoJsonObj.getByte("sex");
+            final Integer newStudentId = studentService.createStudent(openid, nickname, headimgurl, sex);
+        }
         //todo login, generate token
 
         return null;
