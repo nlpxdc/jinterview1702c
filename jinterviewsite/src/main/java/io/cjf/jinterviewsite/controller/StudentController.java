@@ -15,8 +15,11 @@ public class StudentController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @GetMapping("/autoRegisterLogin")
-    public Integer autoRegisterLogin(@RequestParam String code){
+    public String autoRegisterLogin(@RequestParam String code){
         logger.info("code: {}", code);
+
+
+
         return null;
     }
 
