@@ -34,4 +34,11 @@ public class StudentServiceImpl implements StudentService {
         final Integer studentId = student.getStudentId();
         return studentId;
     }
+
+    @Override
+    public void updateStudent(Student student) {
+        studentMapper.updateByPrimaryKey(student);
+    }
+
+
 }

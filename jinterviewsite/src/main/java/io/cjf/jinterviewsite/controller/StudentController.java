@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.swing.event.CaretListener;
-
 @RestController
 @RequestMapping("/student")
 public class StudentController {
@@ -34,6 +32,9 @@ public class StudentController {
 
         final String userAccessToken = wechatService.getUserAccessToken(code);
         final JSONObject userInfoJsonObj = wechatService.getUserInfo(userAccessToken);
+        final String nickname = userInfoJsonObj.getString("nickname");
+        final String headimgurl = userInfoJsonObj.getString("headimgurl");
+        final Byte sex = userInfoJsonObj.getByte("sex");
 
         final String openid = userInfoJsonObj.getString("openid");
         if (openid == null){
@@ -41,13 +42,16 @@ public class StudentController {
         }
 
         final Student student = studentService.getByOpenid(openid);
-        //todo not exist, insert
+
         if (student == null){
-            final String nickname = userInfoJsonObj.getString("nickname");
-            final String headimgurl = userInfoJsonObj.getString("headimgurl");
-            final Byte sex = userInfoJsonObj.getByte("sex");
             final Integer newStudentId = studentService.createStudent(openid, nickname, headimgurl, sex);
+        }else {
+            student.setNickname(nickname);
+            student.setAvatarUrl(headimgurl);
+            student.setGender(sex);
+            studentService.updateStudent(student);
         }
+
         //todo login, generate token
 
         return null;
