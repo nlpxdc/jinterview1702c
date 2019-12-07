@@ -20,12 +20,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Integer createStudent(String openid, String nickname, String avatarUrl, Byte gender) {
-        final Student student = new Student();
-        student.setOpenid(openid);
-        student.setNickname(nickname);
-        student.setAvatarUrl(avatarUrl);
-        student.setGender(gender);
+    public Integer createStudent(Student student) {
+
         student.setStatus((byte)StudentStatus.Disable.ordinal());
         student.setMobileVerified(false);
         student.setEmailVerified(false);

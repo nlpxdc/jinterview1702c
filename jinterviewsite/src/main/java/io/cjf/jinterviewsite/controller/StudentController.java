@@ -30,8 +30,9 @@ public class StudentController {
     public String autoRegisterLogin(@RequestParam String code) throws ClientException {
         logger.info("code: {}", code);
 
-        final String userAccessToken = wechatService.getUserAccessToken(code);
-        final JSONObject userInfoJsonObj = wechatService.getUserInfo(userAccessToken);
+        final JSONObject userAccessTokenJsonObj = wechatService.getUserAccessToken(code);
+        final String access_token = userAccessTokenJsonObj.getString("access_token");
+        final JSONObject userInfoJsonObj = wechatService.getUserInfo(access_token);
         final String nickname = userInfoJsonObj.getString("nickname");
         final String headimgurl = userInfoJsonObj.getString("headimgurl");
         final Byte sex = userInfoJsonObj.getByte("sex");
@@ -41,15 +42,20 @@ public class StudentController {
             throw new ClientException(WechatExceptionConstant.OPENID_NOT_EXIST_ERRCODE, WechatExceptionConstant.OPENID_NOT_EXIST_ERRMSG);
         }
 
-        final Student student = studentService.getByOpenid(openid);
+        final Student originStudent = studentService.getByOpenid(openid);
 
-        if (student == null){
-            final Integer newStudentId = studentService.createStudent(openid, nickname, headimgurl, sex);
+        if (originStudent == null){
+            final Student newStudent = new Student();
+            newStudent.setOpenid(openid);
+            newStudent.setNickname(nickname);
+            newStudent.setAvatarUrl(headimgurl);
+            newStudent.setGender(sex);
+            studentService.createStudent(newStudent);
         }else {
-            student.setNickname(nickname);
-            student.setAvatarUrl(headimgurl);
-            student.setGender(sex);
-            studentService.updateStudent(student);
+            originStudent.setNickname(nickname);
+            originStudent.setAvatarUrl(headimgurl);
+            originStudent.setGender(sex);
+            studentService.updateStudent(originStudent);
         }
 
         //todo login, generate token

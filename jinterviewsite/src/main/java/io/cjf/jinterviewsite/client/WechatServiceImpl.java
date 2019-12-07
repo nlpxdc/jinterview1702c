@@ -21,11 +21,10 @@ public class WechatServiceImpl implements WechatService{
     private WechatApi wechatApi;
 
     @Override
-    public String getUserAccessToken(String code) {
+    public JSONObject getUserAccessToken(String code) {
         final String userAccessTokenJsonStr = wechatApi.getUserAccessToken(appid, secret, code, grant_type);
         final JSONObject userAccessTokenJsonObj = JSON.parseObject(userAccessTokenJsonStr);
-        final String access_token = userAccessTokenJsonObj.getString("access_token");
-        return access_token;
+        return userAccessTokenJsonObj;
     }
 
     @Override
