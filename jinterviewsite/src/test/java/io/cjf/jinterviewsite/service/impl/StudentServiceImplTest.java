@@ -39,7 +39,12 @@ class StudentServiceImplTest {
         String nickname = "mynickname";
         String avatarUrl = "http://xxx.com/xxx.jpg";
         Byte gender = 0;
-        final Integer studentId = studentService.createStudent(openid, nickname, avatarUrl, gender);
+        Student student = new Student();
+        student.setOpenid(openid);
+        student.setNickname(nickname);
+        student.setAvatarUrl(avatarUrl);
+        student.setGender(gender);
+        final Integer studentId = studentService.createStudent(student);
         assertNotNull(studentId);
 
     }

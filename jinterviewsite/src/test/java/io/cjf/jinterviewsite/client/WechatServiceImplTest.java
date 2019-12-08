@@ -34,7 +34,7 @@ class WechatServiceImplTest {
 
     @Test
     void getUserAccessToken() {
-        accessToken = wechatService.getUserAccessToken(code);
+        JSONObject naccessToken = wechatService.getUserAccessToken(code);
         assertNotNull(accessToken);
         logger.info("access token: {}", accessToken);
     }
