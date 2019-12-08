@@ -4,6 +4,8 @@ import io.cjf.jinterviewsite.po.Student;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface StudentMapper {
     int deleteByPrimaryKey(Integer studentId);
@@ -21,4 +23,6 @@ public interface StudentMapper {
 //    custom
 
     Student selectByOpenid(@Param("openid") String openid);
+
+    List<Student> getStudentInfo();
 }

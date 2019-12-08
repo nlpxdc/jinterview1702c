@@ -7,6 +7,8 @@ import io.cjf.jinterviewsite.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class StudentServiceImpl implements StudentService {
 
@@ -37,4 +39,9 @@ public class StudentServiceImpl implements StudentService {
     }
 
 
+    @Override
+    public List<Student> getStudentInfo() {
+        List<Student> students = studentMapper.getStudentInfo();
+        return students;
+    }
 }

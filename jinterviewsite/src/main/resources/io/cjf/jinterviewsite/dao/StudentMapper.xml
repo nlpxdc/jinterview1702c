@@ -169,4 +169,10 @@
     from student
     where openid = #{openid}
   </select>
+
+  <select id="getStudentInfo" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+      realname
+    from student
+  </select>
 </mapper>
