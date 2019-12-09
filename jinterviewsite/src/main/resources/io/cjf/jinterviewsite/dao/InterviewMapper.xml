@@ -165,4 +165,8 @@
     FROM `interview` WHERE interview_id=#{interviewId}
   </select>
 
+  <select id="getInterviewCount" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+      i.student_id,s.realname from interview i left join student s on i.student_id=s.student_id
+  </select>
 </mapper>

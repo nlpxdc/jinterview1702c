@@ -38,10 +38,4 @@ public class StudentServiceImpl implements StudentService {
         studentMapper.updateByPrimaryKey(student);
     }
 
-
-    @Override
-    public List<Student> getStudentInfo() {
-        List<Student> students = studentMapper.getStudentInfo();
-        return students;
-    }
 }

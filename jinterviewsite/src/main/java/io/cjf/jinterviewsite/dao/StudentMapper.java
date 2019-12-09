@@ -23,6 +23,4 @@ public interface StudentMapper {
 //    custom
 
     Student selectByOpenid(@Param("openid") String openid);
-
-    List<Student> getStudentInfo();
 }

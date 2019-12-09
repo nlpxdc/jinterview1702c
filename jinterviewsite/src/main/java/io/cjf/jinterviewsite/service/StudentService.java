@@ -10,6 +10,4 @@ public interface StudentService {
     Integer createStudent(Student student);
 
     void updateStudent(Student student);
-
-    List<Student> getStudentInfo();
 }

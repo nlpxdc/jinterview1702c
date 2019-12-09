@@ -6,6 +6,8 @@ import io.cjf.jinterviewsite.service.InterviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class InterviewServiceImpl implements InterviewService {
 
@@ -25,5 +27,13 @@ public class InterviewServiceImpl implements InterviewService {
     @Override
     public Interview getByinterviewid(Integer interviewId) {
         return interviewMapper.selectByinterview(interviewId);
+    }
+
+    @Override
+    public List getInterviewCount() {
+
+        List interviews = interviewMapper.getInterviewCount();
+
+        return interviews;
     }
 }

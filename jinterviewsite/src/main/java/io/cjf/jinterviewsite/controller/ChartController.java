@@ -1,6 +1,6 @@
 package io.cjf.jinterviewsite.controller;
 
-import io.cjf.jinterviewsite.po.Student;
+import io.cjf.jinterviewsite.po.Interview;
 import io.cjf.jinterviewsite.service.InterviewService;
 import io.cjf.jinterviewsite.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,16 +19,18 @@ import java.util.stream.Collectors;
 public class ChartController {
 
     @Autowired
-    private StudentService studentService;
-
-    @Autowired
     private InterviewService interviewService;
 
 
-    @GetMapping("/student")
-    public List<Student> getInfo(){
-        List<Student> students = studentService.getStudentInfo();
-        return students;
+    @GetMapping("/interviewCount")
+    public Map<String, Long> interviewCount(){
+
+
+        List<Interview> interviews = interviewService.getInterviewCount();
+
+        Map<String, Long> interCount = interviews.stream().collect(
+                Collectors.groupingBy(Interview::getRealName, Collectors.counting()));
+        return interCount;
     }
 
 

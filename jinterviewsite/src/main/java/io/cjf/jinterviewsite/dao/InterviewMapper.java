@@ -20,4 +20,6 @@ public interface InterviewMapper {
     List<Interview> getStudentInterview();
 
     Interview selectByinterview(Integer interviewId);
+
+    List getInterviewCount();
 }
