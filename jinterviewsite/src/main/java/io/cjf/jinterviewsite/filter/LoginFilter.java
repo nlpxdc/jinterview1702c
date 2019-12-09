@@ -34,9 +34,10 @@ public class LoginFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 
         HttpServletRequest request = (HttpServletRequest)servletRequest;
+        final String requestURI = request.getRequestURI();
+        logger.info("request uri: {}", requestURI);
 
         //skip static resource files
-        final String requestURI = request.getRequestURI();
         final String[] splits = requestURI.split("\\.");
         final String extOrigin = splits[splits.length - 1];
         final String ext = extOrigin.toLowerCase();
@@ -60,7 +61,7 @@ public class LoginFilter implements Filter {
         final String token = request.getHeader("jinterviewToken");
 
         logger.info("verify login with token: {}", token);
-        
+
         if (jwtVerifyEnable){
             final StudentLoginVO studentLoginVO = jwtUtil.verifyToken(token);
         }else {
@@ -68,7 +69,7 @@ public class LoginFilter implements Filter {
         }
 
         filterChain.doFilter(servletRequest, servletResponse);
-        logger.info("login verify finished");
+//        logger.info("login verify finished");
         return;
     }
 }
