@@ -2,6 +2,25 @@ package io.cjf.jinterviewsite.dto;
 
 public class InterviewUpdateDTO {
     private Integer interviewId;
+    private String company;
+    private String address;
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     private Long time;
     private Byte status;
     private Byte stars;
