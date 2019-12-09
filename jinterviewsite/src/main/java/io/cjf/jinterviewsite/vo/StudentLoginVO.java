@@ -1,6 +1,6 @@
 package io.cjf.jinterviewsite.vo;
 
-public class StudentLoginInfo {
+public class StudentLoginVO {
 
     private Integer studentId;
     private String openid;

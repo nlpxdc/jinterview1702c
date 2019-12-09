@@ -4,7 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
-import io.cjf.jinterviewsite.vo.StudentLoginInfo;
+import io.cjf.jinterviewsite.vo.StudentLoginVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -49,13 +49,13 @@ public class JWTUtil {
         return token;
     }
 
-    public StudentLoginInfo verifyToken(String token){
+    public StudentLoginVO verifyToken(String token){
         JWTVerifier verifier = JWT.require(algorithm)
                 .withIssuer(issuer)
                 .build();
         DecodedJWT jwt = verifier.verify(token);
-        final StudentLoginInfo studentLoginInfo = new StudentLoginInfo();
-        studentLoginInfo.setStudentId(Integer.parseInt(jwt.getSubject()));
-        return studentLoginInfo;
+        final StudentLoginVO studentLoginVO = new StudentLoginVO();
+        studentLoginVO.setStudentId(Integer.parseInt(jwt.getSubject()));
+        return studentLoginVO;
     }
 }

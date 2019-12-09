@@ -1,7 +1,7 @@
 package io.cjf.jinterviewsite.filter;
 
 import io.cjf.jinterviewsite.util.JWTUtil;
-import io.cjf.jinterviewsite.vo.StudentLoginInfo;
+import io.cjf.jinterviewsite.vo.StudentLoginVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class LoginFilter implements Filter {
         logger.info("verify login with token");
         HttpServletRequest request = (HttpServletRequest)servletRequest;
         final String token = request.getHeader("jinterviewToken");
-        final StudentLoginInfo studentLoginInfo = jwtUtil.verifyToken(token);
+        final StudentLoginVO studentLoginVO = jwtUtil.verifyToken(token);
 
 
         filterChain.doFilter(servletRequest, servletResponse);
