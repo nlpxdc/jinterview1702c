@@ -10,4 +10,7 @@ public interface StudentService {
     Integer createStudent(Student student);
 
     void updateStudent(Student student);
+    void updateStatus(Integer studentId);
+
+    Student getBystudentId(Integer studentId);
 }

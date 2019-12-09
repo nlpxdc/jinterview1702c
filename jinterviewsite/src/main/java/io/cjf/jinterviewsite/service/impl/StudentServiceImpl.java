@@ -38,4 +38,15 @@ public class StudentServiceImpl implements StudentService {
         studentMapper.updateByPrimaryKey(student);
     }
 
+
+    @Override
+    public void updateStatus(Integer studentId) {
+        studentMapper.updateStatus(studentId);
+
+    }
+
+    @Override
+    public Student getBystudentId(Integer studentId) {
+        return studentMapper.selectByPrimaryKey(studentId);
+    }
 }

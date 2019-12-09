@@ -23,4 +23,6 @@ public interface StudentMapper {
 //    custom
 
     Student selectByOpenid(@Param("openid") String openid);
+
+    void updateStatus(@Param("studentId") Integer studentId);
 }

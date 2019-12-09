@@ -15,12 +15,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import io.cjf.jinterviewsite.util.SMSUtil;
+import io.cjf.jinterviewsite.vo.StudentLoginVO;
+
+
 
 @RestController
 @RequestMapping("/student")
 public class StudentController {
 
+    private String verification;
+
     private Logger logger = LoggerFactory.getLogger(this.getClass());
+    @Autowired
+    private SMSUtil smsUtil;
 
     @Autowired
     private WechatService wechatService;
@@ -69,12 +77,43 @@ public class StudentController {
     }
 
     @GetMapping("/getMobileCaptcha")
-    public void getMobileCaptcha(){
+    public void getMobileCaptcha(@RequestParam String token){
+        System.out.println("获取验证码");
+        System.out.println(token);
+
+
+
+        StudentLoginVO studentLoginVO = jwtUtil.verifyToken(token);
+        Integer studentId = studentLoginVO.getStudentId();
+        System.out.println(studentId);
+        Student student = studentService.getBystudentId(studentId);
+        String mobile = student.getMobile();
+
+        String sms = smsUtil.sms(mobile);
+        verification=sms;
+
+
+
+
 
     }
 
     @GetMapping("/submitMobileCaptcha")
-    public void submitMobileCaptcha(@RequestParam String captcha){
+    public boolean submitMobileCaptcha(@RequestParam String captcha,@RequestParam String token){
+        System.out.println("激活");
+
+        StudentLoginVO studentLoginVO = jwtUtil.verifyToken(token);
+        Integer studentId = studentLoginVO.getStudentId();
+        System.out.println(captcha);
+        System.out.println(verification);
+        if(verification.equals(captcha)){
+
+            studentService.updateStatus(studentId);
+
+            return true;
+        }else{
+            return false;
+        }
 
     }
 
