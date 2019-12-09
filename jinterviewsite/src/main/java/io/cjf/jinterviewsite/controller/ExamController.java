@@ -1,25 +1,47 @@
 package io.cjf.jinterviewsite.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import io.cjf.jinterviewsite.dto.ExaminationSearchDTO;
+import io.cjf.jinterviewsite.service.ExaminationService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/exam")
+@CrossOrigin
 public class ExamController {
+
+
+    @Autowired
+    private ExaminationService examinationService;
 
     @GetMapping("/search")
     public List<JSONObject> search(@RequestParam(required = false) String keyword,
                                    @RequestParam(required = false) Long time){
-        return null;
+        System.out.println(keyword);
+        System.out.println(time);
+        List<ExaminationSearchDTO> list= examinationService.search(keyword,time);
+        for (ExaminationSearchDTO s:list) {
+            System.out.println(s);
+        }
+        List<JSONObject> exams = list.stream().map(exam -> {
+            JSONObject blockJson = new JSONObject();
+            blockJson.put("realname", exam.getRealname());
+            blockJson.put("examId", exam.getExamId());
+            blockJson.put("company", exam.getCompany());
+            blockJson.put("time", exam.getTime());
+            blockJson.put("likes", exam.getLikes());
+            return blockJson;
+        }).collect(Collectors.toList());
+        return exams ;
     }
 
     @GetMapping("/getExamById")
     public JSONObject getExamById(@RequestParam Integer examId){
+
         return null;
     }
 }

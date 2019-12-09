@@ -96,4 +96,28 @@
     <include refid="Base_Column_List" />
     FROM `examination` where interview_id=#{interviewId}
   </select>
+
+  <!--面试列表-->
+
+  <select id="search"  resultType="io.cjf.jinterviewsite.dto.ExaminationSearchDTO">
+    select s.realname realname ,i.interview_id interviewId ,e.exam_id  examId,i.company company,
+    i.interview_time time,e.likes likes
+    from student  s inner JOIN interview i
+    on s.student_id=i.student_id
+    LEFT JOIN examination e on i.interview_id=e.exam_id
+    <where>
+      <if test="keyword!=null and keyword!=''">
+        and  i.company like concat('%',#{keyword},'%') or s.realname like concat('%',#{keyword},'%')
+      </if>
+
+      <if test="time!=null and time!=''">
+        and i.interview_time &lt; FROM_UNIXTIME(${time})
+      </if>
+    </where>
+    order by i.interview_time desc
+    limit 4
+
+  </select>
+
+
 </mapper>
