@@ -58,6 +58,8 @@ public class JWTUtil {
         DecodedJWT jwt = verifier.verify(token);
         final StudentLoginVO studentLoginVO = new StudentLoginVO();
         studentLoginVO.setStudentId(Integer.parseInt(jwt.getSubject()));
+        studentLoginVO.setOpenid(jwt.getClaim("openid").asString());
+        studentLoginVO.setRole(jwt.getClaim("role").asString());
         return studentLoginVO;
     }
 }
