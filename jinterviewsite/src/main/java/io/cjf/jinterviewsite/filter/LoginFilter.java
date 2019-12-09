@@ -38,7 +38,8 @@ public class LoginFilter implements Filter {
         //skip static resource files
         final String requestURI = request.getRequestURI();
         final String[] splits = requestURI.split("\\.");
-        final String ext = splits[splits.length - 1];
+        final String extOrigin = splits[splits.length - 1];
+        final String ext = extOrigin.toLowerCase();
         if (fileExtensions.contains(ext)){
             filterChain.doFilter(servletRequest, servletResponse);
             return;
@@ -56,10 +57,10 @@ public class LoginFilter implements Filter {
             return;
         }
 
-        logger.info("verify login with token");
-
         final String token = request.getHeader("jinterviewToken");
 
+        logger.info("verify login with token: {}", token);
+        
         if (jwtVerifyEnable){
             final StudentLoginVO studentLoginVO = jwtUtil.verifyToken(token);
         }else {
