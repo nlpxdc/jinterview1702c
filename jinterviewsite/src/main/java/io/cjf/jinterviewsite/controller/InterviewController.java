@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import io.cjf.jinterviewsite.dto.InterviewCreateDTO;
 import io.cjf.jinterviewsite.dto.InterviewListDTO;
 import io.cjf.jinterviewsite.dto.InterviewUpdateDTO;
+import io.cjf.jinterviewsite.enumType.Status;
 import io.cjf.jinterviewsite.po.AudioRecord;
 import io.cjf.jinterviewsite.po.ExamPhoto;
 import io.cjf.jinterviewsite.po.Examination;
@@ -40,14 +41,20 @@ public class InterviewController {
     @Autowired
     private AudioRecordService audioRecordService;
     @GetMapping("/getById")
-    public JSONObject getById(@RequestParam Integer interviewId){
+    public JSONObject getById(@RequestParam Integer interviewId) throws ParseException {
         JSONObject interviewJson = new JSONObject();
         Interview interview=interviewService.getByinterviewid(interviewId);
         interviewJson.put("interviewId",interview.getInterviewId());
         interviewJson.put("company",interview.getCompany());
         interviewJson.put("address",interview.getAddress());
-        interviewJson.put("interviewTime",interview.getInterviewTime());
+        java.text.DateFormat format1 = new java.text.SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        String format = format1.format(interview.getInterviewTime());
+
+        interviewJson.put("interviewTime",format);
         interviewJson.put("stars",interview.getStars());
+        Status status = Status.values()[interview.getStatus()];
+
+        interviewJson.put("status",status);
         interviewJson.put("note",interview.getNote());
         interviewJson.put("offerUrl",interview.getOfferUrl());
         Examination examination=examinationService.getExamination(interview.getInterviewId());
