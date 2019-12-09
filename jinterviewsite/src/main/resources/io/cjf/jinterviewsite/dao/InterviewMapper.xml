@@ -16,7 +16,7 @@
   <resultMap id="InterviewListDTO" type="io.cjf.jinterviewsite.dto.InterviewListDTO">
     <id column="interview_id" jdbcType="INTEGER" property="interviewId" />
     <result column="student_id" jdbcType="INTEGER" property="studentId" />
-    <result column="student_name" jdbcType="VARCHAR" property="studentName" />
+    <result column="realname" jdbcType="VARCHAR" property="studentName" />
     <result column="company" jdbcType="VARCHAR" property="company" />
     <result column="interview_time" jdbcType="TIMESTAMP" property="time" />
     <result column="status" jdbcType="TINYINT" property="status" />

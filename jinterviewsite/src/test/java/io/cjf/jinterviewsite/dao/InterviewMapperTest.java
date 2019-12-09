@@ -8,6 +8,7 @@ import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -30,7 +31,7 @@ class InterviewMapperTest {
     @Test
     void search() {
         Integer studentId = 1;
-        Long time = Long.MAX_VALUE;
+        Date time = null;
         String keyword = "";
         final List<InterviewListDTO> interviewListDTOS = interviewMapper.search(keyword, studentId, time);
         assertNotNull(interviewListDTOS);
