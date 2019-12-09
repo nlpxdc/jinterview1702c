@@ -6,6 +6,7 @@ import io.cjf.jinterviewsite.constant.WechatExceptionConstant;
 import io.cjf.jinterviewsite.exception.ClientException;
 import io.cjf.jinterviewsite.po.Student;
 import io.cjf.jinterviewsite.service.StudentService;
+import io.cjf.jinterviewsite.util.JWTUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
+    @Autowired
+    private JWTUtil jwtUtil;
+
     @GetMapping("/autoRegisterLogin")
     public String autoRegisterLogin(@RequestParam String code) throws ClientException {
         logger.info("code: {}", code);
@@ -43,7 +47,7 @@ public class StudentController {
         }
 
         final Student originStudent = studentService.getByOpenid(openid);
-
+        Integer studentId;
         if (originStudent == null){
             final Student newStudent = new Student();
             newStudent.setOpenid(openid);
@@ -51,16 +55,18 @@ public class StudentController {
             newStudent.setAvatarUrl(headimgurl);
             newStudent.setGender(sex);
             studentService.createStudent(newStudent);
+            studentId = newStudent.getStudentId();
         }else {
             originStudent.setNickname(nickname);
             originStudent.setAvatarUrl(headimgurl);
             originStudent.setGender(sex);
             studentService.updateStudent(originStudent);
+            studentId = originStudent.getStudentId();
         }
 
-        //todo login, generate token
+        final String token = jwtUtil.issueToken(studentId, openid);
 
-        return null;
+        return token;
     }
 
     @GetMapping("/getMobileCaptcha")
