@@ -18,5 +18,10 @@ public class RequestPrintAOP {
         logger.info("api args: {}", joinPoint.getArgs());
     }
 
+    @Before("@annotation(io.cjf.jinterviewsite.annotation.NotRequiredLogin)")
+    public void checkNotRequiredLogin(){
+        logger.info("not required login");
+    }
+
 
 }
