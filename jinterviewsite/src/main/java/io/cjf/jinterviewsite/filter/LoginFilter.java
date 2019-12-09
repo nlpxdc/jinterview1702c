@@ -27,10 +27,15 @@ public class LoginFilter implements Filter {
     @Value("${file.extensions}")
     private Set<String> fileExtensions;
 
+    @Value("${jwt.exclude.apiUrls}")
+    private Set<String> excludeApiUrls;
+
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 
         HttpServletRequest request = (HttpServletRequest)servletRequest;
+
+        //skip static resource files
         final String requestURI = request.getRequestURI();
         final String[] splits = requestURI.split("\\.");
         final String ext = splits[splits.length - 1];
@@ -39,8 +44,14 @@ public class LoginFilter implements Filter {
             return;
         }
 
+        //skip ajax cross origin preflight request
         final String method = request.getMethod();
         if (method.equals("OPTIONS")){
+            filterChain.doFilter(servletRequest, servletResponse);
+            return;
+        }
+
+        if (excludeApiUrls.contains(requestURI)){
             filterChain.doFilter(servletRequest, servletResponse);
             return;
         }
