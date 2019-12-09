@@ -2,6 +2,7 @@ package io.cjf.jinterviewsite.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import io.cjf.jinterviewsite.dto.InterviewCreateDTO;
+import io.cjf.jinterviewsite.dto.InterviewListDTO;
 import io.cjf.jinterviewsite.dto.InterviewUpdateDTO;
 import io.cjf.jinterviewsite.po.AudioRecord;
 import io.cjf.jinterviewsite.po.ExamPhoto;
@@ -63,9 +64,12 @@ public class InterviewController {
     }
 
     @GetMapping("/search")
-    public List<JSONObject> search(@RequestParam(required = false) String keyword,
-                                   @RequestParam(required = false, defaultValue = "false") Boolean onlyme,
-                                   @RequestParam(required = false) Long time){
+    public List<InterviewListDTO> search(@RequestParam(required = false) String keyword,
+                                         @RequestParam(required = false, defaultValue = "false") Boolean onlyme,
+                                         @RequestParam(required = false) Long time){
+
+
+
         return null;
     }
 

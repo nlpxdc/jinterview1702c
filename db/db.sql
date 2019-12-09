@@ -30,7 +30,7 @@ CREATE TABLE `interview` (
     `status` tinyint not null,
     `stars` tinyint,
     `note` varchar(500),
-    `offer_url` varchar(300) not null,
+    `offer_url` varchar(300),
     PRIMARY KEY (`interview_id`),
     index `idx_student_id` (`student_id`),
     index `idx_interview_time` (`interview_time`)

@@ -13,6 +13,14 @@
     <result column="note" jdbcType="VARCHAR" property="note" />
     <result column="offer_url" jdbcType="VARCHAR" property="offerUrl" />
   </resultMap>
+  <resultMap id="InterviewListDTO" type="io.cjf.jinterviewsite.dto.InterviewListDTO">
+    <id column="interview_id" jdbcType="INTEGER" property="interviewId" />
+    <result column="student_id" jdbcType="INTEGER" property="studentId" />
+    <result column="student_name" jdbcType="VARCHAR" property="studentName" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="interview_time" jdbcType="TIMESTAMP" property="time" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+  </resultMap>
   <sql id="Base_Column_List">
     interview_id, student_id, company, address, interview_time, create_time, status, 
     stars, note, offer_url
@@ -168,5 +176,22 @@
   <select id="getInterviewCount" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
       i.student_id,s.realname from interview i left join student s on i.student_id=s.student_id
+  </select>
+
+  <select id="search" resultMap="InterviewListDTO">
+    SELECT i.*, s.realname FROM interview as i left join student as s on i.student_id = s.student_id
+    <where>
+      <if test="studentId != null">
+        i.student_id = #{studentId}
+      </if>
+      <if test="time != null">
+        and i.interview_time &lt; #{time}
+      </if>
+      <if test="keyword != null and keyword != ''">
+        and i.company like CONCAT('%',#{keyword},'%')
+      </if>
+    </where>
+    order by i.interview_time desc limit 2
+
   </select>
 </mapper>

@@ -61,7 +61,7 @@ Request Field
 
 
 
-## 2.1 查询面试列表
+## 2.1 查询面试列表（面试时间降序）
 
 URL: /interview/search?keyword={keyword}&onlyme={onlyme}&time={time}  
 Method：GET  
@@ -70,14 +70,18 @@ ResponseBody:
 ```json
 [
     {
+        "interviewId":1234,
         "company": "华为",
-        "student": "cjf",
+        "studentId": 234,
+        "studentName": "cjf",
         "time": 1575448390345,
         "status": 1
     },
     {
+        "interviewId":1234,
         "company": "华为",
-        "student": "cjf",
+        "studentId": 234,
+        "studentName": "cjf",
         "time": 1575448390345,
         "status": 1
     }
@@ -89,7 +93,7 @@ Request Field
 
 | 字段     |     类型 |   描述   | 
 | :--------------: | :--------:| :------: |
-| keyword   | String   | 关键字    |
+| keyword   | String   | 关键字，暂时支持只公司名    |
 | onlyme   | Boolean   | 只看自己    |
 | time   | Long   | 时间戳    |
 
@@ -97,9 +101,11 @@ Response Field
 
 | 字段     |     类型 |   描述   | 
 | :--------------: | :--------:| :------: |
+| interviewId   | Integer   | 面试Id    |
 | company   | String   | 公司名    |
-| student   | String   | 面试学生    |
-| time   | Long   | 面试时间    |
+| studentId   | String   | 学生Id    |
+| studentName   | String   | 面试学生    |
+| time   | Long   | 面试时间, 按照时间降序    |
 | status   | byte   | 面试状态    |
 
 ## 2.2 创建面试
