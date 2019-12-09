@@ -51,7 +51,14 @@ var app = new Vue({
 
                 // Configuration options go here
                 options: {
-
+                    scales:{
+                        yAxes:[{
+                            ticks:{
+                                beginAtZero:true,//从0开始
+                                stepSize:1//刻度
+                            }
+                        }]
+                    }
                 }
             });
         });
