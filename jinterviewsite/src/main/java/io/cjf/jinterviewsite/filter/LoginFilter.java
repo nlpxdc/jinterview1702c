@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Set;
 
+@Order(1)
 @Component
 public class LoginFilter implements Filter {
 
@@ -64,6 +66,8 @@ public class LoginFilter implements Filter {
 
         if (jwtVerifyEnable){
             final StudentLoginVO studentLoginVO = jwtUtil.verifyToken(token);
+            request.setAttribute("studentId", studentLoginVO.getStudentId());
+            request.setAttribute("studentStatus", studentLoginVO.getStatus());
         }else {
             logger.warn("jwt verify disabled!!!");
         }

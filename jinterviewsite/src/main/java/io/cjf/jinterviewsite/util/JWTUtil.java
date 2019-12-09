@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
+import io.cjf.jinterviewsite.po.Student;
 import io.cjf.jinterviewsite.vo.StudentLoginVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +31,7 @@ public class JWTUtil {
         algorithm = Algorithm.HMAC256(jwtHS256Secret);
     }
 
-    public String issueToken(Integer studentId, String openid){
+    public String issueToken(Student student){
         final Date now = new Date();
         final long nowTimestamp = now.getTime();
         final long expireTimestamp = nowTimestamp + jwtValidDuration*1000;
@@ -39,11 +40,10 @@ public class JWTUtil {
 
         String token = JWT.create()
                 .withIssuer(issuer)
-                .withSubject(studentId.toString())
+                .withSubject(student.getStudentId().toString())
                 .withIssuedAt(new Date())
                 .withExpiresAt(expireDate)
-                .withClaim("openid", openid)
-                .withClaim("role", "student")
+                .withClaim("status", student.getStatus().toString())
                 .sign(algorithm);
 
         logger.info("jwt token: {}", token);
@@ -58,8 +58,7 @@ public class JWTUtil {
         DecodedJWT jwt = verifier.verify(token);
         final StudentLoginVO studentLoginVO = new StudentLoginVO();
         studentLoginVO.setStudentId(Integer.parseInt(jwt.getSubject()));
-        studentLoginVO.setOpenid(jwt.getClaim("openid").asString());
-        studentLoginVO.setRole(jwt.getClaim("role").asString());
+        studentLoginVO.setStatus(Byte.parseByte(jwt.getClaim("status").asString()));
         return studentLoginVO;
     }
 }

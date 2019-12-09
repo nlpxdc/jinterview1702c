@@ -24,7 +24,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Integer createStudent(Student student) {
 
-        student.setStatus((byte)StudentStatus.Disable.ordinal());
+        student.setStatus((byte)StudentStatus.NotActivate.ordinal());
         student.setMobileVerified(false);
         student.setEmailVerified(false);
 

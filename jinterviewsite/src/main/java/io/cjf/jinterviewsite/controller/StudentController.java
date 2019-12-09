@@ -3,7 +3,7 @@ package io.cjf.jinterviewsite.controller;
 import com.alibaba.fastjson.JSONObject;
 import io.cjf.jinterviewsite.annotation.NotRequiredLogin;
 import io.cjf.jinterviewsite.client.WechatService;
-import io.cjf.jinterviewsite.constant.WechatExceptionConstant;
+import io.cjf.jinterviewsite.constant.ClientExceptionConstant;
 import io.cjf.jinterviewsite.exception.ClientException;
 import io.cjf.jinterviewsite.po.Student;
 import io.cjf.jinterviewsite.service.StudentService;
@@ -45,28 +45,25 @@ public class StudentController {
 
         final String openid = userInfoJsonObj.getString("openid");
         if (openid == null){
-            throw new ClientException(WechatExceptionConstant.OPENID_NOT_EXIST_ERRCODE, WechatExceptionConstant.OPENID_NOT_EXIST_ERRMSG);
+            throw new ClientException(ClientExceptionConstant.OPENID_NOT_EXIST_ERRCODE, ClientExceptionConstant.OPENID_NOT_EXIST_ERRMSG);
         }
 
-        final Student originStudent = studentService.getByOpenid(openid);
-        Integer studentId;
-        if (originStudent == null){
-            final Student newStudent = new Student();
-            newStudent.setOpenid(openid);
-            newStudent.setNickname(nickname);
-            newStudent.setAvatarUrl(headimgurl);
-            newStudent.setGender(sex);
-            studentService.createStudent(newStudent);
-            studentId = newStudent.getStudentId();
+        Student student = studentService.getByOpenid(openid);
+        if (student == null){
+            student = new Student();
+            student.setOpenid(openid);
+            student.setNickname(nickname);
+            student.setAvatarUrl(headimgurl);
+            student.setGender(sex);
+            studentService.createStudent(student);
         }else {
-            originStudent.setNickname(nickname);
-            originStudent.setAvatarUrl(headimgurl);
-            originStudent.setGender(sex);
-            studentService.updateStudent(originStudent);
-            studentId = originStudent.getStudentId();
+            student.setNickname(nickname);
+            student.setAvatarUrl(headimgurl);
+            student.setGender(sex);
+            studentService.updateStudent(student);
         }
 
-        final String token = jwtUtil.issueToken(studentId, openid);
+        final String token = jwtUtil.issueToken(student);
 
         return token;
     }

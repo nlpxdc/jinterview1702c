@@ -3,8 +3,7 @@ package io.cjf.jinterviewsite.vo;
 public class StudentLoginVO {
 
     private Integer studentId;
-    private String openid;
-    private String role;
+    private Byte status;
 
     public Integer getStudentId() {
         return studentId;
@@ -14,19 +13,11 @@ public class StudentLoginVO {
         this.studentId = studentId;
     }
 
-    public String getOpenid() {
-        return openid;
+    public Byte getStatus() {
+        return status;
     }
 
-    public void setOpenid(String openid) {
-        this.openid = openid;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
+    public void setStatus(Byte status) {
+        this.status = status;
     }
 }

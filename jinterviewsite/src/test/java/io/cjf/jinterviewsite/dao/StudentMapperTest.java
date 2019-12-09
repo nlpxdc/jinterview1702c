@@ -47,7 +47,7 @@ class StudentMapperTest {
         student.setNickname("mynickname");
         student.setAvatarUrl("http://xxx.com/xxx.jpg");
         student.setGender((byte)0);
-        student.setStatus((byte) StudentStatus.Disable.ordinal());
+        student.setStatus((byte) StudentStatus.NotActivate.ordinal());
         student.setMobileVerified(false);
         student.setEmailVerified(false);
 
