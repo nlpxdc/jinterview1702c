@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.Set;
 
 @Component
 public class LoginFilter implements Filter {
@@ -23,16 +24,32 @@ public class LoginFilter implements Filter {
     @Value("${jwt.verify.enable}")
     private Boolean jwtVerifyEnable;
 
+    @Value("${file.extensions}")
+    private Set<String> fileExtensions;
+
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        logger.info("verify login with token");
+
         HttpServletRequest request = (HttpServletRequest)servletRequest;
+        final String requestURI = request.getRequestURI();
+        final String[] splits = requestURI.split("\\.");
+        final String ext = splits[splits.length - 1];
+        if (fileExtensions.contains(ext)){
+            filterChain.doFilter(servletRequest, servletResponse);
+            return;
+        }
+        logger.info("verify login with token");
+
         final String token = request.getHeader("jinterviewToken");
 
         if (jwtVerifyEnable){
             final StudentLoginVO studentLoginVO = jwtUtil.verifyToken(token);
+        }else {
+            logger.warn("jwt verify disabled!!!");
         }
 
         filterChain.doFilter(servletRequest, servletResponse);
+        logger.info("login verify finished");
+        return;
     }
 }
