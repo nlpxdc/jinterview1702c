@@ -46,6 +46,8 @@ public class JWTUtil {
                 .withClaim("role", "student")
                 .sign(algorithm);
 
+        logger.info("jwt token: {}", token);
+
         return token;
     }
 

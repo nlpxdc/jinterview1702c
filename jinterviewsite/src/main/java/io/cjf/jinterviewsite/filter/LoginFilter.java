@@ -38,6 +38,13 @@ public class LoginFilter implements Filter {
             filterChain.doFilter(servletRequest, servletResponse);
             return;
         }
+
+        final String method = request.getMethod();
+        if (method.equals("OPTIONS")){
+            filterChain.doFilter(servletRequest, servletResponse);
+            return;
+        }
+
         logger.info("verify login with token");
 
         final String token = request.getHeader("jinterviewToken");
