@@ -24,7 +24,7 @@ var app = new Vue({
 
         },
         getInterviewCount(){
-            axios.get("http://localhost:80/chart/interviewCount").then(res=>{
+            axios.get("/chart/interviewCount").then(res=>{
                 this.counts=res.data;
             console.log(this.counts);
             for(var key in this.counts){
@@ -55,7 +55,7 @@ var app = new Vue({
                         yAxes:[{
                             ticks:{
                                 beginAtZero:true,//从0开始
-                                stepSize:1//刻度
+                                stepSize:2//刻度
                             }
                         }]
                     }
