@@ -8,6 +8,15 @@
     <result column="likes" jdbcType="INTEGER" property="likes" />
     <result column="url" jdbcType="VARCHAR" property="url" />
   </resultMap>
+
+  <resultMap id="BasedtoMap" type="io.cjf.jinterviewsite.dto.AudioRecordDto">
+    <id column="audio_record_id" jdbcType="INTEGER" property="audiorecordId" />
+    <result column="interview_id" jdbcType="INTEGER" property="interviewId" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="nickname" jdbcType="INTEGER" property="student" />
+    <result column="likes" jdbcType="VARCHAR" property="likes" />
+  </resultMap>
+
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="io.cjf.jinterviewback.po.AudioRecord">
     <result column="content" jdbcType="LONGVARCHAR" property="content" />
   </resultMap>
@@ -135,27 +144,26 @@
     FROM `audio_record` WHERE interview_id=#{interviewId}
   </select>
 <!--录音列表-->
-<!--  <select id="search" resultMap=" BaseResultMap" >-->
+
+<!--  <select id="search" resultMap="BasedtoMap" >-->
 <!--    SELECT a.*,s.`nickname`,i.`company` FROM audio_record a-->
-
-<!--    LEFT JOIN `interview` i ON a.interview_id=i.`interview_id`-->
-
-<!--    LEFT JOIN `student` s ON i.student_id=s.`student_id`-->
+<!--    LEFT JOIN interview i ON a.`interview_id`= i.`interview_id`-->
+<!--    LEFT JOIN student s ON i.`student_id`= s.`student_id`-->
 <!--    <where>-->
 <!--      <if test="keyword !=null">-->
-<!--        keyword=#{audiorecordId}-->
+<!--        audiorecordId=#{keyword}-->
 <!--      </if>-->
 <!--      <if test="keyword !=null">-->
-<!--        keyword=#{interviewId}-->
+<!--        interviewId=#{keyword}-->
 <!--      </if>-->
 <!--      <if test="keyword !=null">-->
-<!--        keyword=#{company}-->
+<!--        company=#{keyword}-->
 <!--      </if>-->
 <!--      <if test="keyword !=null">-->
-<!--        keyword=#{student}-->
+<!--        nickname=#{keyword}-->
 <!--      </if>-->
 <!--      <if test="keyword !=null">-->
-<!--        keyword=#{likes}-->
+<!--        likes=#{keyword}-->
 <!--      </if>-->
 <!--    </where>-->
 <!--  </select>-->

@@ -1,6 +1,7 @@
 package io.cjf.jinterviewback.service.impl;
 
 import io.cjf.jinterviewback.dao.AudioRecordMapper;
+import io.cjf.jinterviewback.dto.AudioRecordDto;
 import io.cjf.jinterviewback.po.AudioRecord;
 import io.cjf.jinterviewback.service.AudioRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +21,12 @@ public class AudioRecordServiceImpl implements AudioRecordService {
     }
 
     @Override
-    public List search(String keyword, Long time) {
+    public List<AudioRecordDto> search(String keyword, Long time) {
         return audioRecordMapper.search(keyword,time);
     }
 
     @Override
-    public AudioRecord getByid(Integer audiorecordId) {
+    public AudioRecordDto getByid(Integer audiorecordId) {
         return audioRecordMapper.getByid(audiorecordId);
     }
 
