@@ -9,16 +9,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.List;
 import java.util.Set;
 
-@Order(1)
 @Component
 public class LoginFilter implements Filter {
 
@@ -30,9 +27,6 @@ public class LoginFilter implements Filter {
     @Value("${jwt.verify.enable}")
     private Boolean jwtVerifyEnable;
 
-    @Value("${file.extensions}")
-    private Set<String> fileExtensions;
-
     @Value("${jwt.exclude.apiUrls}")
     private Set<String> excludeLoginApiUrls;
 
@@ -40,7 +34,7 @@ public class LoginFilter implements Filter {
     private Boolean studentActivateEnable;
 
     @Value("${student-activate.exclude.apiUrls}")
-    private List<String> excludeSutdentActivateApiUrls;
+    private Set<String> excludeSutdentActivateApiUrls;
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
@@ -48,15 +42,6 @@ public class LoginFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest)servletRequest;
         final String requestURI = request.getRequestURI();
         logger.info("request uri: {}", requestURI);
-
-        //skip static resource files
-        final String[] splits = requestURI.split("\\.");
-        final String extOrigin = splits[splits.length - 1];
-        final String ext = extOrigin.toLowerCase();
-        if (fileExtensions.contains(ext)){
-            filterChain.doFilter(servletRequest, servletResponse);
-            return;
-        }
 
         //skip ajax cross origin preflight request
         final String method = request.getMethod();

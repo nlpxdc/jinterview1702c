@@ -1,7 +1,6 @@
 package io.cjf.jinterviewback.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import io.cjf.jinterviewback.annotation.NotRequiredLogin;
 import io.cjf.jinterviewback.client.WechatService;
 import io.cjf.jinterviewback.constant.ClientExceptionConstant;
 import io.cjf.jinterviewback.exception.ClientException;
@@ -39,7 +38,6 @@ public class StudentController {
     @Autowired
     private RandomUtil randomUtil;
 
-    @NotRequiredLogin
     @GetMapping("/autoRegisterLogin")
     public String autoRegisterLogin(@RequestParam String code) throws ClientException {
         logger.info("code: {}", code);
