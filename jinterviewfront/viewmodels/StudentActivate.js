@@ -14,21 +14,21 @@ var app = new Vue({
     },
     methods: {
         send() {
-            var timer = setInterval(() => {
+            // var timer = setInterval(() => {
 
-                this.sec = this.sec - 1
-                this.code_ts = this.sec + 'S后重试'
-                this.showbtn = false
-                this.showbtnn = true
-                if (this.sec === 0) {
-                    clearInterval(timer)
-                    this.sec = 60
-                    this.code_ts = this.sec + 'S后重试'
-                    this.showbtn = true
-                    this.showbtnn = false
+            //     this.sec = this.sec - 1
+            //     this.code_ts = this.sec + 'S后重试'
+            //     this.showbtn = false
+            //     this.showbtnn = true
+            //     if (this.sec === 0) {
+            //         clearInterval(timer)
+            //         this.sec = 60
+            //         this.code_ts = this.sec + 'S后重试'
+            //         this.showbtn = true
+            //         this.showbtnn = false
 
-                }
-            }, 1000)
+            //     }
+            // }, 1000);
 
             axios.get('/student/getMobileCaptcha')
                 .then(function (response) {
@@ -47,23 +47,18 @@ var app = new Vue({
                 return;
             }
 
-            axios.get('http://192.168.137.1:80/student/submitMobileCaptcha', {
+            axios.get('/student/submitMobileCaptcha', {
                 params: {
-                    captcha: this.captcha,
-                    token: this.token
-
+                    captcha: this.captcha
                 }
             })
                 .then(function (response) {
-                    if (response.data) {
-                        alert("激活成功")
-                    } else {
-                        alert("验证码有误，激活失败")
-                    }
-
+                    console.log(response);
+                    alert("激活成功")
                 })
                 .catch(function (error) {
                     console.log(error);
+                    alert('激活失败');
                 });
 
         }

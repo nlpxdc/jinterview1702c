@@ -15,13 +15,14 @@ import org.springframework.web.bind.annotation.*;
 import io.cjf.jinterviewback.util.SMSUtil;
 import io.cjf.jinterviewback.vo.StudentLoginVO;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 @RestController
 @RequestMapping("/student")
 @CrossOrigin
 public class StudentController {
-
-    private String verification;
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
@@ -38,6 +39,8 @@ public class StudentController {
 
     @Autowired
     private RandomUtil randomUtil;
+
+    private Map<Integer, String> studentCaptchaMap = new HashMap<>();
 
     @GetMapping("/autoRegisterLogin")
     public String autoRegisterLogin(@RequestParam String code) throws ClientException {
@@ -80,29 +83,24 @@ public class StudentController {
         Student student = studentService.getBystudentId(studentId);
 
         String mobile = student.getMobile();
-        if (mobile == null && mobile.isEmpty()){
+        if (mobile == null || mobile.isEmpty()){
             throw new ClientException(ClientExceptionConstant.MOBILE_NOT_EXIST_ERRCODE, ClientExceptionConstant.MOBILE_NOT_EXIST_ERRMSG);
         }else {
             final String captcha = randomUtil.getRandomStr();
             smsUtil.sms(mobile, captcha);
+            studentCaptchaMap.put(studentId, captcha);
         }
     }
 
     @GetMapping("/submitMobileCaptcha")
-    public boolean submitMobileCaptcha(@RequestParam String captcha,@RequestParam String token){
-        System.out.println("激活");
+    public void submitMobileCaptcha(@RequestParam String captcha, @RequestAttribute Integer studentId) throws ClientException {
 
-        StudentLoginVO studentLoginVO = jwtUtil.verifyToken(token);
-        Integer studentId = studentLoginVO.getStudentId();
-        System.out.println(captcha);
-        System.out.println(verification);
-        if(verification.equals(captcha)){
+        final String captchaOirigin = studentCaptchaMap.get(studentId);
 
-            studentService.updateStatus(studentId);
-
-            return true;
-        }else{
-            return false;
+        if(!captcha.equals(captchaOirigin)){
+            throw new ClientException(ClientExceptionConstant.CAPTCHA_INVALID_ERRCODE, ClientExceptionConstant.CAPTCHA_INVALID_ERRMSG);
+        }else {
+            studentService.activateStudent(studentId);
         }
 
     }

@@ -38,9 +38,11 @@ public class StudentServiceImpl implements StudentService {
 
 
     @Override
-    public void updateStatus(Integer studentId) {
-        studentMapper.updateStatus(studentId);
-
+    public void activateStudent(Integer studentId) {
+        final Student student = studentMapper.selectByPrimaryKey(studentId);
+        student.setStatus((byte)StudentStatus.Activate.ordinal());
+        student.setMobileVerified(true);
+        studentMapper.updateByPrimaryKey(student);
     }
 
     @Override

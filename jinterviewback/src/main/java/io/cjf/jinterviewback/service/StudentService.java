@@ -8,7 +8,7 @@ public interface StudentService {
     Integer createStudent(Student student);
 
     void updateStudent(Student student);
-    void updateStatus(Integer studentId);
+    void activateStudent(Integer studentId);
 
     Student getBystudentId(Integer studentId);
 }
