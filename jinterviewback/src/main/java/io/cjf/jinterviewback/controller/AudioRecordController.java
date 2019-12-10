@@ -1,6 +1,7 @@
 package io.cjf.jinterviewback.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import io.cjf.jinterviewback.dto.AudioRecordDto;
 import io.cjf.jinterviewback.po.AudioRecord;
 import io.cjf.jinterviewback.service.AudioRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,14 +28,14 @@ public class AudioRecordController {
     public List<JSONObject> search(@RequestParam(required = false) String keyword,
                                    @RequestParam(required = false) Long time){
 
-        List<AudioRecord> list=audioRecordService.search(keyword,time);
+        List<AudioRecordDto> list=audioRecordService.search(keyword,time);
         List<JSONObject> audio=list.stream().map(t->{
             JSONObject jsonObject=new JSONObject();
-            jsonObject.put("audiorecordId",t.getAudioRecordId());
-            jsonObject.put("title",t.getTitle());
-            jsonObject.put("content",t.getContent());
+            jsonObject.put("audiorecordId",t.getAudiorecordId());
+            jsonObject.put("title",t.getInterviewId());
+            jsonObject.put("content",t.getCompany());
             jsonObject.put("likes",t.getLikes());
-            jsonObject.put("audiorecordUrl",t.getUrl());
+            jsonObject.put("audiorecordUrl",t.getStudent());
 
 
                 return jsonObject;
@@ -48,13 +49,13 @@ public class AudioRecordController {
     public JSONObject getById(@RequestParam Integer audiorecordId){
 
         JSONObject jsonObject = new JSONObject();
-        AudioRecord audioRecord=audioRecordService.getByid(audiorecordId);
+        AudioRecordDto audioRecord=audioRecordService.getByid(audiorecordId);
 
-        jsonObject.put("audiorecordId",audioRecord.getAudioRecordId());
-        jsonObject.put("title",audioRecord.getTitle());
-        jsonObject.put("content",audioRecord.getContent());
+        jsonObject.put("audiorecordId",audioRecord.getAudiorecordId());
+        jsonObject.put("title",audioRecord.getInterviewId());
+        jsonObject.put("content",audioRecord.getCompany());
         jsonObject.put("likes",audioRecord.getLikes());
-        jsonObject.put("audiorecordUrl",audioRecord.getUrl());
+        jsonObject.put("audiorecordUrl",audioRecord.getStudent());
 
 
         return jsonObject;
