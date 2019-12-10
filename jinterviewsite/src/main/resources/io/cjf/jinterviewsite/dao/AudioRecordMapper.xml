@@ -135,29 +135,38 @@
     FROM `audio_record` WHERE interview_id=#{interviewId}
   </select>
 <!--录音列表-->
-  <select id="search" resultMap=" BaseResultMap" >
-    SELECT a.*,s.`nickname`,i.`company` FROM audio_record a
+<!--  <select id="search" resultMap=" BaseResultMap" >-->
+<!--    SELECT a.*,s.`nickname`,i.`company` FROM audio_record a-->
 
-    LEFT JOIN `interview` i ON a.interview_id=i.`interview_id`
+<!--    LEFT JOIN `interview` i ON a.interview_id=i.`interview_id`-->
 
-    LEFT JOIN `student` s ON i.student_id=s.`student_id`
-    <where>
-      <if test="keyword !=null">
-        keyword=#{audiorecordId}
-      </if>
-      <if test="keyword !=null">
-        keyword=#{interviewId}
-      </if>
-      <if test="keyword !=null">
-        keyword=#{company}
-      </if>
-      <if test="keyword !=null">
-        keyword=#{student}
-      </if>
-      <if test="keyword !=null">
-        keyword=#{likes}
-      </if>
-    </where>
+<!--    LEFT JOIN `student` s ON i.student_id=s.`student_id`-->
+<!--    <where>-->
+<!--      <if test="keyword !=null">-->
+<!--        keyword=#{audiorecordId}-->
+<!--      </if>-->
+<!--      <if test="keyword !=null">-->
+<!--        keyword=#{interviewId}-->
+<!--      </if>-->
+<!--      <if test="keyword !=null">-->
+<!--        keyword=#{company}-->
+<!--      </if>-->
+<!--      <if test="keyword !=null">-->
+<!--        keyword=#{student}-->
+<!--      </if>-->
+<!--      <if test="keyword !=null">-->
+<!--        keyword=#{likes}-->
+<!--      </if>-->
+<!--    </where>-->
+<!--  </select>-->
+
+  <select id="search" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from audio_record
+    where audio_record_id = #{audioRecordId,jdbcType=INTEGER}
   </select>
 
   <select id="getByid" resultMap="BaseResultMap">

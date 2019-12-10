@@ -1,10 +1,10 @@
 var app = new Vue({
     el: '#app',
     data: {
-        token:"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0IiwiaXNzIjoiMTcwMmMiLCJleHAiOjE1NzU5NDIzNDgsImlhdCI6MTU3NTkzNTE0OCwic3RhdHVzIjoiMCJ9.KN7ZhDHhLoiqIaa5UdPxhd4PeotknLc28DU4H8yrqpo",
+        token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0IiwiaXNzIjoiMTcwMmMiLCJleHAiOjE1NzU5NDIzNDgsImlhdCI6MTU3NTkzNTE0OCwic3RhdHVzIjoiMCJ9.KN7ZhDHhLoiqIaa5UdPxhd4PeotknLc28DU4H8yrqpo",
         mobile: "",
         captcha: "",
-        studentId:1,
+        studentId: 1,
 
 
         showbtn: true,
@@ -12,8 +12,8 @@ var app = new Vue({
         code_ts: '',
         sec: 60,
 
-      
-        
+
+
 
 
 
@@ -38,25 +38,15 @@ var app = new Vue({
                 }
             }, 1000)
 
-
-
-            axios.get('http://192.168.137.1:80/student/getMobileCaptcha', {
-                params: {
-                
-                    token:this.token
-                    
-                }
-            })
+            axios.get('/student/getMobileCaptcha')
                 .then(function (response) {
                     console.log(response);
-
+                    alert('发送成功');
                 })
                 .catch(function (error) {
                     console.log(error);
+                    alert('发送失败');
                 });
-
-
-
         },
         submit() {
 
@@ -68,8 +58,8 @@ var app = new Vue({
             axios.get('http://192.168.137.1:80/student/submitMobileCaptcha', {
                 params: {
                     captcha: this.captcha,
-                    token:this.token
-                    
+                    token: this.token
+
                 }
             })
                 .then(function (response) {

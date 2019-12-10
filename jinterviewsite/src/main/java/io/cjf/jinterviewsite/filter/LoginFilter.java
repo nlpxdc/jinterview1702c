@@ -1,5 +1,8 @@
 package io.cjf.jinterviewsite.filter;
 
+import io.cjf.jinterviewsite.constant.ClientExceptionConstant;
+import io.cjf.jinterviewsite.enumeration.StudentStatus;
+import io.cjf.jinterviewsite.exception.ClientRuntimeException;
 import io.cjf.jinterviewsite.util.JWTUtil;
 import io.cjf.jinterviewsite.vo.StudentLoginVO;
 import org.slf4j.Logger;
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Component;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 
 @Order(1)
@@ -30,7 +34,13 @@ public class LoginFilter implements Filter {
     private Set<String> fileExtensions;
 
     @Value("${jwt.exclude.apiUrls}")
-    private Set<String> excludeApiUrls;
+    private Set<String> excludeLoginApiUrls;
+
+    @Value("${student-activate.enable}")
+    private Boolean studentActivateEnable;
+
+    @Value("${student-activate.exclude.apiUrls}")
+    private List<String> excludeSutdentActivateApiUrls;
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
@@ -55,7 +65,7 @@ public class LoginFilter implements Filter {
             return;
         }
 
-        if (excludeApiUrls.contains(requestURI)){
+        if (excludeLoginApiUrls.contains(requestURI)){
             filterChain.doFilter(servletRequest, servletResponse);
             return;
         }
@@ -70,6 +80,20 @@ public class LoginFilter implements Filter {
             request.setAttribute("studentStatus", studentLoginVO.getStatus());
         }else {
             logger.warn("jwt verify disabled!!!");
+        }
+
+        if (excludeSutdentActivateApiUrls.contains(requestURI)){
+            filterChain.doFilter(servletRequest, servletResponse);
+            return;
+        }
+
+        if (studentActivateEnable){
+            final Object studentStatus = (byte)request.getAttribute("studentStatus");
+            if (studentStatus == StudentStatus.NotActivate){
+                throw new ClientRuntimeException(ClientExceptionConstant.STUDENT_NOT_ACTIVATE_ERRCODE, ClientExceptionConstant.STUDENT_NOT_ACTIVATE_ERRMSG);
+            }
+        }else {
+            logger.warn("student activate disabled");
         }
 
         filterChain.doFilter(servletRequest, servletResponse);

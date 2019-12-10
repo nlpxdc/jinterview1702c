@@ -8,16 +8,16 @@ import io.cjf.jinterviewsite.exception.ClientException;
 import io.cjf.jinterviewsite.po.Student;
 import io.cjf.jinterviewsite.service.StudentService;
 import io.cjf.jinterviewsite.util.JWTUtil;
+import io.cjf.jinterviewsite.util.RandomUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import io.cjf.jinterviewsite.util.SMSUtil;
 import io.cjf.jinterviewsite.vo.StudentLoginVO;
 
+import javax.xml.bind.DatatypeConverter;
+import java.security.SecureRandom;
 
 
 @RestController
@@ -38,6 +38,9 @@ public class StudentController {
 
     @Autowired
     private JWTUtil jwtUtil;
+
+    @Autowired
+    private RandomUtil randomUtil;
 
     @NotRequiredLogin
     @GetMapping("/autoRegisterLogin")
@@ -77,25 +80,17 @@ public class StudentController {
     }
 
     @GetMapping("/getMobileCaptcha")
-    public void getMobileCaptcha(@RequestParam String token){
-        System.out.println("获取验证码");
-        System.out.println(token);
+    public void getMobileCaptcha(@RequestAttribute Integer studentId) throws ClientException, com.aliyuncs.exceptions.ClientException {
 
-
-
-        StudentLoginVO studentLoginVO = jwtUtil.verifyToken(token);
-        Integer studentId = studentLoginVO.getStudentId();
-        System.out.println(studentId);
         Student student = studentService.getBystudentId(studentId);
+
         String mobile = student.getMobile();
-
-        String sms = smsUtil.sms(mobile);
-        verification=sms;
-
-
-
-
-
+        if (mobile == null && mobile.isEmpty()){
+            throw new ClientException(ClientExceptionConstant.MOBILE_NOT_EXIST_ERRCODE, ClientExceptionConstant.MOBILE_NOT_EXIST_ERRMSG);
+        }else {
+            final String captcha = randomUtil.getRandomStr();
+            smsUtil.sms(mobile, captcha);
+        }
     }
 
     @GetMapping("/submitMobileCaptcha")
