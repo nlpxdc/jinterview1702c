@@ -23,7 +23,7 @@ public class ExamController {
                                    @RequestParam(required = false) Long time){
         System.out.println(keyword);
         System.out.println(time);
-        List<ExaminationSearchDTO> list= examinationService.search(keyword,time);
+        List<ExaminationSearchDTO> list= examinationService.search(keyword,time+50);
         for (ExaminationSearchDTO s:list) {
             System.out.println(s);
         }
