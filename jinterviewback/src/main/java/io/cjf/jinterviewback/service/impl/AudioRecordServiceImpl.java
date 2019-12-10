@@ -26,7 +26,7 @@ public class AudioRecordServiceImpl implements AudioRecordService {
     }
 
     @Override
-    public AudioRecordDTO getByid(Integer audiorecordId) {
+    public AudioRecord getByid(Integer audiorecordId) {
         return audioRecordMapper.getByid(audiorecordId);
     }
 

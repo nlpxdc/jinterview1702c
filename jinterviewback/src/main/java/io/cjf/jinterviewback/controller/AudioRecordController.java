@@ -2,6 +2,7 @@ package io.cjf.jinterviewback.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import io.cjf.jinterviewback.dto.AudioRecordDTO;
+import io.cjf.jinterviewback.po.AudioRecord;
 import io.cjf.jinterviewback.service.AudioRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -49,13 +50,13 @@ public class AudioRecordController {
     public JSONObject getById(@RequestParam Integer audiorecordId){
 
         JSONObject jsonObject = new JSONObject();
-        AudioRecordDTO audioRecord=audioRecordService.getByid(audiorecordId);
+        AudioRecord audioRecord=audioRecordService.getByid(audiorecordId);
 
-        jsonObject.put("audiorecordId",audioRecord.getAudiorecordId());
-        jsonObject.put("title",audioRecord.getInterviewId());
-        jsonObject.put("content",audioRecord.getCompany());
+        jsonObject.put("audiorecordId",audioRecord.getAudioRecordId());
+        jsonObject.put("title",audioRecord.getTitle());
+        jsonObject.put("content",audioRecord.getContent());
         jsonObject.put("likes",audioRecord.getLikes());
-        jsonObject.put("audiorecordUrl",audioRecord.getStudent());
+        jsonObject.put("audiorecordUrl",audioRecord.getUrl());
 
 
         return jsonObject;

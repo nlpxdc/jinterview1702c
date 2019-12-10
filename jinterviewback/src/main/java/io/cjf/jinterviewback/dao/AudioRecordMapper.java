@@ -21,7 +21,9 @@ public interface AudioRecordMapper {
     int updateByPrimaryKey(AudioRecord record);
 
     AudioRecord selectAudioRecordByid(Integer interviewId);
+    //录音列表
     List<AudioRecordDTO> search(String keyword, Long time);
 
-    AudioRecordDTO getByid(Integer audiorecordId);
+    //录音详情列表
+    AudioRecord getByid(Integer audiorecordId);
 }

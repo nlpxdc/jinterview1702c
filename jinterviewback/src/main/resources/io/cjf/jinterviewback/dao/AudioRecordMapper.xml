@@ -145,10 +145,10 @@
   </select>
 <!--录音列表-->
 
-<!--  <select id="search" resultMap="BasedtoMap" >-->
-<!--    SELECT a.*,s.`nickname`,i.`company` FROM audio_record a-->
-<!--    LEFT JOIN interview i ON a.`interview_id`= i.`interview_id`-->
-<!--    LEFT JOIN student s ON i.`student_id`= s.`student_id`-->
+  <select id="search" resultMap="BasedtoMap" >
+    SELECT a.*,s.`nickname`,i.`company` FROM audio_record a
+    LEFT JOIN interview i ON a.`interview_id`= i.`interview_id`
+    LEFT JOIN student s ON i.`student_id`= s.`student_id`
 <!--    <where>-->
 <!--      <if test="keyword !=null">-->
 <!--        audiorecordId=#{keyword}-->
@@ -166,7 +166,7 @@
 <!--        likes=#{keyword}-->
 <!--      </if>-->
 <!--    </where>-->
-<!--  </select>-->
+  </select>
 
   <select id="search" resultMap="ResultMapWithBLOBs">
     select

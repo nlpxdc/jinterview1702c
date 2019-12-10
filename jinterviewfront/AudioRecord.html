@@ -25,17 +25,21 @@
 
             <div style="clear: left;margin-left: 50px;margin-right: 50px;margin-bottom: 10px;" v-for="(item,a) in listexam" :key="a">
                 <div>
-                    <div style="float: left; width: 380px;"><van-icon name="coupon-o" />&nbsp;&nbsp;{{item.company}}公司面试题</div>
-                    <div style="float: left;"> <a :href="'http://localhost:8080/BlockDetail'"
+                    <div style="float: left; width: 380px;"><van-icon name="coupon-o" />&nbsp;&nbsp;{{item.company}}公司面试题
+						<div style="float: right;">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<van-icon name="down" />
+                        </div>
+                    </div>
+                    <div style="float: right;"> <a :href="'http://localhost:'"
                         style="text-decoration: none;color: blue;">详情
                     </a></div>
                 </div>
                 <div style="clear: left;margin-top: 30px;">
                     <div style="float: left; width: 380px;"> 
                             
-                            <van-icon name="down" />&nbsp;&nbsp;作者:{{item.realname}}</div>
-                    <div style="float: left;margin-left: 6px;margin-bottom: 20px;">
-                            <van-icon name="good-job" />{{item.likes}}
+                            作者:{{item.student}}</div>
+                    <div style="float: right;margin-left: 6px;margin-bottom: 20px;">
+                            <van-icon name="good-job" color="blue" />{{item.likes}}
                     </div>
                    <div style="clear:left;">
                         <van-divider />

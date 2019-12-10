@@ -12,5 +12,5 @@ public interface AudioRecordService {
     List<AudioRecordDTO> search(String keyword, Long time);
 
 
-    AudioRecordDTO getByid(Integer audiorecordId);
+    AudioRecord getByid(Integer audiorecordId);
 }
