@@ -31,7 +31,7 @@ var app = new Vue({
     mounted() {
 
 
-        this.getinterviewByid(interviewId);
+        this.getinterviewByid(1);
 
     },
 });
