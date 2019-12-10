@@ -13,7 +13,7 @@ var app = new Vue({
     methods: {
         handleLoginClick() {
             console.log('login click');
-
+            this.studentAutoLogin();
         },
         studentAutoLogin() {
             axios.get('/student/autoRegisterLogin', {
@@ -23,6 +23,8 @@ var app = new Vue({
             })
                 .then(function (response) {
                     console.log(response);
+                    var jinterviewToken = response.data;
+                    localStorage['jinterviewToken'] = jinterviewToken;
                     alert('登陆成功');
                 })
                 .catch(function (error) {

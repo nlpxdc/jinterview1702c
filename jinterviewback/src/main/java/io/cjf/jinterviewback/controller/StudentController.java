@@ -18,6 +18,7 @@ import io.cjf.jinterviewback.vo.StudentLoginVO;
 
 @RestController
 @RequestMapping("/student")
+@CrossOrigin
 public class StudentController {
 
     private String verification;
@@ -40,7 +41,6 @@ public class StudentController {
 
     @GetMapping("/autoRegisterLogin")
     public String autoRegisterLogin(@RequestParam String code) throws ClientException {
-        logger.info("code: {}", code);
 
         final JSONObject userAccessTokenJsonObj = wechatService.getUserAccessToken(code);
         final String access_token = userAccessTokenJsonObj.getString("access_token");

@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/audiorecord")
+@CrossOrigin
 public class AudioRecordController {
 
     @Autowired
