@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
-@MapperScan("io.cjf.jinterviewsite.dao")
+@MapperScan("io.cjf.jinterviewback.dao")
 @EnableFeignClients
 public class JinterviewsiteApplication {
 

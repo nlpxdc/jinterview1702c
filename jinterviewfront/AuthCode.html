@@ -10,20 +10,23 @@
     <script>
         var vConsole = new VConsole();
     </script>
-    <title>Demo</title>
+    <title>Dashboard</title>
 </head>
 
 <body>
 
     <div id="app">
+        Dashboard <br>
+        code: {{code}} <br>
+        <van-button type="primary" @click="handleLoginClick">授权码登陆</van-button>
+
     </div>
 
 
     <script src="assets/js/axios.min.js"></script>
-    <script src="assets/js/common.js"></script>
     <script src="assets/js/vue.js"></script>
     <script src="assets/js/vant.min.js"></script>
-    <script src="viewmodels/demo.js"></script>
+    <script src="viewmodels/AutoCode.js"></script>
 
 </body>
 
