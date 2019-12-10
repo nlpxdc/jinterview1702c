@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import io.cjf.jinterviewback.dto.InterviewCreateDTO;
 import io.cjf.jinterviewback.dto.InterviewListDTO;
 import io.cjf.jinterviewback.dto.InterviewUpdateDTO;
-import io.cjf.jinterviewback.enumType.Status;
+import io.cjf.jinterviewback.enumeration.InterviewStatus;
 import io.cjf.jinterviewback.po.AudioRecord;
 import io.cjf.jinterviewback.po.ExamPhoto;
 import io.cjf.jinterviewback.po.Examination;
@@ -51,8 +51,7 @@ public class InterviewController {
 
         interviewJson.put("interviewTime",format);
         interviewJson.put("stars",interview.getStars());
-        Status status = Status.values()[interview.getStatus()];
-
+        InterviewStatus status = InterviewStatus.values()[interview.getStatus()];
         interviewJson.put("status",status);
         interviewJson.put("note",interview.getNote());
         interviewJson.put("offerUrl",interview.getOfferUrl());

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.cjf.jinterviewsite.dao.ExamPhotoMapper">
+  <resultMap id="BaseResultMap" type="io.cjf.jinterviewsite.po.ExamPhoto">
+    <id column="exam_photo_id" jdbcType="INTEGER" property="examPhotoId" />
+    <result column="exam_id" jdbcType="INTEGER" property="examId" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    exam_photo_id, exam_id, url
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from exam_photo
+    where exam_photo_id = #{examPhotoId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from exam_photo
+    where exam_photo_id = #{examPhotoId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="io.cjf.jinterviewsite.po.ExamPhoto">
+    insert into exam_photo (exam_photo_id, exam_id, url
+      )
+    values (#{examPhotoId,jdbcType=INTEGER}, #{examId,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="io.cjf.jinterviewsite.po.ExamPhoto">
+    insert into exam_photo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="examPhotoId != null">
+        exam_photo_id,
+      </if>
+      <if test="examId != null">
+        exam_id,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="examPhotoId != null">
+        #{examPhotoId,jdbcType=INTEGER},
+      </if>
+      <if test="examId != null">
+        #{examId,jdbcType=INTEGER},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="io.cjf.jinterviewsite.po.ExamPhoto">
+    update exam_photo
+    <set>
+      <if test="examId != null">
+        exam_id = #{examId,jdbcType=INTEGER},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where exam_photo_id = #{examPhotoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="io.cjf.jinterviewsite.po.ExamPhoto">
+    update exam_photo
+    set exam_id = #{examId,jdbcType=INTEGER},
+      url = #{url,jdbcType=VARCHAR}
+    where exam_photo_id = #{examPhotoId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectExaminationPhotoById" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM `exam_photo` WHERE exam_id=#{examId}
+  </select>
+</mapper>

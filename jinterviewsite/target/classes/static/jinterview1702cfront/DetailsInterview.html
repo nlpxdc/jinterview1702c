@@ -118,18 +118,24 @@
             <br>
 
             <div class="row">
-                <span>公司:</span>
-                <input type="text" v-model="form.company" /><br>
+                <div class="input">
+                    <span>公司:</span>
+                    <input type="text" v-model="form.company" /><br>
+                </div>
             </div>
 
             <div class="row">
-                <span>面试时间:</span>
-                <input type="text" v-model="form.interviewTime" /><br>
+                <div class="input">
+                    <span>面试时间:</span>
+                    <input type="text" v-model="form.interviewTime" /><br>
+                </div>
             </div>
 
             <div class="row">
-                <span>面试结果:</span>
-                <input type="text" v-model="form.status" /><br>
+                <div class="input">
+                    <span>面试结果:</span>
+                    <input type="text" v-model="form.status" /><br>
+                </div>
             </div>
 
 
@@ -140,7 +146,7 @@
                 </div>
                 <div class="input" style="text-align: center;">
 
-                    <audio style="width: 500px; height: 100px;" :src="'http://localhost:8080/image/'+form.audiorecordUrl" width=300 height=45 type=audio/mpeg controls volume="0"></audio>
+                    <audio style="width: 500px; height: 100px;" :src="'http://localhost:80/image/'+form.audiorecordUrl" width=300 height=45 type=audio/mpeg controls volume="0"></audio>
 
                 </div>
             </div>
@@ -155,25 +161,29 @@
                 <van-swipe :autoplay="3000">
                     <van-swipe-item v-for="image in images">
 
-                        <img :src="'http://localhost:8080/image/'+image.url" style="width: 200px; height: 150px;" />
+                        <img :src="'http://localhost:80/image/'+image.url" style="width: 200px; height: 150px;" />
                     </van-swipe-item>
                 </van-swipe>
             </div>
 
             <div class="row">
-                <span>评分:</span>
-                <van-rate v-model="form.stars" /></van-col>
+                <div class="input">
+                    <span>评分:</span>
+                    <van-rate v-model="form.stars" /></van-col>
+                </div>
             </div>
 
             <div class="row">
-                <span>点评:</span>
-                <input type="text" v-model="form.note" /><br>
+                <div class="input">
+                    <span>点评:</span>
+                    <input type="text" v-model="form.note" /><br>
+                </div>
             </div>
 
             <div class="row" style="height: 200px;">
                 <div>
                     <span>offer截图:</span><br>
-                    <van-image width="150" height="150" :src="'http://localhost:8080/image/'+form.offerUrl" />
+                    <van-image width="150" height="150" :src="'http://localhost:80/image/'+form.offerUrl" />
                 </div>
             </div>
         </form>
