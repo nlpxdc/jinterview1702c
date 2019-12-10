@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="assets/css/vant.css">
+    <script src="assets/js/vconsole.min.js"></script>
+    <script>
+        var vConsole = new VConsole();
+    </script>
+    <title>登陆</title>
+</head>
+
+<body>
+
+    <div id="app">
+        <form :model="student">
+            <div class="row" align="center">
+            <img :src="student.avatarUrl" style="width: 100px; height: 100px;" />
+            </div>
+            <div class="row">
+            <van-cell title="真实姓名" type="text" v-model="student.realname" />
+            </div>
+            <div class="row">
+            <van-cell title="邮箱" type="text" v-model="student.email" />
+            </div>
+            <div class="row">
+            <van-cell title="手机号" type="text" v-model="student.mobile" />
+            </div>
+            <div class="row" align="center">
+            <van-button type="primary" center>我的面试</van-button>
+            </div>
+            </form>
+    </div>
+
+
+    <script src="assets/js/axios.min.js"></script>
+    <script src="assets/js/vue.js"></script>
+    <script src="assets/js/vant.min.js"></script>
+    <script src="viewmodels/Student.js"></script>
+
+</body>
+
+</html>

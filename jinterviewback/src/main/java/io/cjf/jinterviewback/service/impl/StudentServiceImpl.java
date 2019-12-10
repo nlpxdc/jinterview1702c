@@ -49,4 +49,9 @@ public class StudentServiceImpl implements StudentService {
     public Student getBystudentId(Integer studentId) {
         return studentMapper.selectByPrimaryKey(studentId);
     }
+
+    @Override
+    public Student selectByPrimaryKey(Integer studentId) {
+        return studentMapper.selectByPrimaryKey(studentId);
+    }
 }
