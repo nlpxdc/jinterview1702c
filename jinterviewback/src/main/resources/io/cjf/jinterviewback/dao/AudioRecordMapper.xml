@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.cjf.jinterviewback.dao.AudioRecordMapper">
+  <resultMap id="BaseResultMap" type="io.cjf.jinterviewback.po.AudioRecord">
+    <id column="audio_record_id" jdbcType="INTEGER" property="audioRecordId" />
+    <result column="interview_id" jdbcType="INTEGER" property="interviewId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="likes" jdbcType="INTEGER" property="likes" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="io.cjf.jinterviewback.po.AudioRecord">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    audio_record_id, interview_id, title, likes, url
+  </sql>
+
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from audio_record
+    where audio_record_id = #{audioRecordId,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from audio_record
+    where audio_record_id = #{audioRecordId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="io.cjf.jinterviewback.po.AudioRecord">
+    insert into audio_record (audio_record_id, interview_id, title, 
+      likes, url, content
+      )
+    values (#{audioRecordId,jdbcType=INTEGER}, #{interviewId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
+      #{likes,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+
+  <insert id="insertSelective" parameterType="io.cjf.jinterviewback.po.AudioRecord">
+    insert into audio_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="audioRecordId != null">
+        audio_record_id,
+      </if>
+      <if test="interviewId != null">
+        interview_id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="likes != null">
+        likes,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="audioRecordId != null">
+        #{audioRecordId,jdbcType=INTEGER},
+      </if>
+      <if test="interviewId != null">
+        #{interviewId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="likes != null">
+        #{likes,jdbcType=INTEGER},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="io.cjf.jinterviewback.po.AudioRecord">
+    update audio_record
+    <set>
+      <if test="interviewId != null">
+        interview_id = #{interviewId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="likes != null">
+        likes = #{likes,jdbcType=INTEGER},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where audio_record_id = #{audioRecordId,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="io.cjf.jinterviewback.po.AudioRecord">
+    update audio_record
+    set interview_id = #{interviewId,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      likes = #{likes,jdbcType=INTEGER},
+      url = #{url,jdbcType=VARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where audio_record_id = #{audioRecordId,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="io.cjf.jinterviewback.po.AudioRecord">
+    update audio_record
+    set interview_id = #{interviewId,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      likes = #{likes,jdbcType=INTEGER},
+      url = #{url,jdbcType=VARCHAR}
+    where audio_record_id = #{audioRecordId,jdbcType=INTEGER}
+  </update>
+
+
+  <select id="selectAudioRecordByid" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM `audio_record` WHERE interview_id=#{interviewId}
+  </select>
+<!--录音列表-->
+<!--  <select id="search" resultMap=" BaseResultMap" >-->
+<!--    SELECT a.*,s.`nickname`,i.`company` FROM audio_record a-->
+
+<!--    LEFT JOIN `interview` i ON a.interview_id=i.`interview_id`-->
+
+<!--    LEFT JOIN `student` s ON i.student_id=s.`student_id`-->
+<!--    <where>-->
+<!--      <if test="keyword !=null">-->
+<!--        keyword=#{audiorecordId}-->
+<!--      </if>-->
+<!--      <if test="keyword !=null">-->
+<!--        keyword=#{interviewId}-->
+<!--      </if>-->
+<!--      <if test="keyword !=null">-->
+<!--        keyword=#{company}-->
+<!--      </if>-->
+<!--      <if test="keyword !=null">-->
+<!--        keyword=#{student}-->
+<!--      </if>-->
+<!--      <if test="keyword !=null">-->
+<!--        keyword=#{likes}-->
+<!--      </if>-->
+<!--    </where>-->
+<!--  </select>-->
+
+  <select id="search" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from audio_record
+    where audio_record_id = #{audioRecordId,jdbcType=INTEGER}
+  </select>
+
+  <select id="getByid" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM `audio_record` WHERE audio_record_id=#{audiorecordId}
+  </select>
+</mapper>
