@@ -3,7 +3,8 @@ package io.cjf.jinterviewback.vo;
 public class StudentLoginVO {
 
     private Integer studentId;
-    private Byte status;
+    private String openid;
+
 
     public Integer getStudentId() {
         return studentId;
@@ -13,11 +14,11 @@ public class StudentLoginVO {
         this.studentId = studentId;
     }
 
-    public Byte getStatus() {
-        return status;
+    public String getOpenid() {
+        return openid;
     }
 
-    public void setStatus(Byte status) {
-        this.status = status;
+    public void setOpenid(String openid) {
+        this.openid = openid;
     }
 }

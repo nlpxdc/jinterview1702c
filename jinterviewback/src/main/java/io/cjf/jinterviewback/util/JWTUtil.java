@@ -43,7 +43,7 @@ public class JWTUtil {
                 .withSubject(student.getStudentId().toString())
                 .withIssuedAt(new Date())
                 .withExpiresAt(expireDate)
-                .withClaim("status", student.getStatus().toString())
+                .withClaim("openid", student.getOpenid())
                 .sign(algorithm);
 
         logger.info("jwt token: {}", token);
@@ -58,7 +58,7 @@ public class JWTUtil {
         DecodedJWT jwt = verifier.verify(token);
         final StudentLoginVO studentLoginVO = new StudentLoginVO();
         studentLoginVO.setStudentId(Integer.parseInt(jwt.getSubject()));
-        studentLoginVO.setStatus(Byte.parseByte(jwt.getClaim("status").asString()));
+        studentLoginVO.setOpenid(jwt.getClaim("openid").asString());
         return studentLoginVO;
     }
 }

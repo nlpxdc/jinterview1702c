@@ -3,6 +3,8 @@ package io.cjf.jinterviewback.filter;
 import io.cjf.jinterviewback.constant.ClientExceptionConstant;
 import io.cjf.jinterviewback.enumeration.StudentStatus;
 import io.cjf.jinterviewback.exception.ClientRuntimeException;
+import io.cjf.jinterviewback.po.Student;
+import io.cjf.jinterviewback.service.StudentService;
 import io.cjf.jinterviewback.util.JWTUtil;
 import io.cjf.jinterviewback.vo.StudentLoginVO;
 import org.slf4j.Logger;
@@ -24,33 +26,30 @@ public class LoginFilter implements Filter {
     @Autowired
     private JWTUtil jwtUtil;
 
-    @Value("${jwt.verify.enable}")
-    private Boolean jwtVerifyEnable;
-
     @Value("${jwt.exclude.apiUrls}")
     private Set<String> excludeLoginApiUrls;
-
-    @Value("${student-activate.enable}")
-    private Boolean studentActivateEnable;
 
     @Value("${student-activate.exclude.apiUrls}")
     private Set<String> excludeSutdentActivateApiUrls;
 
+    @Autowired
+    private StudentService studentService;
+
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 
-        HttpServletRequest request = (HttpServletRequest)servletRequest;
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
         final String requestURI = request.getRequestURI();
         final String method = request.getMethod();
         logger.info("request uri: {} {}", method, requestURI);
 
         //skip ajax cross origin preflight request
-        if (method.equals("OPTIONS")){
+        if (method.equals("OPTIONS")) {
             filterChain.doFilter(servletRequest, servletResponse);
             return;
         }
 
-        if (excludeLoginApiUrls.contains(requestURI)){
+        if (excludeLoginApiUrls.contains(requestURI)) {
             filterChain.doFilter(servletRequest, servletResponse);
             return;
         }
@@ -59,26 +58,19 @@ public class LoginFilter implements Filter {
 
         logger.info("verify login with token: {}", token);
 
-        if (jwtVerifyEnable){
-            final StudentLoginVO studentLoginVO = jwtUtil.verifyToken(token);
-            request.setAttribute("studentId", studentLoginVO.getStudentId());
-            request.setAttribute("studentStatus", studentLoginVO.getStatus());
-        }else {
-            logger.warn("jwt verify disabled!!!");
-        }
+        StudentLoginVO studentLoginVO = null;
+        studentLoginVO = jwtUtil.verifyToken(token);
+        request.setAttribute("studentId", studentLoginVO.getStudentId());
+        request.setAttribute("openid", studentLoginVO.getOpenid());
 
-        if (excludeSutdentActivateApiUrls.contains(requestURI)){
+        if (excludeSutdentActivateApiUrls.contains(requestURI)) {
             filterChain.doFilter(servletRequest, servletResponse);
             return;
         }
 
-        if (studentActivateEnable){
-            final Object studentStatus = (byte)request.getAttribute("studentStatus");
-            if (studentStatus == StudentStatus.NotActivate){
-                throw new ClientRuntimeException(ClientExceptionConstant.STUDENT_NOT_ACTIVATE_ERRCODE, ClientExceptionConstant.STUDENT_NOT_ACTIVATE_ERRMSG);
-            }
-        }else {
-            logger.warn("student activate disabled");
+        final Student student = studentService.getBystudentId(studentLoginVO.getStudentId());
+        if (student.getStatus() == StudentStatus.NotActivate.ordinal()) {
+            throw new ClientRuntimeException(ClientExceptionConstant.STUDENT_NOT_ACTIVATE_ERRCODE, ClientExceptionConstant.STUDENT_NOT_ACTIVATE_ERRMSG);
         }
 
         filterChain.doFilter(servletRequest, servletResponse);

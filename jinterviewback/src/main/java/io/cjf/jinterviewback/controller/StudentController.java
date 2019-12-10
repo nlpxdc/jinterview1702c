@@ -97,7 +97,7 @@ public class StudentController {
 
         final String captchaOirigin = studentCaptchaMap.get(studentId);
 
-        if(!captcha.equals(captchaOirigin)){
+        if(!captcha.equalsIgnoreCase(captchaOirigin)){
             throw new ClientException(ClientExceptionConstant.CAPTCHA_INVALID_ERRCODE, ClientExceptionConstant.CAPTCHA_INVALID_ERRMSG);
         }else {
             studentService.activateStudent(studentId);
