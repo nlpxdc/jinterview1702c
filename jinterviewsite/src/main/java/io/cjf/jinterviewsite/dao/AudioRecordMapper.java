@@ -1,6 +1,9 @@
 package io.cjf.jinterviewsite.dao;
 
+import com.alibaba.fastjson.JSONObject;
 import io.cjf.jinterviewsite.po.AudioRecord;
+
+import java.util.List;
 
 public interface AudioRecordMapper {
     int deleteByPrimaryKey(Integer audioRecordId);
@@ -18,4 +21,7 @@ public interface AudioRecordMapper {
     int updateByPrimaryKey(AudioRecord record);
 
     AudioRecord selectAudioRecordByid(Integer interviewId);
+    List search(String keyword, Long time);
+
+    AudioRecord getByid(Integer audiorecordId);
 }

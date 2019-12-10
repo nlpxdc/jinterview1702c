@@ -14,9 +14,12 @@
   <sql id="Base_Column_List">
     audio_record_id, interview_id, title, likes, url
   </sql>
+
   <sql id="Blob_Column_List">
     content
   </sql>
+
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />
@@ -25,10 +28,12 @@
     from audio_record
     where audio_record_id = #{audioRecordId,jdbcType=INTEGER}
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from audio_record
     where audio_record_id = #{audioRecordId,jdbcType=INTEGER}
   </delete>
+
   <insert id="insert" parameterType="io.cjf.jinterviewsite.po.AudioRecord">
     insert into audio_record (audio_record_id, interview_id, title, 
       likes, url, content
@@ -37,6 +42,7 @@
       #{likes,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR}
       )
   </insert>
+
   <insert id="insertSelective" parameterType="io.cjf.jinterviewsite.po.AudioRecord">
     insert into audio_record
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -80,6 +86,7 @@
       </if>
     </trim>
   </insert>
+
   <update id="updateByPrimaryKeySelective" parameterType="io.cjf.jinterviewsite.po.AudioRecord">
     update audio_record
     <set>
@@ -101,6 +108,7 @@
     </set>
     where audio_record_id = #{audioRecordId,jdbcType=INTEGER}
   </update>
+
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="io.cjf.jinterviewsite.po.AudioRecord">
     update audio_record
     set interview_id = #{interviewId,jdbcType=INTEGER},
@@ -110,6 +118,7 @@
       content = #{content,jdbcType=LONGVARCHAR}
     where audio_record_id = #{audioRecordId,jdbcType=INTEGER}
   </update>
+
   <update id="updateByPrimaryKey" parameterType="io.cjf.jinterviewsite.po.AudioRecord">
     update audio_record
     set interview_id = #{interviewId,jdbcType=INTEGER},
@@ -119,9 +128,41 @@
     where audio_record_id = #{audioRecordId,jdbcType=INTEGER}
   </update>
 
+
   <select id="selectAudioRecordByid" resultMap="BaseResultMap">
     SELECT
     <include refid="Base_Column_List" />
     FROM `audio_record` WHERE interview_id=#{interviewId}
+  </select>
+<!--录音列表-->
+  <select id="search" resultMap=" BaseResultMap" >
+    SELECT a.*,s.`nickname`,i.`company` FROM audio_record a
+
+    LEFT JOIN `interview` i ON a.interview_id=i.`interview_id`
+
+    LEFT JOIN `student` s ON i.student_id=s.`student_id`
+    <where>
+      <if test="keyword !=null">
+        keyword=#{audiorecordId}
+      </if>
+      <if test="keyword !=null">
+        keyword=#{interviewId}
+      </if>
+      <if test="keyword !=null">
+        keyword=#{company}
+      </if>
+      <if test="keyword !=null">
+        keyword=#{student}
+      </if>
+      <if test="keyword !=null">
+        keyword=#{likes}
+      </if>
+    </where>
+  </select>
+
+  <select id="getByid" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM `audio_record` WHERE audio_record_id=#{audiorecordId}
   </select>
 </mapper>
