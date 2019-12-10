@@ -1,8 +1,7 @@
 package io.cjf.jinterviewback.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import io.cjf.jinterviewback.dto.AudioRecordDto;
-import io.cjf.jinterviewback.po.AudioRecord;
+import io.cjf.jinterviewback.dto.AudioRecordDTO;
 import io.cjf.jinterviewback.service.AudioRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +28,7 @@ public class AudioRecordController {
     public List<JSONObject> search(@RequestParam(required = false) String keyword,
                                    @RequestParam(required = false) Long time){
 
-        List<AudioRecordDto> list=audioRecordService.search(keyword,time);
+        List<AudioRecordDTO> list=audioRecordService.search(keyword,time);
         List<JSONObject> audio=list.stream().map(t->{
             JSONObject jsonObject=new JSONObject();
             jsonObject.put("audiorecordId",t.getAudiorecordId());
@@ -50,7 +49,7 @@ public class AudioRecordController {
     public JSONObject getById(@RequestParam Integer audiorecordId){
 
         JSONObject jsonObject = new JSONObject();
-        AudioRecordDto audioRecord=audioRecordService.getByid(audiorecordId);
+        AudioRecordDTO audioRecord=audioRecordService.getByid(audiorecordId);
 
         jsonObject.put("audiorecordId",audioRecord.getAudiorecordId());
         jsonObject.put("title",audioRecord.getInterviewId());

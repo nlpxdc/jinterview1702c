@@ -1,26 +1,18 @@
 var app = new Vue({
     el: '#app',
     data: {
-        token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0IiwiaXNzIjoiMTcwMmMiLCJleHAiOjE1NzU5NDIzNDgsImlhdCI6MTU3NTkzNTE0OCwic3RhdHVzIjoiMCJ9.KN7ZhDHhLoiqIaa5UdPxhd4PeotknLc28DU4H8yrqpo",
         mobile: "",
         captcha: "",
         studentId: 1,
-
-
         showbtn: true,
         showbtnn: false,
         code_ts: '',
         sec: 60,
-
-
-
-
-
-
-
+    },
+    mounted() {
+        console.log('view mounted');
     },
     methods: {
-
         send() {
             var timer = setInterval(() => {
 
@@ -75,10 +67,5 @@ var app = new Vue({
                 });
 
         }
-    },
-    mounted() {
-
-    },
-
-
+    }
 });

@@ -41,10 +41,10 @@ public class LoginFilter implements Filter {
 
         HttpServletRequest request = (HttpServletRequest)servletRequest;
         final String requestURI = request.getRequestURI();
-        logger.info("request uri: {}", requestURI);
+        final String method = request.getMethod();
+        logger.info("request uri: {} {}", method, requestURI);
 
         //skip ajax cross origin preflight request
-        final String method = request.getMethod();
         if (method.equals("OPTIONS")){
             filterChain.doFilter(servletRequest, servletResponse);
             return;

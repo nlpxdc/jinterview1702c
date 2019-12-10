@@ -1,8 +1,6 @@
 package io.cjf.jinterviewback.dto;
 
-import java.util.Date;
-
-public class AudioRecordDto {
+public class AudioRecordDTO {
     private Integer   audiorecordId;
     private  Integer  interviewId;
     private  String company;
