@@ -11,4 +11,6 @@ public interface StudentService {
     void activateStudent(Integer studentId);
 
     Student getBystudentId(Integer studentId);
+
+    Student selectByPrimaryKey(Integer studentId);
 }

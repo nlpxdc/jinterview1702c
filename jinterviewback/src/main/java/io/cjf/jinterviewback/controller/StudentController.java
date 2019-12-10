@@ -106,7 +106,15 @@ public class StudentController {
     }
 
     @GetMapping("/getBasicInfo")
-    public JSONObject getBasicInfo(){
-        return null;
+    public JSONObject getBasicInfo(@RequestParam Integer studentId){
+        JSONObject studentJson = new JSONObject();
+        Student student = studentService.selectByPrimaryKey(studentId);
+        studentJson.put("studentId",student.getStudentId());
+        studentJson.put("realname",student.getRealname());
+        studentJson.put("mobile",student.getMobile());
+        studentJson.put("email",student.getEmail());
+        studentJson.put("avatarUrl",student.getAvatarUrl());
+        boolean a = false;
+        return studentJson;
     }
 }

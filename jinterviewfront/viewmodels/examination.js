@@ -23,38 +23,37 @@ var app = new Vue({
         onLoad() {
             // 异步更新数据
             setTimeout(() => {
-                // for (let i = 0; i < 10; i++) {
-                //     this.list.push(this.list.length + 1);
-
-
-                // }
+               
                 var time=null;
                 console.log(this.listexam.length);
                 if(this.listexam.length>0){
                    var times=((this.listexam[this.listexam.length-1].time));
-                   time=  (new Date(times).getTime()+'');              
-                    console.log(time);                  
+                   time=  (new Date(times).getTime()+'').substring(0,10);              
+                              
                 }else{
                     time=(new Date().getTime()+'').substring(0,10);                  
-                    console.log(time);                           
+                                             
                 }
-                axios.get("http://192.168.137.1/exam/search", {
+                console.log(time);
+                axios.get("http://192.168.137.1:8080/exam/search", {
                     params: {
                         keyword: this.keyword,
                         time: time,
                     }
                 })
                     .then(function (response) {
+                        app.list=[];
                     
                         app.list = response.data;
-                        console.log(app.list);
-                        if (app.list.length == 0) {
-                            app.finished = true;
-                        }
+                       
+                      
 
                         app.list.forEach(list => {
                             app.listexam.push(list);
                         });
+                        if (app.list.length<4) {
+                            app.finished = true;
+                        }
                        
                         console.log("111111")
                         console.log(app.listexam);
@@ -71,7 +70,7 @@ var app = new Vue({
                 // if (app.list.length == 0) {
                 //     app.finished = true;
                 // }
-            }, 1000);
+            }, 2000);
         }
     }
 });
