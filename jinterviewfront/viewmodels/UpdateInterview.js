@@ -31,7 +31,7 @@ var app = new Vue({
     methods: {
 
         getInterviewById() {
-            axios.get('http://localhost:80/interview/getById', {
+            axios.get('/interview/getById', {
                 params: {
                     interviewId: this.interviewId
                 }
@@ -54,7 +54,7 @@ var app = new Vue({
 
 
         updateinterview() {
-            axios.post('http://localhost:80/interview/update', {
+            axios.post('/interview/update', {
                 interviewId: this.interviewId,
                 company: this.company,
                 address: this.address,
