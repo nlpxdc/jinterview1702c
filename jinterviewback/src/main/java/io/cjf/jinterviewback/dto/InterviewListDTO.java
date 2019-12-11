@@ -52,7 +52,7 @@ public class InterviewListDTO {
         this.status = status;
     }
 
-    @JsonIgnore
+//    @JsonIgnore
     public Date getTime() {
         return time;
     }

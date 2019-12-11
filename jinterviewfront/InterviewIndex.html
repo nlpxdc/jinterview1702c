@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="assets/css/vant.css">
+    <script src="assets/js/vconsole.min.js"></script>
+    <script>
+        var vConsole = new VConsole();
+    </script>
+    <title>InterviewIndex</title>
+</head>
+
+<body>
+
+    <div id="app">
+
+        <van-field v-model="keyword" placeholder="请输入关键字"></van-field>
+
+        <van-switch v-model="onlyme"></van-switch>
+
+        <van-button type="primary" @click="handleSearchClick">查询</van-button>
+
+        <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad" :offset="0">
+            <van-cell v-for="interview in interviews" :key="interview.interviewId" :title="interview.company"
+                :value="interview.time"></van-cell>
+        </van-list>
+    </div>
+
+
+    <script src="assets/js/axios.min.js"></script>
+    <script src="assets/js/common.js"></script>
+    <script src="assets/js/vue.js"></script>
+    <script src="assets/js/vant.min.js"></script>
+    <script src="viewmodels/InterviewIndex.js"></script>
+
+</body>
+
+</html>

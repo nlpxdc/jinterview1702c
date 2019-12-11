@@ -191,7 +191,7 @@
         and i.company like CONCAT('%',#{keyword},'%')
       </if>
     </where>
-    order by i.interview_time desc limit 2
+    order by i.interview_time desc limit 10
 
   </select>
 </mapper>
