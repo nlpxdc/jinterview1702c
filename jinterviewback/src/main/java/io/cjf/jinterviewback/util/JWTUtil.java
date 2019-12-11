@@ -2,8 +2,12 @@ package io.cjf.jinterviewback.util;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
+import io.cjf.jinterviewback.constant.ClientExceptionConstant;
+import io.cjf.jinterviewback.exception.ClientForbiddenException;
+import io.cjf.jinterviewback.exception.ClientUnauthorizedException;
 import io.cjf.jinterviewback.po.Student;
 import io.cjf.jinterviewback.vo.StudentLoginVO;
 import org.slf4j.Logger;
@@ -55,7 +59,13 @@ public class JWTUtil {
         JWTVerifier verifier = JWT.require(algorithm)
                 .withIssuer(issuer)
                 .build();
-        DecodedJWT jwt = verifier.verify(token);
+        DecodedJWT jwt;
+        try {
+            jwt = verifier.verify(token);
+        }catch (JWTVerificationException exception){
+            throw new ClientUnauthorizedException(ClientExceptionConstant.TOKEN_INVALID_ERRCODE, exception.getMessage());
+        }
+
         final StudentLoginVO studentLoginVO = new StudentLoginVO();
         studentLoginVO.setStudentId(Integer.parseInt(jwt.getSubject()));
         studentLoginVO.setOpenid(jwt.getClaim("openid").asString());

@@ -1,9 +1,6 @@
 package io.cjf.jinterviewback.controller;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/test")
@@ -11,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 
     @GetMapping("/hello")
-    public String hello() {
+    public String hello(@RequestParam(required = false) String pp) {
         return "aaa";
     }
 }
