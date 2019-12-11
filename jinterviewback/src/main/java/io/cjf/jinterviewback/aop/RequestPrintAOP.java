@@ -1,5 +1,6 @@
 package io.cjf.jinterviewback.aop;
 
+import com.alibaba.fastjson.JSON;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -15,7 +16,7 @@ public class RequestPrintAOP {
 
     @Before("execution(public * io.cjf.jinterviewback.controller.*.*(..))")
     public void beforeApi(JoinPoint joinPoint){
-        logger.info("api args: {}", joinPoint.getArgs());
+        logger.info("api args: {}", JSON.toJSONString(joinPoint.getArgs()));
     }
 
 }
