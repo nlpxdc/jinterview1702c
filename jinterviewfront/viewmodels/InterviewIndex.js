@@ -11,6 +11,13 @@ var app = new Vue({
     mounted() {
         console.log('view mounted');
     },
+    watch:{
+        onlyme(){
+            this.time = '';
+            this.interviews = [];
+            this.searchInterview();
+        }
+    },
     methods: {
         onLoad() {
             console.log('on load');
