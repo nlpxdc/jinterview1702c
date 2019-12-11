@@ -8,6 +8,7 @@ import io.cjf.jinterviewback.po.Student;
 import io.cjf.jinterviewback.service.StudentService;
 import io.cjf.jinterviewback.util.JWTUtil;
 import io.cjf.jinterviewback.vo.StudentLoginVO;
+import org.apache.http.HttpStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Set;
 
@@ -40,6 +42,8 @@ public class LoginFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 
         HttpServletRequest request = (HttpServletRequest) servletRequest;
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
+
         final String requestURI = request.getRequestURI();
         final String method = request.getMethod();
         logger.info("request uri: {} {}", method, requestURI);
@@ -57,7 +61,9 @@ public class LoginFilter implements Filter {
 
         final String token = request.getHeader("jinterviewToken");
         if (token == null || token.isEmpty()){
-            throw new ClientUnauthorizedException(ClientExceptionConstant.TOKEN_NOT_EXIST_ERRCODE, ClientExceptionConstant.TOKEN_NOT_EXIST_ERRMSG);
+//            throw new ClientUnauthorizedException(ClientExceptionConstant.TOKEN_NOT_EXIST_ERRCODE, ClientExceptionConstant.TOKEN_NOT_EXIST_ERRMSG);
+            response.setStatus(HttpStatus.SC_UNAUTHORIZED);
+            return;
         }
 
         logger.info("verify login with token: {}", token);
@@ -74,7 +80,9 @@ public class LoginFilter implements Filter {
 
         final Student student = studentService.getBystudentId(studentLoginVO.getStudentId());
         if (student.getStatus() == StudentStatus.NotActivate.ordinal()) {
-            throw new ClientForbiddenException(ClientExceptionConstant.STUDENT_NOT_ACTIVATE_ERRCODE, ClientExceptionConstant.STUDENT_NOT_ACTIVATE_ERRMSG);
+            response.setStatus(HttpStatus.SC_FORBIDDEN);
+            return;
+//            throw new ClientForbiddenException(ClientExceptionConstant.STUDENT_NOT_ACTIVATE_ERRCODE, ClientExceptionConstant.STUDENT_NOT_ACTIVATE_ERRMSG);
         }
 
         filterChain.doFilter(servletRequest, servletResponse);
