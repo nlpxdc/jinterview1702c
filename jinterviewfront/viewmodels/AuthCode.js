@@ -29,8 +29,8 @@ var app = new Vue({
                     alert('登陆成功');
                 })
                 .catch(function (error) {
-                    console.log(error);
-                    alert('登陆失败');
+                    console.error(error);
+                    alert(error.response.data.message);
                 });
         }
     }

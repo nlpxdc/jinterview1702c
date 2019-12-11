@@ -36,8 +36,8 @@ var app = new Vue({
                     alert('发送成功');
                 })
                 .catch(function (error) {
-                    console.log(error);
-                    alert('发送失败');
+                    console.error(error);
+                    alert(error.response.data.message);
                 });
         },
         submit() {
@@ -57,8 +57,8 @@ var app = new Vue({
                     alert("激活成功")
                 })
                 .catch(function (error) {
-                    console.log(error);
-                    alert('激活失败');
+                    console.error(error);
+                    alert(error.response.data.message);
                 });
 
         }
