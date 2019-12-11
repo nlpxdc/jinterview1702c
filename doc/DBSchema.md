@@ -22,7 +22,7 @@
 | address  | varchar(200)  | 非空 | 公司地址  |
 | interview_time  | datetime  | 非空 索引  | 面试时间  |
 | create_time  | datetime  |  非空 | 创建时间  |
-| status  | tinyint  | 非空 默认0  | 状态（待面试0，Offer1，等通知2，凉凉3，取消4）  |
+| status  | tinyint  | 非空 默认0  | 状态（待面试0，Offer1，等通知2，凉凉3，复试4，取消5）  |
 | stars  | tinyint  |   | 评星  |
 | note  | varchar(500)  |   | 备注  |
 | offer_url  | varchar(300)  |   | offer url  |

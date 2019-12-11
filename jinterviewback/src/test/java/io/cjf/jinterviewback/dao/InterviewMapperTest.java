@@ -30,7 +30,7 @@ class InterviewMapperTest {
 
     @Test
     void search() {
-        Integer studentId = 1;
+        Integer studentId = null;
         Date time = null;
         String keyword = "";
         final List<InterviewListDTO> interviewListDTOS = interviewMapper.search(keyword, studentId, time);

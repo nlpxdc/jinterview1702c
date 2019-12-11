@@ -40,7 +40,7 @@ public class InterviewServiceImpl implements InterviewService {
     }
 
     @Override
-    public List<InterviewListDTO> search(String keyword, Integer studentId, Date l) {
-        return interviewMapper.search(keyword,studentId,l);
+    public List<InterviewListDTO> search(String keyword, Integer studentId, Date time) {
+        return interviewMapper.search(keyword, studentId, time);
     }
 }

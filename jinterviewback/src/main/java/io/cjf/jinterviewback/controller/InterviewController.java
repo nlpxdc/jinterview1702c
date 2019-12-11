@@ -73,21 +73,15 @@ public class InterviewController {
     @GetMapping("/search")
     public List<InterviewListDTO> search(@RequestParam(required = false) String keyword,
                                          @RequestParam(required = false, defaultValue = "false") Boolean onlyme,
-                                         @RequestParam(required = false) Long time,@RequestAttribute Integer studentId){
-        List<InterviewListDTO> search=new ArrayList<InterviewListDTO>();
-        Date date = new Date(time);
-        if(onlyme){
-            search = interviewService.search(keyword, studentId, date);
-            return search;
-        }
-        studentId=null;
-        search = interviewService.search(keyword, studentId, date);
+                                         @RequestParam(required = false) Long time,
+                                         @RequestAttribute Integer studentId){
 
+        Integer studentIdDB = (onlyme ? studentId : null);
+        Date date = (time == null ? null : new Date(time));
 
-        return search;
+        List<InterviewListDTO> interviews = interviewService.search(keyword, studentIdDB, date);
 
-
-
+        return interviews;
     }
 
     @PostMapping("/create")

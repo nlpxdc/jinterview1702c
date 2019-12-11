@@ -16,5 +16,5 @@ public interface InterviewService {
 
     List getInterviewCount();
 
-    List<InterviewListDTO> search(String keyword, Integer studentId, Date l);
+    List<InterviewListDTO> search(String keyword, Integer studentId, Date time);
 }
