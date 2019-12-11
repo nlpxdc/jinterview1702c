@@ -1,11 +1,11 @@
 var app = new Vue({
     el: '#app',
     data: {
-        studentname:"",
+        
         show:true,
         onlyme:false,
         keyword:'',
-       
+        lists:[],
         loading:false,
         finished:false,
         list:[]
@@ -13,13 +13,11 @@ var app = new Vue({
     methods: {
         onLoad(){
             setTimeout(() => {
-                console.log(111);
+               
                 var time=null;
                 if(this.list.length>0){
                     var longtime=this.list[this.list.length-1].time;
-                     time=new Date(longtime).getTime();
-                     console.log(time);
-                  
+                     time=new Date(longtime).getTime();    
                 }else{
                      time=new Date().getTime();
                 }
@@ -30,27 +28,24 @@ var app = new Vue({
             },2000)
             
         },
-        onClickLeft(){
-            
-        },
-        onClickRight(){
-
-        },
-        getInterviews(time){
         
-            
+       
+        getInterviews(time){  
+          
            axios.get("/interview/search",{params:
             {"keyword":this.keyword,"onlyme":this.onlyme,"time":time}})
            .then(res => {
-                    var lists=res.data;
-                    if(lists.length<3){
+               console.log(res);
+                    this.lists=res.data;
+                    console.log(this.lists.length);
+                    if(this.lists.length<2){
                         this.finished=true;
                     }
-                    lists.forEach(element => {
+                    this.lists.forEach(element => {
                         this.list.push(element);
                     });
                     
-                    console.log(this.list);
+                    
            })
            .catch(err => {
                console.error(err); 
@@ -58,7 +53,7 @@ var app = new Vue({
         }
     },
     mounted () {
-       
+      
     }
 
 });
