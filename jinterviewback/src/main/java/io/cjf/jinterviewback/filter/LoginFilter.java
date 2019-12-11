@@ -2,7 +2,8 @@ package io.cjf.jinterviewback.filter;
 
 import io.cjf.jinterviewback.constant.ClientExceptionConstant;
 import io.cjf.jinterviewback.enumeration.StudentStatus;
-import io.cjf.jinterviewback.exception.ClientRuntimeException;
+import io.cjf.jinterviewback.exception.ClientForbiddenException;
+import io.cjf.jinterviewback.exception.ClientUnauthorizedException;
 import io.cjf.jinterviewback.po.Student;
 import io.cjf.jinterviewback.service.StudentService;
 import io.cjf.jinterviewback.util.JWTUtil;
@@ -55,6 +56,9 @@ public class LoginFilter implements Filter {
         }
 
         final String token = request.getHeader("jinterviewToken");
+        if (token == null || token.isEmpty()){
+            throw new ClientUnauthorizedException(ClientExceptionConstant.TOKEN_NOT_EXIST_ERRCODE, ClientExceptionConstant.TOKEN_NOT_EXIST_ERRMSG);
+        }
 
         logger.info("verify login with token: {}", token);
 
@@ -70,7 +74,7 @@ public class LoginFilter implements Filter {
 
         final Student student = studentService.getBystudentId(studentLoginVO.getStudentId());
         if (student.getStatus() == StudentStatus.NotActivate.ordinal()) {
-            throw new ClientRuntimeException(ClientExceptionConstant.STUDENT_NOT_ACTIVATE_ERRCODE, ClientExceptionConstant.STUDENT_NOT_ACTIVATE_ERRMSG);
+            throw new ClientForbiddenException(ClientExceptionConstant.STUDENT_NOT_ACTIVATE_ERRCODE, ClientExceptionConstant.STUDENT_NOT_ACTIVATE_ERRMSG);
         }
 
         filterChain.doFilter(servletRequest, servletResponse);

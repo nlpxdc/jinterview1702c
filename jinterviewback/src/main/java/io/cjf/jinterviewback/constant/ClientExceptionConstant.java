@@ -10,5 +10,9 @@ public class ClientExceptionConstant {
     public static final String MOBILE_NOT_EXIST_ERRMSG = "mobile not exist";
     public static final String CAPTCHA_INVALID_ERRCODE = "0004";
     public static final String CAPTCHA_INVALID_ERRMSG = "captcha invalid";
+    public static final String TOKEN_INVALID_ERRCODE = "0005";
+    public static final String TOKEN_INVALID_ERRMSG = "token invalid";
+    public static final String TOKEN_NOT_EXIST_ERRCODE = "0006";
+    public static final String TOKEN_NOT_EXIST_ERRMSG = "token not exist";
 
 }
