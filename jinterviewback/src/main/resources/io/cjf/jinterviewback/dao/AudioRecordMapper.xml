@@ -9,7 +9,7 @@
     <result column="url" jdbcType="VARCHAR" property="url" />
   </resultMap>
 
-  <resultMap id="BasedtoMap" type="io.cjf.jinterviewsite.dto.AudioRecordDto">
+  <resultMap id="BasedtoMap" type="io.cjf.jinterviewback.dto.AudioRecordDTO">
     <id column="audio_record_id" jdbcType="INTEGER" property="audiorecordId" />
     <result column="interview_id" jdbcType="INTEGER" property="interviewId" />
     <result column="company" jdbcType="VARCHAR" property="company" />

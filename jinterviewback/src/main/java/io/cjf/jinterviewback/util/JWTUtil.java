@@ -60,11 +60,7 @@ public class JWTUtil {
                 .withIssuer(issuer)
                 .build();
         DecodedJWT jwt;
-        try {
-            jwt = verifier.verify(token);
-        }catch (JWTVerificationException exception){
-            throw new ClientUnauthorizedException(ClientExceptionConstant.TOKEN_INVALID_ERRCODE, exception.getMessage());
-        }
+        jwt = verifier.verify(token);
 
         final StudentLoginVO studentLoginVO = new StudentLoginVO();
         studentLoginVO.setStudentId(Integer.parseInt(jwt.getSubject()));

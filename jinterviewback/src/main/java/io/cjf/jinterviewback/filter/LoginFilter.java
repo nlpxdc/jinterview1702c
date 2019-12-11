@@ -1,5 +1,6 @@
 package io.cjf.jinterviewback.filter;
 
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import io.cjf.jinterviewback.constant.ClientExceptionConstant;
 import io.cjf.jinterviewback.enumeration.StudentStatus;
 import io.cjf.jinterviewback.po.Student;
@@ -71,7 +72,13 @@ public class LoginFilter implements Filter {
         logger.info("verify login with token: {}", token);
 
         StudentLoginVO studentLoginVO = null;
-        studentLoginVO = jwtUtil.verifyToken(token);
+        try {
+            studentLoginVO = jwtUtil.verifyToken(token);
+        }catch (JWTVerificationException ex){
+            clientExceptionUtil.handle(response, HttpStatus.SC_UNAUTHORIZED, ex.getMessage());
+            return;
+        }
+
         request.setAttribute("studentId", studentLoginVO.getStudentId());
         request.setAttribute("openid", studentLoginVO.getOpenid());
 

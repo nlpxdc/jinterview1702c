@@ -4,6 +4,7 @@ var app = new Vue({
         loading: false,
         finished: false,
         keyword: '',
+        originKeyword: '',
         onlyme: false,
         time: '',
         interviews: []
@@ -11,8 +12,8 @@ var app = new Vue({
     mounted() {
         console.log('view mounted');
     },
-    watch:{
-        onlyme(){
+    watch: {
+        onlyme() {
             this.time = '';
             this.interviews = [];
             this.searchInterview();
@@ -26,6 +27,7 @@ var app = new Vue({
             this.searchInterview();
         },
         searchInterview() {
+            this.originKeyword = this.keyword;
             axios.get('/interview/search', {
                 params: {
                     keyword: this.keyword,
@@ -42,10 +44,16 @@ var app = new Vue({
                 })
                 .catch(function (error) {
                     console.error(error);
+                    alert('错误请检查');
                 });
         },
         handleSearchClick() {
             console.log('search click');
+            if (this.keyword !== this.originKeyword) {
+                this.time = '';
+                this.interviews = [];
+                this.searchInterview();
+            }
         }
     }
 });
