@@ -74,7 +74,7 @@ ResponseBody:
         "company": "华为",
         "studentId": 234,
         "studentName": "cjf",
-        "time": 1575448390345,
+        "timestamp": 1575448390345,
         "status": 1
     },
     {
@@ -82,7 +82,7 @@ ResponseBody:
         "company": "华为",
         "studentId": 234,
         "studentName": "cjf",
-        "time": 1575448390345,
+        "timestamp": 1575448390345,
         "status": 1
     }
 ]

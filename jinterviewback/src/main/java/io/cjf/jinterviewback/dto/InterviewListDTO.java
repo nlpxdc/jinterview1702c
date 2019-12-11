@@ -1,5 +1,7 @@
 package io.cjf.jinterviewback.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 
 public class InterviewListDTO {
@@ -50,8 +52,13 @@ public class InterviewListDTO {
         this.status = status;
     }
 
+    @JsonIgnore
     public Date getTime() {
         return time;
+    }
+
+    public Long getTimestamp(){
+        return this.time.getTime();
     }
 
     public void setTime(Date time) {
