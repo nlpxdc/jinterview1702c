@@ -27,11 +27,11 @@ class WechatApiTest {
     @Value("${wechat.appSecret}")
     private String secret;
 
-    @Value("${wechat.user.authcode}")
+    @Value("${testcase.wechat.user.authcode}")
     private String code;
     private String grant_type = "authorization_code";
 
-    @Value("${wechat.user.access_token}")
+    @Value("${testcase.wechat.user.access_token}")
     private String access_token;
 
     @BeforeEach

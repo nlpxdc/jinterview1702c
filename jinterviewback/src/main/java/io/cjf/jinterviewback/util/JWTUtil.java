@@ -2,12 +2,8 @@ package io.cjf.jinterviewback.util;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
-import io.cjf.jinterviewback.constant.ClientExceptionConstant;
-import io.cjf.jinterviewback.exception.ClientForbiddenException;
-import io.cjf.jinterviewback.exception.ClientUnauthorizedException;
 import io.cjf.jinterviewback.po.Student;
 import io.cjf.jinterviewback.vo.StudentLoginVO;
 import org.slf4j.Logger;
