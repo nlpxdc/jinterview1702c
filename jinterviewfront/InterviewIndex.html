@@ -19,9 +19,11 @@
 
         <van-field v-model="keyword" placeholder="请输入关键字"></van-field>
 
-        <van-switch v-model="onlyme"></van-switch>
+        只看自己：<van-switch v-model="onlyme"></van-switch>
+        <br>
 
         <van-button type="primary" @click="handleSearchClick">查询</van-button>
+        <br>
 
         <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad" :offset="0">
             <van-cell v-for="interview in interviews" :key="interview.interviewId" :title="interview.company"

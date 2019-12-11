@@ -5,24 +5,17 @@ var app = new Vue({
         finished: false,
         keyword: '',
         onlyme: false,
+        time: '',
         interviews: []
-    },
-    computed: {
-        lastInterview() {
-            return this.interviews.length === 0 ? [] : this.interviews[this.interviews.length - 1];
-        },
-        time(){
-            return this.interviews.length === 0 ? '' : this.lastInterview.timestamp;
-        }
     },
     mounted() {
         console.log('view mounted');
-        this.searchInterview();
     },
     methods: {
         onLoad() {
             console.log('on load');
-            this.time = this.lastInterview.timestamp;
+            const lastInterview = this.interviews.length ? this.interviews[this.interviews.length - 1] : '';
+            this.time = lastInterview ? lastInterview.timestamp : '';
             this.searchInterview();
         },
         searchInterview() {
@@ -38,6 +31,7 @@ var app = new Vue({
                     var newInterviews = response.data;
                     app.interviews = app.interviews.concat(newInterviews);
                     app.loading = false;
+                    app.finished = newInterviews < 10;
                 })
                 .catch(function (error) {
                     console.error(error);
