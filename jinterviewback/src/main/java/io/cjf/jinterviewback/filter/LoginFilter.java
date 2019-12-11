@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 
@@ -22,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Set;
 
+@Order(3)
 @Component
 public class LoginFilter implements Filter {
 
@@ -51,12 +53,6 @@ public class LoginFilter implements Filter {
         final String requestURI = request.getRequestURI();
         final String method = request.getMethod();
         logger.info("request uri: {} {}", method, requestURI);
-
-        //skip ajax cross origin preflight request
-        if (method.equals("OPTIONS")) {
-            filterChain.doFilter(servletRequest, servletResponse);
-            return;
-        }
 
         if (excludeLoginApiUrls.contains(requestURI)) {
             filterChain.doFilter(servletRequest, servletResponse);
