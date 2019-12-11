@@ -1,11 +1,13 @@
 package io.cjf.jinterviewback.service.impl;
 
 import io.cjf.jinterviewback.dao.InterviewMapper;
+import io.cjf.jinterviewback.dto.InterviewListDTO;
 import io.cjf.jinterviewback.po.Interview;
 import io.cjf.jinterviewback.service.InterviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -35,5 +37,10 @@ public class InterviewServiceImpl implements InterviewService {
         List interviews = interviewMapper.getInterviewCount();
 
         return interviews;
+    }
+
+    @Override
+    public List<InterviewListDTO> search(String keyword, Integer studentId, Date l) {
+        return interviewMapper.search(keyword,studentId,l);
     }
 }

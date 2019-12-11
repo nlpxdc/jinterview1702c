@@ -145,28 +145,28 @@
   </select>
 <!--录音列表-->
 
-  <select id="search" resultMap="BasedtoMap" >
-    SELECT a.*,s.`nickname`,i.`company` FROM audio_record a
-    LEFT JOIN interview i ON a.`interview_id`= i.`interview_id`
-    LEFT JOIN student s ON i.`student_id`= s.`student_id`
-<!--    <where>-->
-<!--      <if test="keyword !=null">-->
-<!--        audiorecordId=#{keyword}-->
-<!--      </if>-->
-<!--      <if test="keyword !=null">-->
-<!--        interviewId=#{keyword}-->
-<!--      </if>-->
-<!--      <if test="keyword !=null">-->
-<!--        company=#{keyword}-->
-<!--      </if>-->
-<!--      <if test="keyword !=null">-->
-<!--        nickname=#{keyword}-->
-<!--      </if>-->
-<!--      <if test="keyword !=null">-->
-<!--        likes=#{keyword}-->
-<!--      </if>-->
-<!--    </where>-->
-  </select>
+  <!--<select id="search" resultMap="BasedtoMap" >-->
+    <!--SELECT a.*,s.`nickname`,i.`company` FROM audio_record a-->
+    <!--LEFT JOIN interview i ON a.`interview_id`= i.`interview_id`-->
+    <!--LEFT JOIN student s ON i.`student_id`= s.`student_id`-->
+<!--&lt;!&ndash;    <where>&ndash;&gt;-->
+<!--&lt;!&ndash;      <if test="keyword !=null">&ndash;&gt;-->
+<!--&lt;!&ndash;        audiorecordId=#{keyword}&ndash;&gt;-->
+<!--&lt;!&ndash;      </if>&ndash;&gt;-->
+<!--&lt;!&ndash;      <if test="keyword !=null">&ndash;&gt;-->
+<!--&lt;!&ndash;        interviewId=#{keyword}&ndash;&gt;-->
+<!--&lt;!&ndash;      </if>&ndash;&gt;-->
+<!--&lt;!&ndash;      <if test="keyword !=null">&ndash;&gt;-->
+<!--&lt;!&ndash;        company=#{keyword}&ndash;&gt;-->
+<!--&lt;!&ndash;      </if>&ndash;&gt;-->
+<!--&lt;!&ndash;      <if test="keyword !=null">&ndash;&gt;-->
+<!--&lt;!&ndash;        nickname=#{keyword}&ndash;&gt;-->
+<!--&lt;!&ndash;      </if>&ndash;&gt;-->
+<!--&lt;!&ndash;      <if test="keyword !=null">&ndash;&gt;-->
+<!--&lt;!&ndash;        likes=#{keyword}&ndash;&gt;-->
+<!--&lt;!&ndash;      </if>&ndash;&gt;-->
+<!--&lt;!&ndash;    </where>&ndash;&gt;-->
+  <!--</select>-->
 
   <select id="search" resultMap="ResultMapWithBLOBs">
     select

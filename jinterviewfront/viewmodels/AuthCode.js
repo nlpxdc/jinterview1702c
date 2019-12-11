@@ -7,6 +7,7 @@ var app = new Vue({
         console.log('view mounted');
 
         var url = new URL(location.href);
+        console.log(url);
         this.code = url.searchParams.get("code");
 
     },

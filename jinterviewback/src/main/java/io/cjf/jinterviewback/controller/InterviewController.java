@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -72,11 +73,21 @@ public class InterviewController {
     @GetMapping("/search")
     public List<InterviewListDTO> search(@RequestParam(required = false) String keyword,
                                          @RequestParam(required = false, defaultValue = "false") Boolean onlyme,
-                                         @RequestParam(required = false) Long time){
+                                         @RequestParam(required = false) Long time,@RequestAttribute Integer studentId){
+        List<InterviewListDTO> search=new ArrayList<InterviewListDTO>();
+        Date date = new Date(time);
+        if(onlyme){
+            search = interviewService.search(keyword, studentId, date);
+            return search;
+        }
+        studentId=null;
+        search = interviewService.search(keyword, studentId, date);
+
+
+        return search;
 
 
 
-        return null;
     }
 
     @PostMapping("/create")

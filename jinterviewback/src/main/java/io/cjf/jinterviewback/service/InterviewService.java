@@ -1,7 +1,9 @@
 package io.cjf.jinterviewback.service;
 
+import io.cjf.jinterviewback.dto.InterviewListDTO;
 import io.cjf.jinterviewback.po.Interview;
 
+import java.util.Date;
 import java.util.List;
 
 public interface InterviewService {
@@ -13,4 +15,6 @@ public interface InterviewService {
     int updateByPrimaryKey(Interview record);
 
     List getInterviewCount();
+
+    List<InterviewListDTO> search(String keyword, Integer studentId, Date l);
 }
