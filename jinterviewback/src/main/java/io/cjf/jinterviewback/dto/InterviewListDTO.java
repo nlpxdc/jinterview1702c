@@ -9,6 +9,7 @@ public class InterviewListDTO {
     private String company;
     private Integer studentId;
     private String studentName;
+    private String avatarUrl;
     private Date time;
     private Byte status;
 
@@ -63,5 +64,13 @@ public class InterviewListDTO {
 
     public void setTime(Date time) {
         this.time = time;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
     }
 }

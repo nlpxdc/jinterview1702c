@@ -17,6 +17,7 @@
     <id column="interview_id" jdbcType="INTEGER" property="interviewId" />
     <result column="student_id" jdbcType="INTEGER" property="studentId" />
     <result column="realname" jdbcType="VARCHAR" property="studentName" />
+    <result column="avatar_url" jdbcType="VARCHAR" property="avatarUrl" />
     <result column="company" jdbcType="VARCHAR" property="company" />
     <result column="interview_time" jdbcType="TIMESTAMP" property="time" />
     <result column="status" jdbcType="TINYINT" property="status" />
@@ -179,7 +180,7 @@
   </select>
 
   <select id="search" resultMap="InterviewListDTO">
-    SELECT i.*, s.realname FROM interview as i left join student as s on i.student_id = s.student_id
+    SELECT i.*, s.realname,s.avatar_url FROM interview as i left join student as s on i.student_id = s.student_id
     <where>
       <if test="studentId != null">
         i.student_id = #{studentId}
