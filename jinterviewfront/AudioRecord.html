@@ -30,9 +30,12 @@
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<van-icon name="down" />
                         </div>
                     </div>
-                    <div style="float: right;"> <a :href="'http://localhost:'"
+                    <div style="float: right;"> 
+                        <a :href="'http://localhost:5000/audiorecord/getById?audiorecordId='+item.audiorecordId"
                         style="text-decoration: none;color: blue;">详情
-                    </a></div>
+                        </a>
+                        
+                </div>
                 </div>
                 <div style="clear: left;margin-top: 30px;">
                     <div style="float: left; width: 380px;"> 
@@ -56,7 +59,7 @@
     <script src="assets/js/axios.min.js"></script>
     <script src="assets/js/vue.js"></script>
     <script src="assets/js/vant.min.js"></script>
-    <script src="viewmodels/examination.js"></script>
+    <script src="viewmodels/AudioRecord.js"></script>
 
 </body>
 

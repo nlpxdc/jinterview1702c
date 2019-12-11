@@ -25,5 +25,5 @@ public interface AudioRecordMapper {
     List<AudioRecordDTO> search(String keyword, Long time);
 
     //录音详情列表
-    AudioRecord getByid(Integer audiorecordId);
+    AudioRecordDTO getByid(Integer audiorecordId);
 }

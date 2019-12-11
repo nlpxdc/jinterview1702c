@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="assets/css/vant.css">
+    <script src="assets/js/vconsole.min.js"></script>
+    <script>
+        var vConsole = new VConsole();
+    </script>
+    <title>Demo</title>
+</head>
+
+<body>
+
+    <div id="app">
+
+        
+        <form :model="list">
+
+                <div class="row" style="height: 200px;">
+                        <div style="text-align: left;">
+                            <van-row type="flex" justify="center">
+                                <van-col span="8">{{list.title}}</van-col>
+                              </van-row>
+                        </div>
+                        <div class="input" style="text-align: center;">
+
+                            <van-icon name="audio" size="50px" />
+                            <audio style="width: 200px; height: 100px;" :src="''" width=300 height=45 type=audio/mpeg controls volume="0"></audio>
+        
+                        </div>
+
+                        <div>
+                            {{list.content}}
+                        </div>
+
+
+                        <div style="float: right;">
+                                <van-icon name="good-job" />点赞
+                        </div>
+                    </div>
+                   
+    
+                    <div>
+                        作者：{{list.student}}
+                        时间：{{list.interview_time}}
+                        面试结果：{{list.status}}
+                    </div>
+                         
+                    <div style="text-align: center;">
+                            <van-button type="primary">下载</van-button>
+                    </div>
+    
+                </div>
+        </form>
+            
+        
+
+    </div>
+
+
+    <script src="assets/js/axios.min.js"></script>
+    <script src="assets/js/vue.js"></script>
+    <script src="assets/js/vant.min.js"></script>
+    <script src="viewmodels/AudioParticulars.js"></script>
+
+</body>
+
+</html>

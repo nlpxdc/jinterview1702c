@@ -50,13 +50,16 @@ public class AudioRecordController {
     public JSONObject getById(@RequestParam Integer audiorecordId){
 
         JSONObject jsonObject = new JSONObject();
-        AudioRecord audioRecord=audioRecordService.getByid(audiorecordId);
+        AudioRecordDTO audioRecord=audioRecordService.getByid(audiorecordId);
 
-        jsonObject.put("audiorecordId",audioRecord.getAudioRecordId());
+        jsonObject.put("audiorecordId",audioRecord.getAudiorecordId());
         jsonObject.put("title",audioRecord.getTitle());
         jsonObject.put("content",audioRecord.getContent());
         jsonObject.put("likes",audioRecord.getLikes());
-        jsonObject.put("audiorecordUrl",audioRecord.getUrl());
+        jsonObject.put("student",audioRecord.getStudent());
+        jsonObject.put("url",audioRecord.getUrl());
+        jsonObject.put("status",audioRecord.getStatus());
+        jsonObject.put("interview_time",audioRecord.getInterview_time());
 
 
         return jsonObject;

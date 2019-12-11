@@ -9,12 +9,17 @@
     <result column="url" jdbcType="VARCHAR" property="url" />
   </resultMap>
 
-  <resultMap id="BasedtoMap" type="io.cjf.jinterviewback.dto.AudioRecordDTO">
+  <resultMap id="BasedtoMap" type="io.cjf.jinterviewsite.dto.AudioRecordDto">
     <id column="audio_record_id" jdbcType="INTEGER" property="audiorecordId" />
     <result column="interview_id" jdbcType="INTEGER" property="interviewId" />
     <result column="company" jdbcType="VARCHAR" property="company" />
     <result column="nickname" jdbcType="INTEGER" property="student" />
     <result column="likes" jdbcType="VARCHAR" property="likes" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="interview_time" jdbcType="VARCHAR" property="interview_time" />
   </resultMap>
 
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="io.cjf.jinterviewback.po.AudioRecord">
@@ -145,41 +150,23 @@
   </select>
 <!--录音列表-->
 
-  <!--<select id="search" resultMap="BasedtoMap" >-->
-    <!--SELECT a.*,s.`nickname`,i.`company` FROM audio_record a-->
-    <!--LEFT JOIN interview i ON a.`interview_id`= i.`interview_id`-->
-    <!--LEFT JOIN student s ON i.`student_id`= s.`student_id`-->
-<!--&lt;!&ndash;    <where>&ndash;&gt;-->
-<!--&lt;!&ndash;      <if test="keyword !=null">&ndash;&gt;-->
-<!--&lt;!&ndash;        audiorecordId=#{keyword}&ndash;&gt;-->
-<!--&lt;!&ndash;      </if>&ndash;&gt;-->
-<!--&lt;!&ndash;      <if test="keyword !=null">&ndash;&gt;-->
-<!--&lt;!&ndash;        interviewId=#{keyword}&ndash;&gt;-->
-<!--&lt;!&ndash;      </if>&ndash;&gt;-->
-<!--&lt;!&ndash;      <if test="keyword !=null">&ndash;&gt;-->
-<!--&lt;!&ndash;        company=#{keyword}&ndash;&gt;-->
-<!--&lt;!&ndash;      </if>&ndash;&gt;-->
-<!--&lt;!&ndash;      <if test="keyword !=null">&ndash;&gt;-->
-<!--&lt;!&ndash;        nickname=#{keyword}&ndash;&gt;-->
-<!--&lt;!&ndash;      </if>&ndash;&gt;-->
-<!--&lt;!&ndash;      <if test="keyword !=null">&ndash;&gt;-->
-<!--&lt;!&ndash;        likes=#{keyword}&ndash;&gt;-->
-<!--&lt;!&ndash;      </if>&ndash;&gt;-->
-<!--&lt;!&ndash;    </where>&ndash;&gt;-->
-  <!--</select>-->
-
-  <select id="search" resultMap="ResultMapWithBLOBs">
-    select
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from audio_record
-    where audio_record_id = #{audioRecordId,jdbcType=INTEGER}
+  <select id="search" resultMap="BasedtoMap" >
+    SELECT a.*,s.`nickname`,i.`company` FROM audio_record a
+    LEFT JOIN interview i ON a.`interview_id`= i.`interview_id`
+    LEFT JOIN student s ON i.`student_id`= s.`student_id`
+    <where>
+      <if test="keyword != null and keyword != ''">
+        s .student_id like CONCAT('%',#{keyword},'%')
+      </if>
+    </where>
   </select>
 
-  <select id="getByid" resultMap="BaseResultMap">
-    SELECT
-    <include refid="Base_Column_List" />
-    FROM `audio_record` WHERE audio_record_id=#{audiorecordId}
+<!--    详情录音-->
+  <select id="getByid" resultMap="BasedtoMap">
+    SELECT a.*,s.`nickname`,i.`company` FROM audio_record a
+    LEFT JOIN interview i ON a.`interview_id`= i.`interview_id`
+    LEFT JOIN student s ON i.`student_id`= s.`student_id`
+    WHERE audio_record_id=#{audiorecordId}
   </select>
+
 </mapper>
