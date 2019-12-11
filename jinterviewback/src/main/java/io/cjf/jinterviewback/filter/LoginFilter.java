@@ -85,7 +85,7 @@ public class LoginFilter implements Filter {
 
         final Student student = studentService.getBystudentId(studentLoginVO.getStudentId());
         if (student.getStatus() == StudentStatus.NotActivate.ordinal()) {
-            clientExceptionUtil.handle(response, HttpStatus.SC_FORBIDDEN, ClientExceptionConstant.TOKEN_INVALID_ERRMSG);
+            clientExceptionUtil.handle(response, HttpStatus.SC_FORBIDDEN, ClientExceptionConstant.STUDENT_NOT_ACTIVATE_ERRMSG);
             return;
         }
 
