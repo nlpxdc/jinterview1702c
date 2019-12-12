@@ -119,5 +119,16 @@
 
   </select>
 
+  <select id="getExamById" resultType="io.cjf.jinterviewback.dto.ExaminationExamByIdDTO">
+
+    select s.realname realname ,i.interview_id interviewId ,e.exam_id  examId, e.content content, i.company company,
+           i.interview_time time,e.likes likes
+    from student  s inner JOIN interview i
+    on s.student_id=i.student_id
+       LEFT JOIN examination e on i.interview_id=e.exam_id
+
+    where exam_id=#{examId}
+  </select>
+
 
 </mapper>

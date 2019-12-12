@@ -1,6 +1,7 @@
 package io.cjf.jinterviewback.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import io.cjf.jinterviewback.dto.ExaminationExamByIdDTO;
 import io.cjf.jinterviewback.dto.ExaminationSearchDTO;
 import io.cjf.jinterviewback.service.ExaminationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +41,12 @@ public class ExamController {
     }
 
     @GetMapping("/getExamById")
-    public JSONObject getExamById(@RequestParam Integer examId){
+    public ExaminationExamByIdDTO getExamById(@RequestParam Integer examId){
+        ExaminationExamByIdDTO examinationExamByIdDTO= examinationService.getExamById(examId);
 
-        return null;
+        System.out.println(examinationExamByIdDTO);
+
+        return examinationExamByIdDTO;
     }
+
 }

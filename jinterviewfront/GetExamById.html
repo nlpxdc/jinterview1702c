@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="assets/css/vant.css">
+    <script src="assets/js/vconsole.min.js"></script>
+    <script>
+        var vConsole = new VConsole();
+    </script>
+    <title>Demo</title>
+</head>
+
+<body>
+
+    <div id="app">
+       <div v-for="(item,a) in examphotoUrls">
+            <img
+            style="width: 300px; height: 300px"
+            
+            :src="'http://192.168.137.1:8080/image/'+item.url"
+            ></img>
+         
+       </div>
+           
+     
+            
+<br>
+        试题:&nbsp;{{content}}<br>
+        作者:&nbsp;{{realname}}
+        时间:&nbsp;{{time}}
+<br>
+
+        <van-button type="primary">保存</van-button>
+
+    </div>
+
+         
+
+    <script src="assets/js/axios.min.js"></script>
+    <script src="assets/js/common.js"></script>
+    <script src="assets/js/vue.js"></script>
+    <script src="assets/js/vant.min.js"></script>
+    <script src="viewmodels/GetExamById.js"></script>
+
+</body>
+
+</html>
