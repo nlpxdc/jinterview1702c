@@ -12,176 +12,48 @@
     </script>
     <title>UpdateInterview</title>
 
-    <style type="text/css">
-        * {
-            margin: 0;
-            padding: 0;
-        }
-
-        ul,
-        li {
-            list-style: none;
-        }
-
-        a {
-            text-decoration: none;
-        }
-
-        input {
-            outline-style: none;
-            border: 0px;
-        }
-
-        #form1 {
-
-            margin-top: 20px;
-            width: 80%;
-            margin: 2px auto;
-        }
-
-        #form1 form span {
-            color: #999;
-        }
-
-        .row {
-            margin-top: 25px;
-            height: 50px;
-            line-height: 26px;
-            border-bottom: 1px solid #c7c6c6;
-            width: 100%;
-        }
-
-        .input {
-            position: relative;
-            width: 100%;
-            height: 26px;
-        }
-
-        .input input {
-            display: block;
-            width: 100%;
-            height: 26px;
-            border: none;
-            background: none;
-            outline: none;
-        }
-
-        .input label {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 26px;
-            line-height: 26px;
-            font-size: 14px;
-            color: #999;
-        }
-
-        .select select {
-            display: block;
-            width: 100%;
-            border: none;
-            outline: none;
-        }
-
-        input[type=date]::-webkit-inner-spin-button {
-            visibility: hidden;
-        }
-
-        .button {
-            width: 100%;
-            height: 40px;
-            background: #ff961e;
-            outline: none;
-            margin: 20px 0 30px 0;
-        }
-
-        .button button {
-            border: 0px;
-            background-color: transparent;
-            color: white;
-            width: 100%;
-            height: 40px;
-            margin: 0 auto;
-            font-size: 17px;
-        }
-    </style>
-
 </head>
 
 <body>
 
     <div id="app">
-        <form>
-            <div class="row">
-                <van-nav-bar title="我的进程" left-text="返回" left-arrow>
-                    <van-icon name="delete" slot="right" style="margin-right: 10px;"></van-icon>
-                    <van-icon name="home-o" slot="right" style="margin-right: 10px;"></van-icon>
-                </van-nav-bar>
-            </div>
-            <br>
-            <div>
-                <span>面试ID</span>
-                <input v-model="interviewId" />
-            </div>
-            <div class="row">
-                <div class="input">
-                    <span>公司:</span>
-                    <input type="text" v-model="company" /><br>
-                </div>
+        <van-divider>公司</van-divider>
+        <van-cell title="公司" :value="company"></van-cell>
+        <van-divider>地址</van-divider>
+        <van-cell title="地址" :value="address"></van-cell>
+        <van-divider>面试时间</van-divider>
+        <van-datetime-picker v-model="time" type="datetime"></van-datetime-picker>
+        <van-divider>面试结果:{{selectStatus}}</van-divider>
+        <van-dropdown-menu>
+            <van-dropdown-item title="面试结果" v-model="selectStatus" :options="status"></van-dropdown-item>
+        </van-dropdown-menu>
 
-            </div>
-            <div class="row">
-                <div class="input">
-                    <span>公司地址</span>
-                    <input type="text" v-model="address" /><br>
-                </div>
-            </div>
-            <div class="row js-input">
-                <div class="input">
-                    <span> 面试时间:</span>
-                    <input type="text" v-model="time" /><br>
-                </div>
-            </div>
-            <div class="row">
-                <div class="select">
-                    <span>面试结果:</span>
-                    <select v-model="selectStatus">
-                        <option v-for="statu in status" :key="statu.value" :label="statu.label" :value="statu.value">
-                        </option>
-                        </option>
-                    </select><br>
-                </div>
-            </div>
-            <div class="row">
-                <van-rate v-model="stars" :size="25" color="#ee0a24" void-icon="star" void-color="#eee" />
-            </div>
-            <div class="row">
-                <div class="input">
-                    <span>备注:</span>
-                    <input type="text" v-model="note" /><br>
-                </div>
-            </div>
-            <div class="row">
-                <span>面试试题/录音查看</span><br>
-                <van-button type="info">试题上传</van-button>
-                <van-button type="info">录音上传</van-button>
-            </div>
+        <van-divider>评星</van-divider>
+        <van-rate v-model="stars" :size="25" color="#ee0a24" void-icon="star" void-color="#eee"></van-rate>
 
+        <van-divider>备注</van-divider>
+        <van-field v-model="note" rows="3" autosize label="备注" type="textarea" placeholder="请输入留言" show-word-limit>
+        </van-field>
 
+        <van-divider>面试试题/录音查看</van-divider>
+        <van-button type="info">试题上传</van-button>
+        <van-button type="info">录音上传</van-button>
 
-            <div class="button">
-                <button type="button" @click="updateinterview">保存</button>
-            </div>
-        </form>
+        <br>
+        <br>
+        <br>
+
+        <van-button type="primary" size="large" @click="updateinterview">保存</van-button>
 
     </div>
 
 
     <script src="assets/js/axios.min.js"></script>
+    <script src="assets/js/common.js"></script>
     <script src="assets/js/vue.js"></script>
     <script src="assets/js/vant.min.js"></script>
     <script src="viewmodels/UpdateInterview.js"></script>
-    <script src="assets/js/common.js"></script>
+
 </body>
 
 </html>

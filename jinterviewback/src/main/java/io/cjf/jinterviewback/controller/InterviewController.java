@@ -41,32 +41,32 @@ public class InterviewController {
     @Autowired
     private AudioRecordService audioRecordService;
     @GetMapping("/getById")
-    public JSONObject getById(@RequestParam Integer interviewId) throws ParseException {
+    public JSONObject getById(@RequestParam Integer interviewId){
         JSONObject interviewJson = new JSONObject();
         Interview interview=interviewService.getByinterviewid(interviewId);
         interviewJson.put("interviewId",interview.getInterviewId());
         interviewJson.put("company",interview.getCompany());
         interviewJson.put("address",interview.getAddress());
-        java.text.DateFormat format1 = new java.text.SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        String format = format1.format(interview.getInterviewTime());
 
-        interviewJson.put("interviewTime",format);
+        interviewJson.put("time",interview.getInterviewTime().getTime());
         interviewJson.put("stars",interview.getStars());
-        InterviewStatus status = InterviewStatus.values()[interview.getStatus()];
-        interviewJson.put("status",status);
+        interviewJson.put("status",interview.getStatus());
         interviewJson.put("note",interview.getNote());
         interviewJson.put("offerUrl",interview.getOfferUrl());
         Examination examination=examinationService.getExamination(interview.getInterviewId());
-        List<ExamPhoto> ExamPhotos = examPhotoService.getExaminationPhotoById(examination.getExamId());
-        List<JSONObject> ExamPhotoJsons = ExamPhotos.stream().map(ExamPhoto -> {
-            JSONObject ExamPhotoJson = new JSONObject();
-
-            ExamPhotoJson.put("url", ExamPhoto.getUrl());
-            return ExamPhotoJson;
-        }).collect(Collectors.toList());
+        List<JSONObject> ExamPhotoJsons = new ArrayList<>();
+        if (examination != null){
+            List<ExamPhoto> ExamPhotos = examPhotoService.getExaminationPhotoById(examination.getExamId());
+            ExamPhotoJsons = ExamPhotos.stream().map(ExamPhoto -> {
+                JSONObject ExamPhotoJson = new JSONObject();
+                ExamPhotoJson.put("url", ExamPhoto.getUrl());
+                return ExamPhotoJson;
+            }).collect(Collectors.toList());
+        }
         interviewJson.put("examphotoUrls", ExamPhotoJsons);
         AudioRecord audioRecord=audioRecordService.getAudioRecordByid(interview.getInterviewId());
-        interviewJson.put("audiorecordUrl",audioRecord.getUrl());
+        String audioRecordUrl = audioRecord != null ? audioRecord.getUrl() : "";
+        interviewJson.put("audiorecordUrl",audioRecordUrl);
         return interviewJson;
     }
 
