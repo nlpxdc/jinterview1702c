@@ -7,7 +7,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/examphoto")
-@CrossOrigin
 public class ExamPhotoController {
 
     @PostMapping("/upload")

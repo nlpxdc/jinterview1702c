@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/chart")
-@CrossOrigin
 public class ChartController {
 
     @Autowired

@@ -24,7 +24,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/student")
-@CrossOrigin
 public class StudentController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());

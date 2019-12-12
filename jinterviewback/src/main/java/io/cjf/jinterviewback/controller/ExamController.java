@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/exam")
-@CrossOrigin
 public class ExamController {
 
 

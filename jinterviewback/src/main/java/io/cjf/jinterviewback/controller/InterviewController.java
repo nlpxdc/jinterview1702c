@@ -33,7 +33,6 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/interview")
-@CrossOrigin
 public class InterviewController {
 
     @Autowired
