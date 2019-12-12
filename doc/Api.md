@@ -185,7 +185,7 @@ ResponseBody:
     "company": "华为",
     "address": "上海徐家汇",
     "time": 1575448390345,
-    "status": 0,
+    "status": offer,
     "stars": 4,
     "note": "公司急缺人",
     "offerUrl": "http://xxx.com/xxx.jpg",

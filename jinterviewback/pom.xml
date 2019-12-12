@@ -91,8 +91,6 @@
             <artifactId>commons-lang3</artifactId>
             <version>3.9</version>
         </dependency>
-<<<<<<< HEAD
-        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
@@ -108,14 +106,12 @@
             <version>3.17</version>
         </dependency>
 
-=======
         <!-- mail -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
             <version>2.0.4.RELEASE</version>
         </dependency>
->>>>>>> 990954daf745105031de3b1add7ae99bbf4eae0e
     </dependencies>
 
     <dependencyManagement>
