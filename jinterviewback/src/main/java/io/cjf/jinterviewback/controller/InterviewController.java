@@ -85,8 +85,13 @@ public class InterviewController {
     }
 
     @PostMapping("/create")
-    public Integer create(@RequestBody InterviewCreateDTO interviewCreateDTO){
-        return null;
+    public Integer create(@RequestBody InterviewCreateDTO interviewCreateDTO, @RequestAttribute Integer studentId){
+        final String company = interviewCreateDTO.getCompany();
+        final String address = interviewCreateDTO.getAddress();
+        final Long time = interviewCreateDTO.getTime();
+        final Date date = new Date(time);
+        final Integer interviewId = interviewService.createInterview(company, address, date, studentId);
+        return interviewId;
     }
 
     @PostMapping("/update")
