@@ -42,14 +42,14 @@ public class LoginFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 
         HttpServletRequest request = (HttpServletRequest) servletRequest;
-        final String requestURI = request.getRequestURI();
-        final String method = request.getMethod();
-        logger.info("request uri: {} {}", method, requestURI);
 
+        final String method = request.getMethod();
         if (method.equals("OPTIONS")){
             filterChain.doFilter(servletRequest, servletResponse);
             return;
         }
+
+        final String requestURI = request.getRequestURI();
 
         if (excludeLoginApiUrls.contains(requestURI)) {
             filterChain.doFilter(servletRequest, servletResponse);

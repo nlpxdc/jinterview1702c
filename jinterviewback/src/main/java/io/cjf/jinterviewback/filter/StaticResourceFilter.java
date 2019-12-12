@@ -26,7 +26,9 @@ public class StaticResourceFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
+        final String method = request.getMethod();
         final String requestURI = request.getRequestURI();
+        logger.info("method request uri: {} {}", method, requestURI);
 
         final String[] strings = requestURI.split("\\.");
         String ext = strings[strings.length - 1];
