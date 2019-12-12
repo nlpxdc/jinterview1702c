@@ -1,11 +1,9 @@
 package io.cjf.jinterviewback.filter;
 
 import io.cjf.jinterviewback.constant.ClientExceptionConstant;
-import io.cjf.jinterviewback.util.ClientExceptionUtil;
-import org.apache.http.HttpStatus;
+import io.cjf.jinterviewback.exception.ClientException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -25,23 +23,19 @@ public class StaticResourceFilter implements Filter {
     @Value("${static.resource.extensions}")
     private Set<String> extensions;
 
-    @Autowired
-    private ClientExceptionUtil clientExceptionUtil;
-
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
-        HttpServletResponse response = (HttpServletResponse) servletResponse;
         final String requestURI = request.getRequestURI();
 
         final String[] strings = requestURI.split("\\.");
         String ext = strings[strings.length - 1];
         ext = ext.toLowerCase();
         if (extensions.contains(ext)){
-            clientExceptionUtil.handle(response, HttpStatus.SC_BAD_REQUEST, ClientExceptionConstant.NOT_SUPPORT_STATIC_RESOURCE_ERRMSG);
-            return;
+            throw new ClientException(ClientExceptionConstant.NOT_SUPPORT_STATIC_RESOURCE_ERRCODE,ClientExceptionConstant.NOT_SUPPORT_STATIC_RESOURCE_ERRMSG);
         }else {
             filterChain.doFilter(servletRequest, servletResponse);
+            return;
         }
     }
 }
