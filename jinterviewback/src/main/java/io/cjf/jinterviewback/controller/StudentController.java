@@ -46,6 +46,11 @@ public class StudentController {
     public String autoRegisterLogin(@RequestParam String code) throws ClientException {
 
         final JSONObject userAccessTokenJsonObj = wechatService.getUserAccessToken(code);
+        final Integer errcode = userAccessTokenJsonObj.getInteger("errcode");
+        if (errcode != null && errcode != 0){
+            final String errmsg = userAccessTokenJsonObj.getString("errmsg");
+            throw new ClientException(ClientExceptionConstant.AUTHCODE_INVALID_ERRCODE, errmsg);
+        }
         final String access_token = userAccessTokenJsonObj.getString("access_token");
         final JSONObject userInfoJsonObj = wechatService.getUserInfo(access_token);
         final String nickname = userInfoJsonObj.getString("nickname");

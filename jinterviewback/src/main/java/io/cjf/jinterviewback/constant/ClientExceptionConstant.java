@@ -15,5 +15,7 @@ public class ClientExceptionConstant {
     public static final String TOKEN_NOT_EXIST_ERRCODE = "0006";
     public static final String TOKEN_NOT_EXIST_ERRMSG = "token not exist";
     public static final String NOT_SUPPORT_STATIC_RESOURCE_ERRMSG = "not support static resource";
+    public static final String AUTHCODE_INVALID_ERRCODE = "0007";
+    public static final String AUTHCODE_INVALID_ERRMSG = "auth code invalid";
 
 }

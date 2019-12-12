@@ -54,6 +54,11 @@ public class LoginFilter implements Filter {
         final String method = request.getMethod();
         logger.info("request uri: {} {}", method, requestURI);
 
+        if (method.equals("OPTIONS")){
+            filterChain.doFilter(servletRequest, servletResponse);
+            return;
+        }
+
         if (excludeLoginApiUrls.contains(requestURI)) {
             filterChain.doFilter(servletRequest, servletResponse);
             return;
