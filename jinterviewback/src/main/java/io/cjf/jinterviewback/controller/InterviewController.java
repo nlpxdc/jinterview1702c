@@ -13,9 +13,17 @@ import io.cjf.jinterviewback.service.AudioRecordService;
 import io.cjf.jinterviewback.service.ExamPhotoService;
 import io.cjf.jinterviewback.service.ExaminationService;
 import io.cjf.jinterviewback.service.InterviewService;
+import io.cjf.jinterviewback.util.ExeclUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletResponse;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -40,6 +48,9 @@ public class InterviewController {
 
     @Autowired
     private AudioRecordService audioRecordService;
+
+    @Autowired
+    private ExeclUtil execlUtil;
     @GetMapping("/getById")
     public JSONObject getById(@RequestParam Integer interviewId) throws ParseException {
         JSONObject interviewJson = new JSONObject();
@@ -82,6 +93,16 @@ public class InterviewController {
         List<InterviewListDTO> interviews = interviewService.search(keyword, studentIdDB, date);
 
         return interviews;
+    }
+    @GetMapping(value = "/downloadinterview",produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    public byte[] downloadinterview() throws IOException {
+        //response.reset();
+        List<InterviewListDTO> search = interviewService.search(null, null, null);
+        String filename = execlUtil.appendExeclBodyInfo(search);
+        FileInputStream fis = new FileInputStream(filename);
+        byte[] bytes = StreamUtils.copyToByteArray(fis);
+        //response.setHeader("Content-Disposition", "attachment; filename=" +filename );
+        return bytes;
     }
 
     @PostMapping("/create")

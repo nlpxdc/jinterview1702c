@@ -22,6 +22,7 @@
         只看自己：<van-switch v-model="onlyme"></van-switch>
 
         <van-button type="primary" @click="handleSearchClick">查询</van-button>
+        <van-button type="primary" @click="handleDownloadClick">导出</van-button>
 
         <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad" :offset="0">
             <van-cell v-for="interview in interviews" :key="interview.interviewId" :title="interview.company">

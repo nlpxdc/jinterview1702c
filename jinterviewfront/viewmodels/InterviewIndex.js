@@ -11,6 +11,7 @@ var app = new Vue({
     },
     mounted() {
         console.log('view mounted');
+       
     },
     watch: {
         onlyme() {
@@ -28,6 +29,7 @@ var app = new Vue({
         },
         searchInterview() {
             this.originKeyword = this.keyword;
+
             axios.get('/interview/search', {
                 params: {
                     keyword: this.keyword,
@@ -54,6 +56,15 @@ var app = new Vue({
                 this.interviews = [];
                 this.searchInterview();
             }
+        },
+        handleDownloadClick(){
+            axios.get("/interview/downloadinterview")
+            .then(res => {
+                console.log(res)
+            })
+            .catch(err => {
+                console.error(err); 
+            })
         }
     }
 });
