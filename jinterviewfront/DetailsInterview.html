@@ -10,176 +10,83 @@
         var vConsole = new VConsole();
     </script>
     <title>DetailsInterview</title>
-    <style type="text/css">
-        * {
-            margin: 0;
-            padding: 0;
-        }
-        
-        ul,
-        li {
-            list-style: none;
-        }
-        
-        a {
-            text-decoration: none;
-        }
-        
-        input {
-            outline-style: none;
-            border: 0px;
-        }
-        
-        #form1 {
-            margin-top: 20px;
-            width: 80%;
-            margin: 2px auto;
-        }
-        
-        #form1 form span {
-            color: #999;
-        }
-        
-        .row {
-            margin-top: 25px;
-            height: 50px;
-            line-height: 26px;
-            border-bottom: 1px solid #c7c6c6;
-            width: 100%;
-        }
-        
-        .input {
-            position: relative;
-            width: 100%;
-            height: 26px;
-        }
-        
-        .input input {
-            display: block;
-            width: 100%;
-            height: 26px;
-            border: none;
-            background: none;
-            outline: none;
-        }
-        
-        .input label {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 26px;
-            line-height: 26px;
-            font-size: 14px;
-            color: #999;
-        }
-        
-        .select select {
-            display: block;
-            width: 100%;
-            border: none;
-            outline: none;
-        }
-        
-        input[type=date]::-webkit-inner-spin-button {
-            visibility: hidden;
-        }
-        
-        .button {
-            width: 100%;
-            height: 40px;
-            background: #ff961e;
-            outline: none;
-            margin: 20px 0 30px 0;
-        }
-        
-        .button button {
-            border: 0px;
-            background-color: transparent;
-            color: white;
-            width: 100%;
-            height: 40px;
-            margin: 0 auto;
-            font-size: 17px;
-        }
-    </style>
+
 </head>
 
 <body>
 
     <div id="app">
 
-        <form :model="form">
-            <div class="row">
-                <van-nav-bar title="详情" left-text="返回" left-arrow>
-                    <van-icon name="delete" slot="right" style="margin-right: 10px;"></van-icon>
-                    <van-icon name="home-o" slot="right" style="margin-right: 10px;"></van-icon>
-                </van-nav-bar>
+        <form :model="form"></form>
+        <div class="row">
+            <van-nav-bar title="详情" left-text="返回" left-arrow>
+                <van-icon name="delete" slot="right" style="margin-right: 10px;"></van-icon>
+                <van-icon name="home-o" slot="right" style="margin-right: 10px;"></van-icon>
+            </van-nav-bar>
+        </div>
+        <br>
+
+        <div class="row">
+            <van-cell title="公司:" type="text" v-model="form.company" />
+        </div>
+
+        <div class="row">
+            <van-cell title="面试时间:" type="text" v-model="form.interviewTime" />
+        </div>
+
+        <div class="row">
+            <van-cell title="面试结果:" type="text" v-model="form.status" />
+        </div>
+
+
+
+        <div class="row" style="height: 200px;">
+            <div style="text-align: left;">
+                <van-cell title="面试录音:" type="text" />
+
             </div>
-            <br>
-
-            <div class="row">
-                <span>公司:</span>
-                <input type="text" v-model="form.company" /><br>
+            <div class="input" style="text-align: center;">
+                <audio style="width: 500px; height: 100px;" :src="form.audiorecordUrl" width=300 height=45 type=audio/mpeg controls volume="0"></audio>
             </div>
+        </div>
 
-            <div class="row">
-                <span>面试时间:</span>
-                <input type="text" v-model="form.interviewTime" /><br>
-            </div>
+        <span>面试图片:</span>
+        <div style="text-align: center;">
 
-            <div class="row">
-                <span>面试结果:</span>
-                <input type="text" v-model="form.status" /><br>
-            </div>
+            <van-swipe :autoplay="3000">
+                <van-swipe-item v-for="image in images">
+
+                    <img :src="image.url" style="width: 200px; height: 150px;" />
+                </van-swipe-item>
+            </van-swipe>
+        </div>
+        <div style="text-align: right;">
+            <van-button round type="info" size="small">圆形按钮</van-button>
+
+        </div>
+        <div class="row">
+            <van-cell title="评分:" type="text" />
+            <van-rate v-model="form.stars" /></van-col>
+        </div>
+
+        <div class="row">
+            <van-cell title="点评:" type="text" v-model="form.note" />
+        </div>
+
+        <span>OFFER截图:</span>
+
+        <div style="text-align: center;">
+            <van-image width="150" height="150" :src="form.offerUrl" />
+        </div>
 
 
-
-            <div class="row" style="height: 200px;">
-                <div style="text-align: left;">
-                    <span>面试录音:</span>
-                </div>
-                <div class="input" style="text-align: center;">
-
-                    <audio style="width: 500px; height: 100px;" :src="'http://localhost:8080/image/'+form.audiorecordUrl" width=300 height=45 type=audio/mpeg controls volume="0"></audio>
-
-                </div>
-            </div>
-
-
-
-
-
-            <span>面试图片:</span>
-            <div style="text-align: center;">
-
-                <van-swipe :autoplay="3000">
-                    <van-swipe-item v-for="image in images">
-
-                        <img :src="'http://localhost:8080/image/'+image.url" style="width: 200px; height: 150px;" />
-                    </van-swipe-item>
-                </van-swipe>
-            </div>
-
-            <div class="row">
-                <span>评分:</span>
-                <van-rate v-model="form.stars" /></van-col>
-            </div>
-
-            <div class="row">
-                <span>点评:</span>
-                <input type="text" v-model="form.note" /><br>
-            </div>
-
-            <div class="row" style="height: 200px;">
-                <div>
-                    <span>offer截图:</span><br>
-                    <van-image width="150" height="150" :src="'http://localhost:8080/image/'+form.offerUrl" />
-                </div>
-            </div>
         </form>
     </div>
 
+
+
     <script src="assets/js/axios.min.js"></script>
+    <script src="assets/js/common.js"></script>
     <script src="assets/js/vue.js"></script>
     <script src="assets/js/vant.min.js"></script>
     <script src="viewmodels/DetailsInterview.js"></script>
