@@ -7,26 +7,45 @@ var app = new Vue({
         company: '',
         address: '',
         time: '',
-        note: '',
+        note: ' ',
         selectStatus: '',
         status: [
             {
-                value: '0',
-                label: 'OFFER'
+                value: 0,
+                text: '待面试'
             },
             {
-                value: '1',
-                label: '等通知'
+                value: 1,
+                text: 'OFFER'
             },
             {
-                value: '2',
-                label: '凉凉'
+                value: 2,
+                text: '等通知'
             },
             {
-                value: '3',
-                label: '取消面试'
+                value: 3,
+                text: '凉凉'
+            },
+            {
+                value: 4,
+                text: '复试'
+            },
+            {
+                value: 5,
+                text: '取消面试'
             }
         ],
+    },
+    mounted() {
+        console.log('view mounted');
+
+        var url = new URL(location.href);
+        this.interviewId = url.searchParams.get("interviewId");
+        if (!this.interviewId) {
+            alert('interviewId 不存在');
+            return;
+        }
+        this.getInterviewById();
     },
     methods: {
 
@@ -37,7 +56,7 @@ var app = new Vue({
                 }
             })
                 .then(response => {
-                    //console.log(response);
+                    console.log(response);
                     var interview = response.data
                     this.interviewId = interview.interviewId;
                     this.company = interview.company;
@@ -45,10 +64,10 @@ var app = new Vue({
                     this.stars = interview.stars;
                     this.time = interview.time;
                     this.note = interview.note;
-                    this.selectStatus = interview.status + '';
+                    this.selectStatus = interview.status;
                 })
                 .catch(function (error) {
-                    console.log(error);
+                    console.error(error);
                 });
         },
 
@@ -72,8 +91,5 @@ var app = new Vue({
                     alert('修改失败');
                 });
         }
-    },
-    mounted() {
-
     }
 });

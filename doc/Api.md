@@ -185,6 +185,7 @@ ResponseBody:
     "company": "华为",
     "address": "上海徐家汇",
     "time": 1575448390345,
+    "status": 0,
     "stars": 4,
     "note": "公司急缺人",
     "offerUrl": "http://xxx.com/xxx.jpg",
@@ -211,6 +212,7 @@ Response Field
 | company   | String   | 公司名    |
 | address   | String   | 公司地址    |
 | time   | Long   | 面试时间戳    |
+| status   | Byte   | 面试状态    |
 | stars   | Byte   | 评星    |
 | note   | String   | 备注    |
 | offerUrl   | String   | offer url    |

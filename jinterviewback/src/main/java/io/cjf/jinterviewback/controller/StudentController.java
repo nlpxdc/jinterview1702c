@@ -7,6 +7,7 @@ import io.cjf.jinterviewback.exception.ClientException;
 import io.cjf.jinterviewback.po.Student;
 import io.cjf.jinterviewback.service.StudentService;
 import io.cjf.jinterviewback.util.JWTUtil;
+import io.cjf.jinterviewback.util.MailUtil;
 import io.cjf.jinterviewback.util.RandomUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 import io.cjf.jinterviewback.util.SMSUtil;
 import io.cjf.jinterviewback.vo.StudentLoginVO;
 
+import javax.mail.MessagingException;
+import java.security.GeneralSecurityException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,6 +42,9 @@ public class StudentController {
 
     @Autowired
     private RandomUtil randomUtil;
+
+    @Autowired
+    private MailUtil mailUtil;
 
     private Map<Integer, String> studentCaptchaMap = new HashMap<>();
 
@@ -122,4 +128,37 @@ public class StudentController {
         boolean a = false;
         return studentJson;
     }
+    //
+
+    @GetMapping("/getMailCaptcha")
+    public void getMailCaptcha(@RequestAttribute Integer studentId) throws ClientException, com.aliyuncs.exceptions.ClientException, GeneralSecurityException, MessagingException {
+
+        Student student = studentService.getBystudentId(studentId);
+
+        String email = student.getEmail();
+        if (email == null || email.isEmpty()){
+            throw new ClientException(ClientExceptionConstant.MailNOT_EXIST_ERRCODE, ClientExceptionConstant.Mail_NOT_EXIST_ERRMSG);
+        }else {
+            final String captcha = randomUtil.getRandomStr();
+            mailUtil.mailSend(email,captcha);
+            System.out.println(email);
+            System.out.println(captcha);
+            studentCaptchaMap.put(studentId, captcha);
+        }
+    }
+
+
+    @GetMapping("/submitMailCaptcha")
+    public void submitMailCaptcha(@RequestParam String captcha, @RequestAttribute Integer studentId) throws ClientException {
+
+        final String captchaOirigin = studentCaptchaMap.get(studentId);
+
+        if(!captcha.equalsIgnoreCase(captchaOirigin)){
+            throw new ClientException(ClientExceptionConstant.CAPTCHA_INVALID_ERRCODE, ClientExceptionConstant.CAPTCHA_INVALID_ERRMSG);
+        }else {
+            studentService.activateStudent(studentId);
+        }
+
+    }
+
 }

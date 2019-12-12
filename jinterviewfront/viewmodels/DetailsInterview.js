@@ -6,13 +6,16 @@ var app = new Vue({
         stars: 0,
         // audio_url: "",
         form: {},
-        images: []
+        images: [],
+        interviewId: 0
 
     },
     methods: {
 
         getinterviewByid(interviewId) {
-            axios.get("http://localhost:8080/interview/getById", { params: { interviewId: interviewId } })
+            axios.get("/interview/getById", {
+                    params: { interviewId: this.interviewId }
+                })
                 .then(res => {
 
                     console.log(res)
@@ -30,8 +33,8 @@ var app = new Vue({
     },
     mounted() {
 
-
-        this.getinterviewByid(1);
+        this.interviewId = 1;
+        this.getinterviewByid();
 
     },
 });
