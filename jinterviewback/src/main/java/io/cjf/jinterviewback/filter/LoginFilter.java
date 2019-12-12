@@ -56,7 +56,10 @@ public class LoginFilter implements Filter {
             return;
         }
 
-        final String token = request.getHeader("jinterviewToken");
+        String token = request.getHeader("jinterviewToken");
+        if (token == null || token.isEmpty()){
+            token = request.getParameter("jinterviewToken");
+        }
         if (token == null || token.isEmpty()) {
             throw new ClientException(ClientExceptionConstant.TOKEN_NOT_EXIST_ERRCODE, ClientExceptionConstant.TOKEN_NOT_EXIST_ERRMSG);
         }
