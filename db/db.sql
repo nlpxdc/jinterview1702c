@@ -22,7 +22,7 @@ CREATE TABLE `student` (
   DROP TABLE IF EXISTS `interview`;
 CREATE TABLE `interview` (
     `interview_id` int(11) NOT NULL auto_increment,
-    `student_id` int(11),
+    `student_id` int(11), not null,
     `company` varchar(50) not null,
     `address` varchar(200) not null,
     `interview_time` datetime not null,

@@ -2,6 +2,7 @@ package io.cjf.jinterviewback.service.impl;
 
 import io.cjf.jinterviewback.dao.InterviewMapper;
 import io.cjf.jinterviewback.dto.InterviewListDTO;
+import io.cjf.jinterviewback.enumeration.InterviewStatus;
 import io.cjf.jinterviewback.po.Interview;
 import io.cjf.jinterviewback.service.InterviewService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,5 +43,20 @@ public class InterviewServiceImpl implements InterviewService {
     @Override
     public List<InterviewListDTO> search(String keyword, Integer studentId, Date time) {
         return interviewMapper.search(keyword, studentId, time);
+    }
+
+    @Override
+    public Integer createInterview(String company, String address, Date time, Integer studentId) {
+        final Interview interview = new Interview();
+        interview.setCompany(company);
+        interview.setAddress(address);
+        interview.setInterviewTime(time);
+        interview.setStudentId(studentId);
+        interview.setCreateTime(new Date());
+        interview.setStatus((byte)InterviewStatus.待面试.ordinal());
+
+        interviewMapper.insert(interview);
+        final Integer interviewId = interview.getInterviewId();
+        return interviewId;
     }
 }

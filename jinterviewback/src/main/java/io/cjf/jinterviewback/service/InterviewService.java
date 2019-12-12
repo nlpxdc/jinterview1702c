@@ -17,4 +17,6 @@ public interface InterviewService {
     List getInterviewCount();
 
     List<InterviewListDTO> search(String keyword, Integer studentId, Date time);
+
+    Integer createInterview(String company, String address, Date time, Integer studentId);
 }
