@@ -58,7 +58,7 @@ public class InterviewController {
         interviewJson.put("company",interview.getCompany());
         interviewJson.put("address",interview.getAddress());
 
-        interviewJson.put("time",interview.getInterviewTime().getTime()/1000);
+        interviewJson.put("time",interview.getInterviewTime().getTime());
         interviewJson.put("stars",interview.getStars());
         interviewJson.put("status",interview.getStatus());
         interviewJson.put("note",interview.getNote());

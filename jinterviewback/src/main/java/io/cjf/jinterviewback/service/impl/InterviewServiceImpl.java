@@ -54,6 +54,7 @@ public class InterviewServiceImpl implements InterviewService {
         interview.setStudentId(studentId);
         interview.setCreateTime(new Date());
         interview.setStatus((byte)InterviewStatus.待面试.ordinal());
+        interview.setStars((byte) 0);
 
         interviewMapper.insert(interview);
         final Integer interviewId = interview.getInterviewId();

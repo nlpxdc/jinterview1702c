@@ -22,11 +22,16 @@
         <van-divider>地址</van-divider>
         <van-cell title="地址" :value="address"></van-cell>
         <van-divider>面试时间</van-divider>
-        <van-datetime-picker v-model="time" type="datetime"></van-datetime-picker>
-        <van-divider>面试结果:{{selectStatus}}</van-divider>
-        <van-dropdown-menu>
-            <van-dropdown-item title="面试结果" v-model="selectStatus" :options="status"></van-dropdown-item>
-        </van-dropdown-menu>
+        <van-datetime-picker v-model="time" type="datetime" :show-toolbar="false"></van-datetime-picker>
+        <van-divider>面试结果</van-divider>
+        <van-radio-group v-model="selectStatus">
+            <van-radio name="0">待面试</van-radio>
+            <van-radio name="1">OFFER</van-radio>
+            <van-radio name="2">等通知</van-radio>
+            <van-radio name="3">凉凉</van-radio>
+            <van-radio name="4">复试</van-radio>
+            <van-radio name="5">取消面试</van-radio>
+        </van-radio-group>
 
         <van-divider>评星</van-divider>
         <van-rate v-model="stars" :size="25" color="#ee0a24" void-icon="star" void-color="#eee"></van-rate>
@@ -44,6 +49,9 @@
         <br>
 
         <van-button type="primary" size="large" @click="updateinterview">保存</van-button>
+        <br>
+        <br>
+        <br>
 
     </div>
 

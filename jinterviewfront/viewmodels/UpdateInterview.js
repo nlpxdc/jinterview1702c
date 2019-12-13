@@ -8,8 +8,7 @@ var app = new Vue({
         address: '',
         time: '',
         note: ' ',
-        selectStatus: '',
-        status: ['待面试', , 'OFFER', '等通知', '凉凉', '复试', '取消面试']
+        selectStatus: ''
     },
     mounted() {
         console.log('view mounted');
@@ -37,9 +36,9 @@ var app = new Vue({
                     this.company = interview.company;
                     this.address = interview.address;
                     this.stars = interview.stars;
-                    this.time = interview.time;
+                    this.time = new Date(interview.time);
                     this.note = interview.note;
-                    this.selectStatus = interview.status;
+                    this.selectStatus = interview.status.toString();
                 })
                 .catch(function(error) {
                     console.error(error);

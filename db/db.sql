@@ -28,7 +28,7 @@ CREATE TABLE `interview` (
     `interview_time` datetime not null,
     `create_time` datetime not null,
     `status` tinyint not null,
-    `stars` tinyint,
+    `stars` tinyint not null,
     `note` varchar(500),
     `offer_url` varchar(300),
     PRIMARY KEY (`interview_id`),
