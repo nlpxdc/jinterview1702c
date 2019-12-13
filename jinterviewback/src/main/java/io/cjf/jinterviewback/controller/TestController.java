@@ -1,6 +1,7 @@
 package io.cjf.jinterviewback.controller;
 
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,14 +19,15 @@ public class TestController {
     }
 
     @GetMapping(value = "/download", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-    public byte[] download(HttpServletResponse response) throws IOException {
+    public ResponseEntity<byte[]> download() throws IOException {
         try(FileInputStream fileInputStream = new FileInputStream("bitcoin_logo.png")) {
             final byte[] data = StreamUtils.copyToByteArray(fileInputStream);
 
             String filename = "mybitcoin.png";
-            response.setHeader("Content-Disposition", "attachment; filename=" + filename);
-
-            return data;
+            return ResponseEntity
+                    .ok()
+                    .header("Content-Disposition", "attachment; filename="+ filename)
+                    .body(data);
         }
     }
 }
