@@ -97,12 +97,12 @@ public class InterviewController {
     }
     @GetMapping(value = "/downloadinterview",produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public byte[] downloadinterview() throws IOException {
-        //response.reset();
-        List<InterviewListDTO> search = interviewService.search(null, null, null);
-        String filename = execlUtil.appendExeclBodyInfo(search);
+
+        List<InterviewListDTO> interviewListDTOS = interviewService.search(null, null, null);
+        String filename = execlUtil.appendExeclBodyInfo(interviewListDTOS);
         FileInputStream fis = new FileInputStream(filename);
         byte[] bytes = StreamUtils.copyToByteArray(fis);
-        //response.setHeader("Content-Disposition", "attachment; filename=" +filename );
+
         return bytes;
     }
 

@@ -58,9 +58,33 @@ var app = new Vue({
             }
         },
         handleDownloadClick(){
-            axios.get("/interview/downloadinterview")
+            axios(
+                {
+                    baseURL:"/jinterviewback",
+                    url:"/interview/downloadinterview",
+                    method:"get",
+                    responseType: 'blob',
+                    header: {
+                     'jinterviewToken': localStorage['jinterviewToken']
+                            } 
+            }
+            )
             .then(res => {
+                
                 console.log(res)
+                const fileName = '面试记录.xls';
+                if ('download' in document.createElement('a')) { // 非IE下载
+                    const blob = new Blob([res.data], {type: 'application/ms-excel'});
+                    const elink = document.createElement('a');
+                    elink.download = fileName;
+                    elink.style.display = 'none';
+                    elink.href = URL.createObjectURL(blob);
+                    document.body.appendChild(elink);
+                    elink.click();
+                    URL.revokeObjectURL(elink.href); // 释放URL 对象
+                    document.body.removeChild(elink);
+                }
+              
             })
             .catch(err => {
                 console.error(err); 
