@@ -4,7 +4,7 @@ SET
   DROP TABLE IF EXISTS `student`;
 CREATE TABLE `student` (
     `student_id` int(11) NOT NULL auto_increment,
-    `nickname` varchar(100),
+    `nickname` varchar(100) not null,
     `realname` varchar(20),
     `openid` varchar(100) not null,
     `avatar_url` varchar(300),

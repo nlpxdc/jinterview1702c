@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="assets/css/vant.css">
     <script src="assets/js/vconsole.min.js"></script>
     <script>
@@ -17,59 +18,27 @@
 
     <div id="app">
 
-        <div class="row">
-            <van-cell title="公司:" type="text" v-model="interview.company" />
-        </div>
+        <van-cell title="学生:" :value="interview.studentName"></van-cell>
+        <van-cell title="公司:" :value="interview.company"></van-cell>
+        <van-cell title="面试时间:">
+            <div slot="default">{{(new Date(interview.time)).toLocaleString()}}</div>
+        </van-cell>
+        <van-cell title="面试结果:" :value="status[interview.status]"></van-cell>
 
-        <div class="row">
-            <van-cell title="面试时间:" type="text" /> {{timestampToTime(interview.time)}}
-        </div>
+        <van-divider>面试图片</van-divider>
 
-        <div class="row">
-            <van-cell title="面试结果:" type="text" />{{Status[interview.status]}}
-        </div>
-
+        <van-divider>面试录音</van-divider>
 
 
-        <div class="row" style="height: 200px;">
-            <div style="text-align: left;">
-                <van-cell title="面试录音:" type="text" />
+        <van-cell title="评分:">
+            <van-rate slot="default" v-model="interview.stars" readonly></van-rate>
+        </van-cell>
 
-            </div>
-            <div class="input" style="text-align: center;">
-                <audio style="width: 500px; height: 100px;" :src="interview.audiorecordUrl" width=300 height=45 type=audio/mpeg controls volume="0"></audio>
-            </div>
-        </div>
 
-        <span>面试图片:</span>
-        <div style="text-align: center;">
+        <van-cell title="点评:" :value="interview.note"></van-cell>
 
-            <van-swipe :autoplay="3000">
-                <van-swipe-item v-for="image in images">
 
-                    <img :src="image.url" style="width: 200px; height: 150px;" />
-                </van-swipe-item>
-            </van-swipe>
-        </div>
-        <div style="text-align: right;">
-            <van-button round type="info" size="small">圆形按钮</van-button>
-
-        </div>
-        <div class="row">
-            <van-cell title="评分:" type="text" />
-            <van-rate v-model="interview.stars" /></van-col>
-        </div>
-
-        <div class="row">
-            <van-cell title="点评:" type="text" v-model="interview.note" />
-        </div>
-
-        <span>OFFER截图:</span>
-
-        <div style="text-align: center;">
-            <van-image width="150" height="150" :src="interview.offerUrl" />
-        </div>
-
+        <van-divider>OFFER截图</van-divider>
 
     </div>
 

@@ -7,14 +7,8 @@ import io.cjf.jinterviewback.dto.InterviewListDTO;
 import io.cjf.jinterviewback.dto.InterviewUpdateDTO;
 import io.cjf.jinterviewback.enumeration.InterviewStatus;
 import io.cjf.jinterviewback.exception.ClientException;
-import io.cjf.jinterviewback.po.AudioRecord;
-import io.cjf.jinterviewback.po.ExamPhoto;
-import io.cjf.jinterviewback.po.Examination;
-import io.cjf.jinterviewback.po.Interview;
-import io.cjf.jinterviewback.service.AudioRecordService;
-import io.cjf.jinterviewback.service.ExamPhotoService;
-import io.cjf.jinterviewback.service.ExaminationService;
-import io.cjf.jinterviewback.service.InterviewService;
+import io.cjf.jinterviewback.po.*;
+import io.cjf.jinterviewback.service.*;
 import io.cjf.jinterviewback.util.ExeclUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -38,6 +32,9 @@ import java.util.stream.Collectors;
 public class InterviewController {
 
     @Autowired
+    private StudentService studentService;
+
+    @Autowired
     private InterviewService interviewService;
 
 
@@ -57,6 +54,13 @@ public class InterviewController {
         JSONObject interviewJson = new JSONObject();
         Interview interview=interviewService.getByinterviewid(interviewId);
         interviewJson.put("interviewId",interview.getInterviewId());
+
+        final Integer studentId = interview.getStudentId();
+        final Student student = studentService.getBystudentId(studentId);
+        interviewJson.put("studentId", studentId);
+        String studentName = student.getRealname() != null ? student.getRealname() : student.getNickname();
+        interviewJson.put("studentName", studentName);
+
         interviewJson.put("company",interview.getCompany());
         interviewJson.put("address",interview.getAddress());
 
