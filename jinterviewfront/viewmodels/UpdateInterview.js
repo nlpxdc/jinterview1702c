@@ -9,32 +9,7 @@ var app = new Vue({
         time: '',
         note: ' ',
         selectStatus: '',
-        status: [
-            {
-                value: 0,
-                text: '待面试'
-            },
-            {
-                value: 1,
-                text: 'OFFER'
-            },
-            {
-                value: 2,
-                text: '等通知'
-            },
-            {
-                value: 3,
-                text: '凉凉'
-            },
-            {
-                value: 4,
-                text: '复试'
-            },
-            {
-                value: 5,
-                text: '取消面试'
-            }
-        ],
+        status: ['待面试', , 'OFFER', '等通知', '凉凉', '复试', '取消面试']
     },
     mounted() {
         console.log('view mounted');
@@ -51,10 +26,10 @@ var app = new Vue({
 
         getInterviewById() {
             axios.get('/interview/getById', {
-                params: {
-                    interviewId: this.interviewId
-                }
-            })
+                    params: {
+                        interviewId: this.interviewId
+                    }
+                })
                 .then(response => {
                     console.log(response);
                     var interview = response.data
@@ -66,7 +41,7 @@ var app = new Vue({
                     this.note = interview.note;
                     this.selectStatus = interview.status;
                 })
-                .catch(function (error) {
+                .catch(function(error) {
                     console.error(error);
                 });
         },
@@ -74,19 +49,19 @@ var app = new Vue({
 
         updateinterview() {
             axios.post('/interview/update', {
-                interviewId: this.interviewId,
-                company: this.company,
-                address: this.address,
-                stars: this.stars,
-                time: this.time,
-                note: this.note,
-                status: this.selectStatus,
-            })
-                .then(function (response) {
+                    interviewId: this.interviewId,
+                    company: this.company,
+                    address: this.address,
+                    stars: this.stars,
+                    time: this.time,
+                    note: this.note,
+                    status: this.selectStatus,
+                })
+                .then(function(response) {
                     console.log(response);
                     alert('修改成功');
                 })
-                .catch(function (error) {
+                .catch(function(error) {
                     console.log(error);
                     alert('修改失败');
                 });

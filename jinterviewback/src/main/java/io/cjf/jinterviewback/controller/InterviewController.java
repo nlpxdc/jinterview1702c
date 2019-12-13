@@ -60,7 +60,7 @@ public class InterviewController {
 
         interviewJson.put("time",interview.getInterviewTime().getTime()/1000);
         interviewJson.put("stars",interview.getStars());
-        interviewJson.put("status",InterviewStatus.values()[interview.getStatus()]);
+        interviewJson.put("status",interview.getStatus());
         interviewJson.put("note",interview.getNote());
         interviewJson.put("offerUrl",interview.getOfferUrl());
         Examination examination=examinationService.getExamination(interview.getInterviewId());

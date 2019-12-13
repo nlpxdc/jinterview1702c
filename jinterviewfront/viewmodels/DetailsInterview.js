@@ -2,12 +2,11 @@ var app = new Vue({
     el: '#app',
     data: {
         interview: {},
-        Status: [],
         stars: 0,
         // audio_url: "",
         images: [],
         interviewId: 0,
-
+        Status: ['待面试', 'OFFER', '等通知', '凉凉', '复试'],
     },
     methods: {
         timestampToTime(timestamp) {
@@ -54,5 +53,6 @@ var app = new Vue({
 
         this.interviewId = 1;
         this.getinterviewByid();
+
     },
 });
