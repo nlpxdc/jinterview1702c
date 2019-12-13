@@ -1,6 +1,5 @@
 package io.cjf.jinterviewback.util;
 import com.sun.mail.util.MailSSLSocketFactory;
-import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
 import org.springframework.stereotype.Component;
 
 import javax.mail.*;
