@@ -22,5 +22,7 @@ public class ClientExceptionConstant {
     public static final String NOT_SUPPORT_STATIC_RESOURCE_ERRMSG = "not support static resource";
     public static final String INTERVIEW_NOT_EXIST_ERRCODE = "0010";
     public static final String INTERVIEW_NOT_EXIST_ERRMSG = "interview not exist";
+    public static final String NOT_YOURSELF_INTERVIEW_ERRCODE = "0011";
+    public static final String NOT_YOURSELF_INTERVIEW_ERRMSG = "not yourself interview";
 
 }

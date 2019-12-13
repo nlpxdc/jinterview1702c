@@ -182,6 +182,9 @@ ResponseBody:
 ```json
 {
     "interviewId": 123456,
+    "studentId": 123,
+    "studentName": "cjf",
+    "self": true,
     "company": "华为",
     "address": "上海徐家汇",
     "time": 1575448390345,
@@ -209,6 +212,9 @@ Response Field
 | 字段     |     类型 |   描述   | 
 | :--------------: | :--------:| :------: |
 | interviewId   | Integer   | 面试Id    |
+| studentId   | Integer   | 学生Id    |
+| studentName   | String   | 学生真名（昵称）    |
+| self   | Boolean   | 是否自己    |
 | company   | String   | 公司名    |
 | address   | String   | 公司地址    |
 | time   | Long   | 面试时间戳    |

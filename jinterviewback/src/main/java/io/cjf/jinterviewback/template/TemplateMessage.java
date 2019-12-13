@@ -1,6 +1,6 @@
 package io.cjf.jinterviewback.template;
 
-import javax.xml.crypto.Data;
+import java.util.Map;
 
 public class TemplateMessage {
 
@@ -14,7 +14,7 @@ public class TemplateMessage {
     private String url;
 
     //模板数据封装实体
-    private Data data;
+    private Map<String, TemplateData> data;
 
     public String getTouser() {
         return touser;
@@ -40,12 +40,12 @@ public class TemplateMessage {
         this.url = url;
     }
 
-    public Data getData() {
+    public Map<String, TemplateData> getData() {
         return data;
     }
 
-    public void setData(TemplateData data) {
-        this.data = (Data) data;
+    public void setData(Map<String, TemplateData> data) {
+        this.data = data;
     }
 }
 

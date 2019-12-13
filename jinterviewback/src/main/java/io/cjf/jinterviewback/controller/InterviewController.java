@@ -7,14 +7,8 @@ import io.cjf.jinterviewback.dto.InterviewListDTO;
 import io.cjf.jinterviewback.dto.InterviewUpdateDTO;
 import io.cjf.jinterviewback.enumeration.InterviewStatus;
 import io.cjf.jinterviewback.exception.ClientException;
-import io.cjf.jinterviewback.po.AudioRecord;
-import io.cjf.jinterviewback.po.ExamPhoto;
-import io.cjf.jinterviewback.po.Examination;
-import io.cjf.jinterviewback.po.Interview;
-import io.cjf.jinterviewback.service.AudioRecordService;
-import io.cjf.jinterviewback.service.ExamPhotoService;
-import io.cjf.jinterviewback.service.ExaminationService;
-import io.cjf.jinterviewback.service.InterviewService;
+import io.cjf.jinterviewback.po.*;
+import io.cjf.jinterviewback.service.*;
 import io.cjf.jinterviewback.util.ExeclUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -38,6 +32,9 @@ import java.util.stream.Collectors;
 public class InterviewController {
 
     @Autowired
+    private StudentService studentService;
+
+    @Autowired
     private InterviewService interviewService;
 
 
@@ -53,10 +50,20 @@ public class InterviewController {
     @Autowired
     private ExeclUtil execlUtil;
     @GetMapping("/getById")
-    public JSONObject getById(@RequestParam Integer interviewId){
+    public JSONObject getById(@RequestParam Integer interviewId, @RequestAttribute("studentId") Integer currentStudentId) throws ClientException {
         JSONObject interviewJson = new JSONObject();
-        Interview interview=interviewService.getByinterviewid(interviewId);
-        interviewJson.put("interviewId",interview.getInterviewId());
+        Interview interview=interviewService.getById(interviewId);
+        if (interview == null){
+            throw new ClientException(ClientExceptionConstant.INTERVIEW_NOT_EXIST_ERRCODE, ClientExceptionConstant.INTERVIEW_NOT_EXIST_ERRMSG);
+        }
+        interviewJson.put("interviewId",interviewId);
+        final Integer studentId = interview.getStudentId();
+        final Student student = studentService.getBystudentId(studentId);
+        interviewJson.put("studentId", studentId);
+        String studentName = student.getRealname() != null ? student.getRealname() : student.getNickname();
+        interviewJson.put("studentName", studentName);
+        interviewJson.put("self", studentId == currentStudentId);
+
         interviewJson.put("company",interview.getCompany());
         interviewJson.put("address",interview.getAddress());
 
@@ -119,7 +126,7 @@ public class InterviewController {
     @PostMapping("/update")
     public void update(@RequestBody InterviewUpdateDTO interviewUpdateDTO) throws ClientException {
         final Integer interviewId = interviewUpdateDTO.getInterviewId();
-        Interview interview = interviewService.selectByPrimaryKey(interviewId);
+        Interview interview = interviewService.getById(interviewId);
         if (interview == null){
             throw new ClientException(ClientExceptionConstant.INTERVIEW_NOT_EXIST_ERRCODE, ClientExceptionConstant.INTERVIEW_NOT_EXIST_ERRMSG);
         }
@@ -128,10 +135,22 @@ public class InterviewController {
         interview.setStatus(interviewUpdateDTO.getStatus());
         interview.setInterviewTime(new Date(interviewUpdateDTO.getTime()));
 
-        interviewService.updateByPrimaryKey(interview);
+        interviewService.updateById(interview);
     }
 
-
+    @PostMapping("/delete")
+    public void delete(@RequestBody Integer interviewId, @RequestAttribute Integer studentId) throws ClientException {
+        final Interview interview = interviewService.getById(interviewId);
+        if (interview == null){
+            throw new ClientException(ClientExceptionConstant.INTERVIEW_NOT_EXIST_ERRCODE, ClientExceptionConstant.INTERVIEW_NOT_EXIST_ERRMSG);
+        }
+        final Integer studentIdDB = interview.getStudentId();
+        if (studentId != studentIdDB){
+            throw new ClientException(ClientExceptionConstant.NOT_YOURSELF_INTERVIEW_ERRCODE, ClientExceptionConstant.NOT_YOURSELF_INTERVIEW_ERRMSG);
+        }
+        interviewService.deleteById(interviewId);
+        //todo delete exam, examphoto, audiorecord same time ?
+    }
 
 
 

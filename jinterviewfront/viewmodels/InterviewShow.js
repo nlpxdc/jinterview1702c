@@ -1,25 +1,24 @@
 var app = new Vue({
     el: '#app',
     data: {
-        interview: {},
-        stars: 0,
+        interview: '',
         images: [],
-        interviewId: 0,
-        Status: ['待面试', 'OFFER', '等通知', '凉凉', '复试'],
+        interviewId: '',
+        status: ['待面试', 'OFFER', '等通知', '凉凉', '复试', '取消面试'],
+    },
+    mounted() {
+        console.log('view mounted');
+
+        var url = new URL(location.href);
+        this.interviewId = url.searchParams.get("interviewId");
+        if (!this.interviewId) {
+            alert('interviewId 不存在');
+            return;
+        }
+        this.getInterviewById();
     },
     methods: {
-        mounted() {
-            console.log('view mounted');
-
-            var url = new URL(location.href);
-            this.interviewId = url.searchParams.get("interviewId");
-            if (!this.interviewId) {
-                alert('interviewId 不存在');
-                return;
-            }
-            this.getInterviewById();
-        },
-        getInterviewById(interviewId) {
+        getInterviewById() {
             axios.get("/interview/getById", {
                 params: {
                     interviewId: this.interviewId
@@ -28,14 +27,10 @@ var app = new Vue({
                 .then(res => {
                     console.log(res)
                     this.interview = res.data;
-                    this.stars = res.data.stars;
-                    this.images = res.data.examphotoUrls;
-
                 })
                 .catch(err => {
                     console.error(err);
                 })
-        },
-
+        }
     }
 });

@@ -25,10 +25,10 @@ var app = new Vue({
 
         getInterviewById() {
             axios.get('/interview/getById', {
-                    params: {
-                        interviewId: this.interviewId
-                    }
-                })
+                params: {
+                    interviewId: this.interviewId
+                }
+            })
                 .then(response => {
                     console.log(response);
                     var interview = response.data
@@ -40,27 +40,44 @@ var app = new Vue({
                     this.note = interview.note;
                     this.selectStatus = interview.status.toString();
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                     console.error(error);
                 });
         },
-        handleUpdateClick(){
+        handleUpdateClick() {
             console.log('update click');
             this.updateInterview();
         },
         updateInterview() {
             axios.post('/interview/update', {
-                    interviewId: this.interviewId,
-                    stars: this.stars,
-                    time: this.time.getTime(),
-                    note: this.note,
-                    status: this.selectStatus,
-                })
-                .then(function(response) {
+                interviewId: this.interviewId,
+                stars: this.stars,
+                time: this.time.getTime(),
+                note: this.note,
+                status: this.selectStatus,
+            })
+                .then(function (response) {
                     console.log(response);
                     alert('修改成功');
                 })
-                .catch(function(error) {
+                .catch(function (error) {
+                    console.log(error);
+                    alert(error.response.data.message);
+                });
+        },
+        handleDeleteClick() {
+            console.log('delete click');
+            if (confirm('确认删除？')) {
+                this.deleteInterview();
+            }
+        },
+        deleteInterview() {
+            axios.post('/interview/delete', this.interviewId)
+                .then(function (response) {
+                    console.log(response);
+                    alert('删除成功');
+                })
+                .catch(function (error) {
                     console.log(error);
                     alert(error.response.data.message);
                 });

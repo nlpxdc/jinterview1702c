@@ -2,7 +2,7 @@
 | 字段  | 类型  | 约束  |  说明 |
 |---|---|---|---|
 | student_id  | int(11)  | 主键 自增 | Id  |
-| nickname | varchar(100)  |  | 昵称  |
+| nickname | varchar(100)  | 非空 | 昵称  |
 | realname  | varchar(20)  |  | 真实姓名  |
 | openid  | varchar(100)  | 唯一索引 非空 | 微信openid  |
 | avatar_url  | varchar(300)  |   | 头像url  |
