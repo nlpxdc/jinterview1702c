@@ -50,8 +50,6 @@ var app = new Vue({
         updateinterview() {
             axios.post('/interview/update', {
                     interviewId: this.interviewId,
-                    company: this.company,
-                    address: this.address,
                     stars: this.stars,
                     time: this.time,
                     note: this.note,

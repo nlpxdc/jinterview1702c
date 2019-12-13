@@ -120,8 +120,6 @@ public class InterviewController {
         interview.setNote(interviewUpdateDTO.getNote());
         interview.setStars(interviewUpdateDTO.getStars());
         interview.setStatus(interviewUpdateDTO.getStatus());
-        interview.setCompany(interviewUpdateDTO.getCompany());
-        interview.setAddress(interviewUpdateDTO.getAddress());
         long msl=(long)interviewUpdateDTO.getTime()*1000;
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date temp=null;
