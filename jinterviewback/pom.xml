@@ -53,12 +53,13 @@
             </exclusions>
         </dependency>
 
-        <!-- fastjson -->
+        <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.51</version>
+            <version>1.2.62</version>
         </dependency>
+
 
         <!--  httpclient -->
         <dependency>

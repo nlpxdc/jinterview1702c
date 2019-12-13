@@ -8,15 +8,15 @@ import java.util.List;
 
 public interface InterviewService {
 
-    Interview getByinterviewid(Integer interviewId);
+    Interview getById(Integer interviewId);
 
-    Interview selectByPrimaryKey(Integer interviewId);
-
-    int updateByPrimaryKey(Interview record);
+    void updateById(Interview interview);
 
     List getInterviewCount();
 
     List<InterviewListDTO> search(String keyword, Integer studentId, Date time);
 
     Integer createInterview(String company, String address, Date time, Integer studentId);
+
+    void deleteById(Integer interviewId);
 }

@@ -18,17 +18,12 @@ public class InterviewServiceImpl implements InterviewService {
     private InterviewMapper interviewMapper;
 
     @Override
-    public Interview selectByPrimaryKey(Integer interviewId) {
-        return interviewMapper.selectByPrimaryKey(interviewId);
+    public void updateById(Interview record) {
+        interviewMapper.updateByPrimaryKey(record);
     }
 
     @Override
-    public int updateByPrimaryKey(Interview record) {
-        return interviewMapper.updateByPrimaryKey(record);
-    }
-
-    @Override
-    public Interview getByinterviewid(Integer interviewId) {
+    public Interview getById(Integer interviewId) {
         return interviewMapper.selectByinterview(interviewId);
     }
 
@@ -59,5 +54,10 @@ public class InterviewServiceImpl implements InterviewService {
         interviewMapper.insert(interview);
         final Integer interviewId = interview.getInterviewId();
         return interviewId;
+    }
+
+    @Override
+    public void deleteById(Integer interviewId) {
+        interviewMapper.deleteByPrimaryKey(interviewId);
     }
 }

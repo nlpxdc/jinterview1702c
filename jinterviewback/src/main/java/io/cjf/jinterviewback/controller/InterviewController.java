@@ -52,7 +52,7 @@ public class InterviewController {
     @GetMapping("/getById")
     public JSONObject getById(@RequestParam Integer interviewId){
         JSONObject interviewJson = new JSONObject();
-        Interview interview=interviewService.getByinterviewid(interviewId);
+        Interview interview=interviewService.getById(interviewId);
         interviewJson.put("interviewId",interview.getInterviewId());
 
         final Integer studentId = interview.getStudentId();
@@ -123,7 +123,7 @@ public class InterviewController {
     @PostMapping("/update")
     public void update(@RequestBody InterviewUpdateDTO interviewUpdateDTO) throws ClientException {
         final Integer interviewId = interviewUpdateDTO.getInterviewId();
-        Interview interview = interviewService.selectByPrimaryKey(interviewId);
+        Interview interview = interviewService.getById(interviewId);
         if (interview == null){
             throw new ClientException(ClientExceptionConstant.INTERVIEW_NOT_EXIST_ERRCODE, ClientExceptionConstant.INTERVIEW_NOT_EXIST_ERRMSG);
         }
@@ -132,10 +132,22 @@ public class InterviewController {
         interview.setStatus(interviewUpdateDTO.getStatus());
         interview.setInterviewTime(new Date(interviewUpdateDTO.getTime()));
 
-        interviewService.updateByPrimaryKey(interview);
+        interviewService.updateById(interview);
     }
 
-
+    @PostMapping("/delete")
+    public void delete(@RequestBody Integer interviewId, @RequestAttribute Integer studentId) throws ClientException {
+        final Interview interview = interviewService.getById(interviewId);
+        if (interview == null){
+            throw new ClientException(ClientExceptionConstant.INTERVIEW_NOT_EXIST_ERRCODE, ClientExceptionConstant.INTERVIEW_NOT_EXIST_ERRMSG);
+        }
+        final Integer studentIdDB = interview.getStudentId();
+        if (studentId != studentIdDB){
+            throw new ClientException(ClientExceptionConstant.NOT_YOURSELF_INTERVIEW_ERRCODE, ClientExceptionConstant.NOT_YOURSELF_INTERVIEW_ERRMSG);
+        }
+        interviewService.deleteById(interviewId);
+        //todo delete exam, examphoto, audiorecord same time ?
+    }
 
 
 
