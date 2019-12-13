@@ -3,7 +3,10 @@ package io.cjf.jinterviewback.service.impl;
 import com.alibaba.fastjson.JSONObject;
 import io.cjf.jinterviewback.service.TemplateService;
 import io.cjf.jinterviewback.template.TemplateMessage;
+import org.springframework.stereotype.Service;
 
+
+@Service
 public class TemplateServiceImpl implements TemplateService {
 
     /**

@@ -2,28 +2,29 @@ package io.cjf.jinterviewback.controller;
 
 import com.alibaba.fastjson.JSON;
 import io.cjf.jinterviewback.dto.InterviewCreateDTO;
+import io.cjf.jinterviewback.service.TemplateService;
 import io.cjf.jinterviewback.template.TemplateContent;
 import io.cjf.jinterviewback.template.TemplateData;
 import io.cjf.jinterviewback.template.TemplateMessage;
-import io.cjf.jinterviewback.service.TemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.text.SimpleDateFormat;
 
+@RestController
 @RequestMapping("/template")
 public class TemplateController {
 
     //引入模板ID
-    @Value("${templateid}")
+    @Value("${wechat.templateid}")
     private String TemplateId;
 
     @Autowired
     private TemplateService templateService;
 
-    @Autowired
     private InterviewCreateDTO interviewCreateDTO;
 
     @GetMapping("/test")
