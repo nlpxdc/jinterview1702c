@@ -31,7 +31,6 @@ var app = new Vue({
                 .catch(err => {
                     console.error(err);
                 })
-        },
-
+        }
     }
 });

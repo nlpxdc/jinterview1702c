@@ -50,16 +50,19 @@ public class InterviewController {
     @Autowired
     private ExeclUtil execlUtil;
     @GetMapping("/getById")
-    public JSONObject getById(@RequestParam Integer interviewId){
+    public JSONObject getById(@RequestParam Integer interviewId, @RequestAttribute("studentId") Integer currentStudentId) throws ClientException {
         JSONObject interviewJson = new JSONObject();
         Interview interview=interviewService.getById(interviewId);
-        interviewJson.put("interviewId",interview.getInterviewId());
-
+        if (interview == null){
+            throw new ClientException(ClientExceptionConstant.INTERVIEW_NOT_EXIST_ERRCODE, ClientExceptionConstant.INTERVIEW_NOT_EXIST_ERRMSG);
+        }
+        interviewJson.put("interviewId",interviewId);
         final Integer studentId = interview.getStudentId();
         final Student student = studentService.getBystudentId(studentId);
         interviewJson.put("studentId", studentId);
         String studentName = student.getRealname() != null ? student.getRealname() : student.getNickname();
         interviewJson.put("studentName", studentName);
+        interviewJson.put("self", studentId == currentStudentId);
 
         interviewJson.put("company",interview.getCompany());
         interviewJson.put("address",interview.getAddress());
