@@ -29,6 +29,12 @@ var app = new Vue({
             app.list=response.data;
         });
         },
+        onClickLeft() {
+
+        },
+        onClickRight() {
+
+        }
        
     
 

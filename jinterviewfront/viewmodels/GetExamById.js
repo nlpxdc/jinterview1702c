@@ -44,7 +44,13 @@ time:null,
                 console.error(err);
             })
 
-        }
+        },
+        onClickLeft() {
+
+        },
+        onClickRight() {
+
+        },
 
          
      },

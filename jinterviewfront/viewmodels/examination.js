@@ -18,6 +18,12 @@ var app = new Vue({
            
            this.onLoad();
         },
+        onClickLeft() {
+
+        },
+        onClickRight() {
+
+        },
     
 
         onLoad() {

@@ -27,6 +27,12 @@ var app = new Vue({
                     console.log(error);
                     alert('创建失败');
                 });
+        },
+        onClickLeft() {
+
+        },
+        onClickRight() {
+
         }
     }
 });

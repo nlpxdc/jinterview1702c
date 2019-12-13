@@ -81,6 +81,12 @@ var app = new Vue({
                     console.log(error);
                     alert(error.response.data.message);
                 });
+        },
+        onClickLeft() {
+
+        },
+        onClickRight() {
+
         }
     }
 });

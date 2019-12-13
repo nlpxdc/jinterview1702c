@@ -4,6 +4,7 @@ var app = new Vue({
         counts:{},
         labels:[],
         data:[],
+        active:0,
     },
 
     methods:{

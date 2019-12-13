@@ -7,7 +7,8 @@ var app = new Vue({
         originKeyword: '',
         onlyme: false,
         time: '',
-        interviews: []
+        interviews: [],
+        active:0,
     },
     mounted() {
         console.log('view mounted');

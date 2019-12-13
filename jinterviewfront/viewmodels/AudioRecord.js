@@ -31,6 +31,12 @@ var app = new Vue({
            
 
         },
+        onClickLeft() {
+
+        },
+        onClickRight() {
+
+        },
     
 
         onLoad() {

@@ -5,6 +5,7 @@ var app = new Vue({
         images: [],
         interviewId: '',
         status: ['待面试', 'OFFER', '等通知', '凉凉', '复试', '取消面试'],
+        active: 0,
     },
     mounted() {
         console.log('view mounted');
@@ -31,6 +32,12 @@ var app = new Vue({
                 .catch(err => {
                     console.error(err);
                 })
+        },
+        onClickLeft() {
+            location.href="InterviewIndex.html";
+        },
+        onClickRight() {
+            location.href="InterviewIndex.html";
         }
     }
 });

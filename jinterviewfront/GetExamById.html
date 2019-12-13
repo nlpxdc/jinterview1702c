@@ -16,6 +16,9 @@
 <body>
 
     <div id="app">
+        <van-nav-bar title="标题" left-text="返回" left-arrow @click-left="onClickLeft" @click-right="onClickRight">
+            <van-icon name="wap-home-o" slot="right"></van-icon>
+        </van-nav-bar>
        <div v-for="(item,a) in examphotoUrls">
             <img
             style="width: 300px; height: 300px"
