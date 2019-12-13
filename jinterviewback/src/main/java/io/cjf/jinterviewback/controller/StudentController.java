@@ -155,7 +155,7 @@ public class StudentController {
         if(!captcha.equalsIgnoreCase(captchaOirigin)){
             throw new ClientException(ClientExceptionConstant.CAPTCHA_INVALID_ERRCODE, ClientExceptionConstant.CAPTCHA_INVALID_ERRMSG);
         }else {
-            studentService.activateStudent(studentId);
+            studentService.activateStudentMail(studentId);
         }
 
     }

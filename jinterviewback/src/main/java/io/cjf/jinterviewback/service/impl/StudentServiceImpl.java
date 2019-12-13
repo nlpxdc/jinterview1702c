@@ -44,6 +44,13 @@ public class StudentServiceImpl implements StudentService {
         student.setMobileVerified(true);
         studentMapper.updateByPrimaryKey(student);
     }
+    @Override
+    public void activateStudentMail(Integer studentId) {
+        final Student student = studentMapper.selectByPrimaryKey(studentId);
+        student.setStatus((byte)StudentStatus.Activate.ordinal());
+        student.setEmailVerified(true);
+        studentMapper.updateByPrimaryKey(student);
+    }
 
     @Override
     public Student getBystudentId(Integer studentId) {
