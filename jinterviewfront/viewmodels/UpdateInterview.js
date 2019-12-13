@@ -44,13 +44,15 @@ var app = new Vue({
                     console.error(error);
                 });
         },
-
-
-        updateinterview() {
+        handleUpdateClick(){
+            console.log('update click');
+            this.updateInterview();
+        },
+        updateInterview() {
             axios.post('/interview/update', {
                     interviewId: this.interviewId,
                     stars: this.stars,
-                    time: this.time,
+                    time: this.time.getTime(),
                     note: this.note,
                     status: this.selectStatus,
                 })
@@ -60,7 +62,7 @@ var app = new Vue({
                 })
                 .catch(function(error) {
                     console.log(error);
-                    alert('修改失败');
+                    alert(error.response.data.message);
                 });
         }
     }

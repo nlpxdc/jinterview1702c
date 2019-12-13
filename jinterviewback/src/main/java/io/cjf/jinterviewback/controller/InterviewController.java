@@ -1,10 +1,12 @@
 package io.cjf.jinterviewback.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import io.cjf.jinterviewback.constant.ClientExceptionConstant;
 import io.cjf.jinterviewback.dto.InterviewCreateDTO;
 import io.cjf.jinterviewback.dto.InterviewListDTO;
 import io.cjf.jinterviewback.dto.InterviewUpdateDTO;
 import io.cjf.jinterviewback.enumeration.InterviewStatus;
+import io.cjf.jinterviewback.exception.ClientException;
 import io.cjf.jinterviewback.po.AudioRecord;
 import io.cjf.jinterviewback.po.ExamPhoto;
 import io.cjf.jinterviewback.po.Examination;
@@ -115,26 +117,16 @@ public class InterviewController {
     }
 
     @PostMapping("/update")
-    public void update(@RequestBody InterviewUpdateDTO interviewUpdateDTO) throws ParseException {
-        Interview interview = interviewService.selectByPrimaryKey(interviewUpdateDTO.getInterviewId());
+    public void update(@RequestBody InterviewUpdateDTO interviewUpdateDTO) throws ClientException {
+        final Integer interviewId = interviewUpdateDTO.getInterviewId();
+        Interview interview = interviewService.selectByPrimaryKey(interviewId);
+        if (interview == null){
+            throw new ClientException(ClientExceptionConstant.INTERVIEW_NOT_EXIST_ERRCODE, ClientExceptionConstant.INTERVIEW_NOT_EXIST_ERRMSG);
+        }
         interview.setNote(interviewUpdateDTO.getNote());
         interview.setStars(interviewUpdateDTO.getStars());
         interview.setStatus(interviewUpdateDTO.getStatus());
-        long msl=(long)interviewUpdateDTO.getTime()*1000;
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date temp=null;
-        if(interviewUpdateDTO.getTime()!=null){
-            try {
-                String str=sdf.format(msl);
-                temp=sdf.parse(str);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }
-
-
-        interview.setInterviewTime(temp);
-        interview.setInterviewId(interviewUpdateDTO.getInterviewId());
+        interview.setInterviewTime(new Date(interviewUpdateDTO.getTime()));
 
         interviewService.updateByPrimaryKey(interview);
     }
