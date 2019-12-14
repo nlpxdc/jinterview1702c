@@ -90,6 +90,13 @@ var app = new Vue({
             .catch(err => {
                 console.error(err); 
             })
+        },
+        onRefresh(){
+            console.log('pull refresh trigger');
+            this.finished = false;
+            this.time = '';
+            this.interviews = [];
+            this.searchInterview();
         }
     }
 });

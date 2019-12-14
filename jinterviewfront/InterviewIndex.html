@@ -24,21 +24,27 @@
         <van-button type="primary" @click="handleSearchClick">查询</van-button>
         <van-button type="primary" @click="handleDownloadClick">导出</van-button>
 
-        <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad" :offset="0">
-            <van-cell v-for="interview in interviews" :key="interview.interviewId" :title="interview.company">
-                <div slot="default">{{interview.time.substr(0,16)}}</div>
-                <div slot="label">{{interview.studentName}}</div>
-                <img :src="interview.avatarUrl" alt="" slot="icon" width="48px" height="48px">
-            </van-cell>
-        </van-list>
-        <br>
+        <van-pull-refresh v-model="loading" @refresh="onRefresh">
+
+            <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad" :offset="0">
+                <van-cell v-for="interview in interviews" :key="interview.interviewId" :title="interview.company">
+                    <div slot="default">{{interview.time.substr(0,16)}}</div>
+                    <div slot="label">{{interview.studentName}}</div>
+                    <img :src="interview.avatarUrl" alt="" slot="icon" width="48px" height="48px">
+                </van-cell>
+            </van-list>
+
+        </van-pull-refresh>
+
+
+        <!-- <br>
         <van-tabbar v-model="active">
             <van-tabbar-item icon="phone-o" url="InterviewCreate.html">我的面试</van-tabbar-item>
             <van-tabbar-item icon="friends" url="examination.html">共享试题</van-tabbar-item>
             <van-tabbar-item icon="service-o" url="AudioRecord.html">高频录音</van-tabbar-item>
             <van-tabbar-item icon="chart-trending-o" url="BarChart.html">报表</van-tabbar-item>
             <van-tabbar-item icon="user-o" url="Student.html">我的信息</van-tabbar-item>
-        </van-tabbar>
+        </van-tabbar> -->
     </div>
 
 
