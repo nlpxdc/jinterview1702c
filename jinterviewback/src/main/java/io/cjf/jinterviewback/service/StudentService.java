@@ -12,4 +12,6 @@ public interface StudentService {
     void activateStudent(Integer studentId);
 
     Student getByStudentId(Integer studentId);
+
+    void updateStudentRealname(Student student);
 }

@@ -2,6 +2,8 @@ package io.cjf.jinterviewback.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import io.cjf.jinterviewback.dto.FileDTO;
+import io.cjf.jinterviewback.po.Student;
+import io.cjf.jinterviewback.service.StudentService;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -10,6 +12,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,9 +27,13 @@ import java.util.*;
 public class UploadController {
 
 
+    @Autowired
+    private StudentService studentService;
+
     @PostMapping("/photos")
     public String base64(@RequestBody FileDTO base64) throws IOException {
         System.out.println(base64.getId());
+        int id = base64.getId();
         /*// 读取图片字节数组
         byte[] bytes = file.getBytes();
         // 对字节数组Base64编码
@@ -52,7 +59,11 @@ public class UploadController {
         String name = s1[0];
 
         //修改信息
-
+        Student student = new Student();
+        student.setRealname(name);
+        student.setStudentId(id);
+        System.out.println(name);
+        studentService.updateStudentRealname(student);
 
         return s;
     }

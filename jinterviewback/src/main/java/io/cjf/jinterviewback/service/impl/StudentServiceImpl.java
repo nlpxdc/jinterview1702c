@@ -49,4 +49,9 @@ public class StudentServiceImpl implements StudentService {
     public Student getByStudentId(Integer studentId) {
         return studentMapper.selectByPrimaryKey(studentId);
     }
+
+    @Override
+    public void updateStudentRealname(Student student) {
+        studentMapper.updateByPrimaryKeySelective(student);
+    }
 }
