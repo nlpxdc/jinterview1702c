@@ -58,7 +58,7 @@ public class InterviewController {
         }
         interviewJson.put("interviewId",interviewId);
         final Integer studentId = interview.getStudentId();
-        final Student student = studentService.getBystudentId(studentId);
+        final Student student = studentService.getByStudentId(studentId);
         interviewJson.put("studentId", studentId);
         String studentName = student.getRealname() != null ? student.getRealname() : student.getNickname();
         interviewJson.put("studentName", studentName);

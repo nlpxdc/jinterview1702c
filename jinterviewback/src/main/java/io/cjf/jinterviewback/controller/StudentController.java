@@ -2,6 +2,7 @@ package io.cjf.jinterviewback.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import io.cjf.jinterviewback.client.WechatService;
+import io.cjf.jinterviewback.constant.CacheKeyConstant;
 import io.cjf.jinterviewback.constant.ClientExceptionConstant;
 import io.cjf.jinterviewback.exception.ClientException;
 import io.cjf.jinterviewback.po.Student;
@@ -45,7 +46,7 @@ public class StudentController {
     @Autowired
     private MailUtil mailUtil;
 
-    private Map<Integer, String> studentCaptchaMap = new HashMap<>();
+    private Map<String, String> studentCaptchaMap = new HashMap<>();
 
     @GetMapping("/autoRegisterLogin")
     public String autoRegisterLogin(@RequestParam String code) throws ClientException {
@@ -90,7 +91,7 @@ public class StudentController {
     @GetMapping("/getMobileCaptcha")
     public void getMobileCaptcha(@RequestAttribute Integer studentId) throws ClientException, com.aliyuncs.exceptions.ClientException {
 
-        Student student = studentService.getBystudentId(studentId);
+        Student student = studentService.getByStudentId(studentId);
 
         String mobile = student.getMobile();
         if (mobile == null || mobile.isEmpty()){
@@ -98,14 +99,15 @@ public class StudentController {
         }else {
             final String captcha = randomUtil.getRandomStr();
             smsUtil.sms(mobile, captcha);
-            studentCaptchaMap.put(studentId, captcha);
+            logger.info("mobile captcha: {}, {}", mobile, captcha);
+            studentCaptchaMap.put(CacheKeyConstant.STUDENT_MOBILE_CAPTCHA, captcha);
         }
     }
 
     @GetMapping("/submitMobileCaptcha")
     public void submitMobileCaptcha(@RequestParam String captcha, @RequestAttribute Integer studentId) throws ClientException {
 
-        final String captchaOirigin = studentCaptchaMap.get(studentId);
+        final String captchaOirigin = studentCaptchaMap.get(CacheKeyConstant.STUDENT_MOBILE_CAPTCHA);
 
         if(!captcha.equalsIgnoreCase(captchaOirigin)){
             throw new ClientException(ClientExceptionConstant.CAPTCHA_INVALID_ERRCODE, ClientExceptionConstant.CAPTCHA_INVALID_ERRMSG);
@@ -118,7 +120,7 @@ public class StudentController {
     @GetMapping("/getBasicInfo")
     public JSONObject getBasicInfo(@RequestParam Integer studentId){
         JSONObject studentJson = new JSONObject();
-        Student student = studentService.selectByPrimaryKey(studentId);
+        Student student = studentService.getByStudentId(studentId);
         studentJson.put("studentId",student.getStudentId());
         studentJson.put("realname",student.getRealname());
         studentJson.put("mobile",student.getMobile());
@@ -130,19 +132,18 @@ public class StudentController {
     //
 
     @GetMapping("/getMailCaptcha")
-    public void getMailCaptcha(@RequestAttribute Integer studentId) throws ClientException, com.aliyuncs.exceptions.ClientException, GeneralSecurityException, MessagingException {
+    public void getMailCaptcha(@RequestAttribute Integer studentId) throws ClientException, GeneralSecurityException, MessagingException {
 
-        Student student = studentService.getBystudentId(studentId);
+        Student student = studentService.getByStudentId(studentId);
 
         String email = student.getEmail();
         if (email == null || email.isEmpty()){
-            throw new ClientException(ClientExceptionConstant.MailNOT_EXIST_ERRCODE, ClientExceptionConstant.Mail_NOT_EXIST_ERRMSG);
+            throw new ClientException(ClientExceptionConstant.EMail_NOT_EXIST_ERRCODE, ClientExceptionConstant.EMail_NOT_EXIST_ERRMSG);
         }else {
             final String captcha = randomUtil.getRandomStr();
             mailUtil.mailSend(email,captcha);
-            System.out.println(email);
-            System.out.println(captcha);
-            studentCaptchaMap.put(studentId, captcha);
+            logger.info("email captcha: {}, {}", email, captcha);
+            studentCaptchaMap.put(CacheKeyConstant.STUDENT_EMAIL_CAPTCHA, captcha);
         }
     }
 
@@ -150,12 +151,14 @@ public class StudentController {
     @GetMapping("/submitMailCaptcha")
     public void submitMailCaptcha(@RequestParam String captcha, @RequestAttribute Integer studentId) throws ClientException {
 
-        final String captchaOirigin = studentCaptchaMap.get(studentId);
+        final String captchaOirigin = studentCaptchaMap.get(CacheKeyConstant.STUDENT_EMAIL_CAPTCHA);
 
         if(!captcha.equalsIgnoreCase(captchaOirigin)){
             throw new ClientException(ClientExceptionConstant.CAPTCHA_INVALID_ERRCODE, ClientExceptionConstant.CAPTCHA_INVALID_ERRMSG);
         }else {
-            studentService.activateStudentMail(studentId);
+            final Student student = studentService.getByStudentId(studentId);
+            student.setMobileVerified(true);
+            studentService.updateStudent(student);
         }
 
     }

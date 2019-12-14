@@ -81,7 +81,7 @@ public class LoginFilter implements Filter {
             return;
         }
 
-        final Student student = studentService.getBystudentId(studentLoginVO.getStudentId());
+        final Student student = studentService.getByStudentId(studentLoginVO.getStudentId());
         if (student.getStatus() == StudentStatus.NotActivate.ordinal()) {
             throw new ClientException(ClientExceptionConstant.STUDENT_NOT_ACTIVATE_ERRCODE, ClientExceptionConstant.STUDENT_NOT_ACTIVATE_ERRMSG);
         }

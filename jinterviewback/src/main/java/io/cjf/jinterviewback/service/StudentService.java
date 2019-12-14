@@ -8,10 +8,8 @@ public interface StudentService {
     Integer createStudent(Student student);
 
     void updateStudent(Student student);
+
     void activateStudent(Integer studentId);
-    void activateStudentMail(Integer studentId);
 
-    Student getBystudentId(Integer studentId);
-
-    Student selectByPrimaryKey(Integer studentId);
+    Student getByStudentId(Integer studentId);
 }

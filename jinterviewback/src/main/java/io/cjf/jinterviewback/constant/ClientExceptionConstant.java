@@ -16,8 +16,8 @@ public class ClientExceptionConstant {
     public static final String TOKEN_NOT_EXIST_ERRMSG = "token not exist";
     public static final String AUTHCODE_INVALID_ERRCODE = "0007";
     public static final String AUTHCODE_INVALID_ERRMSG = "auth code invalid";
-    public static final String MailNOT_EXIST_ERRCODE = "0008";
-    public static final String Mail_NOT_EXIST_ERRMSG = "mail not exist";
+    public static final String EMail_NOT_EXIST_ERRCODE = "0008";
+    public static final String EMail_NOT_EXIST_ERRMSG = "email not exist";
     public static final String NOT_SUPPORT_STATIC_RESOURCE_ERRCODE = "0009";
     public static final String NOT_SUPPORT_STATIC_RESOURCE_ERRMSG = "not support static resource";
     public static final String INTERVIEW_NOT_EXIST_ERRCODE = "0010";
