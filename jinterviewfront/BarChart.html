@@ -15,24 +15,35 @@
 </head>
 
 <body>
-    <div id="app">
-        <van-nav-bar title="面试次数图表" left-text="Back" right-text="首页" left-arrow @click-left="onClickLeft"
-            @click-right="onClickRight"></van-nav-bar>
-        <canvas id="myChart"></canvas>
-        <van-tabbar v-model="active">
-            <van-tabbar-item icon="phone-o" url="InterviewCreate.html">我的面试</van-tabbar-item>
-            <van-tabbar-item icon="friends" url="examination.html">共享试题</van-tabbar-item>
-            <van-tabbar-item icon="service-o" url="AudioRecord.html">高频录音</van-tabbar-item>
-            <van-tabbar-item icon="chart-trending-o" url="BarChart.html">报表</van-tabbar-item>
-            <van-tabbar-item icon="user-o" url="Student.html">我的信息</van-tabbar-item>
-        </van-tabbar>
-    </div>
 
-    <script src="assets/js/axios.min.js"></script>
-    <script src="assets/js/common.js"></script>
-    <script src="assets/js/vue.js"></script>
-    <script src="assets/js/vant.min.js"></script>
-    <script src="viewmodels/BarChart.js"></script>
+<div id="app">
+    <van-nav-bar
+            title="面试次数图表"
+            left-text="Back"
+            right-text="首页"
+            left-arrow
+            @click-left="onClickLeft"
+            @click-right="onClickRight"
+    ></van-nav-bar>
+    <canvas id="myChart"></canvas>
+    <br>
+    <van-button type="primary" @click="word">word下载</van-button>
+    <van-button type="primary" @click="pdf">pdf下载</van-button>
+    <van-tabbar v-model="active">
+        <van-tabbar-item icon="phone-o" url="InterviewCreate.html">我的面试</van-tabbar-item>
+        <van-tabbar-item icon="friends" url="examination.html">共享试题</van-tabbar-item>
+        <van-tabbar-item icon="service-o" url="AudioRecord.html">高频录音</van-tabbar-item>
+        <van-tabbar-item icon="chart-trending-o" url="BarChart.html">报表</van-tabbar-item>
+        <van-tabbar-item icon="user-o" url="Student.html">我的信息</van-tabbar-item>
+    </van-tabbar>
+</div>
+
+<script src="assets/js/axios.min.js"></script>
+<script src="assets/js/common.js"></script>
+<script src="assets/js/echarts.min.js"></script>
+<script src="assets/js/vue.js"></script>
+<script src="assets/js/vant.min.js"></script>
+<script src="viewmodels/BarChart.js"></script>
 
 </body>
 
