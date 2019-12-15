@@ -2,18 +2,15 @@ var app = new Vue({
     el: '#app',
     data: {
         information:{"住址":"","公民身份号码":"","出生":"","姓名":"","性别":"","民族":""},     
-         list: [],
-        loading: false,
-        finished: false,
         files:{"content":"",id:0}
     },
     methods:{
         afterRead(file){
             this.files.content=file.content
             console.log(this.files)
-            this.files.id=1
+            this.files.id=2
             console.log(this.files)
-            axios.post("http://localhost:8080/upload/photos",this.files)
+            axios.post("/upload/photos",this.files)
             .then(res => {
                 this.information.住址=res.data.words_result.住址.words
                 this.information.公民身份号码=res.data.words_result.公民身份号码.words

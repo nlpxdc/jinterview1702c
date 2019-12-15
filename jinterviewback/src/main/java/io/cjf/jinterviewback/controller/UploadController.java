@@ -49,7 +49,7 @@ public class UploadController {
         Map<String,String> param  = new HashMap<String,String>();
         Map<String,String> header  = new HashMap<String,String>();
 
-        param.put("access_token","24.90477a6234d89b34cbc2b4963bc6cf70.2592000.1578731415.282335-17990718");
+        param.put("access_token","24.80e070f2980f7aaa22ac00cd0ba05a84.2592000.1579004459.282335-17990718");
         param.put("image",base);
         param.put("id_card_side","front");
 
