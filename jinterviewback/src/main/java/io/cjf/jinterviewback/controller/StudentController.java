@@ -126,7 +126,6 @@ public class StudentController {
         studentJson.put("mobile",student.getMobile());
         studentJson.put("email",student.getEmail());
         studentJson.put("avatarUrl",student.getAvatarUrl());
-        boolean a = false;
         return studentJson;
     }
     //

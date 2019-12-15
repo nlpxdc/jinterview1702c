@@ -19,23 +19,14 @@
         <van-nav-bar title="标题" left-text="返回" left-arrow @click-left="onClickLeft" @click-right="onClickRight">
             <van-icon name="wap-home-o" slot="right"></van-icon>
         </van-nav-bar>
-        <form :model="student">
-            <div class="row" align="center">
-                <img :src="student.avatarUrl" style="width: 100px; height: 100px;" />
-            </div>
-            <div class="row">
-                <van-cell title="真实姓名" type="text" v-model="student.realname" />
-            </div>
-            <div class="row">
-                <van-cell title="邮箱" type="text" v-model="student.email" />
-            </div>
-            <div class="row">
-                <van-cell title="手机号" type="text" v-model="student.mobile" />
-            </div>
-            <div class="row" align="center">
-                <van-button type="primary" center>我的面试</van-button>
-            </div>
-        </form>
+        <div class="row" align="center">
+            <img :src="avatarUrl" style="width: 100px; height: 100px;" />
+        </div>
+            <van-cell title="真实姓名" type="text" v-model="realname" /></van-cell>
+            <van-cell title="邮箱" type="text" v-model="email" /></van-cell>
+            <van-cell title="联系方式" type="text" v-model="mobile" /></van-cell>
+            <van-button size="large">我的面试</van-button></van-button></br></br>
+            <van-button size="large">修改信息</van-button></van-button>
         <van-tabbar v-model="active">
             <van-tabbar-item icon="phone-o" url="InterviewCreate.html">我的面试</van-tabbar-item>
             <van-tabbar-item icon="friends" url="examination.html">共享试题</van-tabbar-item>
