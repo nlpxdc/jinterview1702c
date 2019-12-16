@@ -1,6 +1,7 @@
 package io.cjf.jinterviewback.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import io.cjf.jinterviewback.client.BaiduAIService;
 import io.cjf.jinterviewback.client.WechatService;
 import io.cjf.jinterviewback.constant.CacheKeyConstant;
 import io.cjf.jinterviewback.constant.ClientExceptionConstant;
@@ -13,11 +14,14 @@ import io.cjf.jinterviewback.util.RandomUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.*;
 import io.cjf.jinterviewback.util.SMSUtil;
 import io.cjf.jinterviewback.vo.StudentLoginVO;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
+import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,6 +40,9 @@ public class StudentController {
 
     @Autowired
     private StudentService studentService;
+
+    @Autowired
+    private BaiduAIService baiduAIService;
 
     @Autowired
     private JWTUtil jwtUtil;
@@ -161,6 +168,20 @@ public class StudentController {
             studentService.updateStudent(student);
         }
 
+    }
+
+    @PostMapping("/submitIdcard")
+    public void submitIdcard(@RequestPart MultipartFile photo, @RequestAttribute Integer studentId) throws IOException {
+        final byte[] bytes = photo.getBytes();
+        final String photoBase64 = Base64Utils.encodeToString(bytes);
+        final JSONObject jsonObject = baiduAIService.ocrIdcard(photoBase64);
+        final JSONObject words_result = jsonObject.getJSONObject("words_result");
+        final JSONObject nameObj = words_result.getJSONObject("姓名");
+        final String name = nameObj.getString("words");
+
+        final Student student = studentService.getByStudentId(studentId);
+        student.setRealname(name);
+        studentService.updateStudent(student);
     }
 
 }
