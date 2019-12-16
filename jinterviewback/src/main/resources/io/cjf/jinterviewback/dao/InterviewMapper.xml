@@ -22,6 +22,13 @@
     <result column="interview_time" jdbcType="TIMESTAMP" property="time" />
     <result column="status" jdbcType="TINYINT" property="status" />
   </resultMap>
+  <resultMap id="TemplateMessageDTO" type="io.cjf.jinterviewback.dto.TemplateMessageDTO">
+    <id column="interview_id" jdbcType="INTEGER" property="interviewId" />
+    <result column="openId" jdbcType="VARCHAR" property="openId" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="interview_time" jdbcType="TIMESTAMP" property="interview_time" />
+  </resultMap>
   <sql id="Base_Column_List">
     interview_id, student_id, company, address, interview_time, create_time, status, 
     stars, note, offer_url
@@ -194,5 +201,12 @@
     </where>
     order by i.interview_time desc limit 10
 
+  </select>
+  <select id="getTemById" resultMap="TemplateMessageDTO">
+    select i.company,i.address,i.interview_time,s.openid from interview i left join student s
+    on i.student_id = s.student_id
+    <where>
+      interview_id = #{interviewId}
+    </where>
   </select>
 </mapper>
