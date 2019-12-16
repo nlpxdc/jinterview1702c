@@ -24,5 +24,9 @@ public class ClientExceptionConstant {
     public static final String INTERVIEW_NOT_EXIST_ERRMSG = "interview not exist";
     public static final String NOT_YOURSELF_INTERVIEW_ERRCODE = "0011";
     public static final String NOT_YOURSELF_INTERVIEW_ERRMSG = "not yourself interview";
+    public static final String NOT_JPEG_FORMAT_ERRCODE = "0012";
+    public static final String NOT_JPEG_FORMAT_ERRMSG = "not jpeg format";
+    public static final String PHOTO_EMPTY_ERRCODE = "0013";
+    public static final String PHOTO_EMPTY_ERRMSG = "photo empty";
 
 }

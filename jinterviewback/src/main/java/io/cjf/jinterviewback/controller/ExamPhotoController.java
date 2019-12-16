@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/examphoto")
@@ -44,7 +44,16 @@ public class ExamPhotoController {
     @Transactional
     @PostMapping("/upload")
     public void upload(@RequestPart("examphotos") List<MultipartFile> photos,
-                               @RequestParam Integer interviewId) throws IOException {
+                       @RequestParam Integer interviewId) throws IOException, ClientException {
+        if (photos.size() == 0){
+            throw new ClientException(ClientExceptionConstant.PHOTO_EMPTY_ERRCODE, ClientExceptionConstant.PHOTO_EMPTY_ERRMSG);
+        }
+        for (MultipartFile photo : photos) {
+            final String contentType = photo.getContentType();
+            if (!contentType.equals(MediaType.IMAGE_JPEG_VALUE)){
+                throw new ClientException(ClientExceptionConstant.NOT_JPEG_FORMAT_ERRCODE, ClientExceptionConstant.NOT_JPEG_FORMAT_ERRMSG);
+            }
+        }
 
         final Examination exam = examinationService.getExamByInterviewId(interviewId);
         Integer examId;
@@ -60,14 +69,11 @@ public class ExamPhotoController {
         final LinkedList<String> filenames = new LinkedList<>();
         final LinkedList<String> storeFilenames = new LinkedList<>();
         for (MultipartFile photo : photos) {
-            String name = photo.getOriginalFilename();
-            String[] split = name.split("\\.");
-            String ext = split[split.length - 1];
 
             byte[] data = photo.getBytes();
             //todo redraw photo with fixed size, 看短边，最大为720p
             String md5HexStr = DigestUtils.md5DigestAsHex(data);
-            String filename = String.format("%s.%s", md5HexStr, ext);
+            String filename = String.format("%s.%s", md5HexStr, "jpg");
             filenames.add(filename);
 
             final List<ExamPhoto> examPhotos = examPhotoService.getByFilename(filename);
