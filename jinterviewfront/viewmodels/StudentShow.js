@@ -1,11 +1,12 @@
 var app = new Vue({
     el: '#app',
-    data:{
-            studentId:'',
-            realname:'',
-            email:'',
-            mobile:'',
-            avatarUrl:''
+    data: {
+        studentId: '',
+        nickname: '',
+        realname: '',
+        email: '',
+        mobile: '',
+        avatarUrl: ''
 
     },
     mounted() {
@@ -13,11 +14,16 @@ var app = new Vue({
 
         var url = new URL(location.href);
         this.studentId = url.searchParams.get("studentId");
+        if (!this.studentId) {
+            alert('studentId 不存在');
+            return;
+        }
+
         this.getstudent();
     },
     methods: {
-        getstudent(studentId) {
-            axios.get("http://localhost:8080/student/getBasicInfo", {
+        getstudent() {
+            axios.get("/student/getBasicInfo", {
                 params: {
                     studentId: this.studentId
                 }
@@ -28,6 +34,7 @@ var app = new Vue({
                     this.avatarUrl = student.avatarUrl;
                     this.mobile = student.mobile;
                     this.email = student.email;
+                    this.nickname = student.nickname;
                     this.realname = student.realname;
                 })
                 .catch(function (error) {
@@ -35,5 +42,5 @@ var app = new Vue({
                 });
         }
     }
-    
+
 });

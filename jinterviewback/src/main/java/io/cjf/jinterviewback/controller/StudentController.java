@@ -122,6 +122,7 @@ public class StudentController {
         JSONObject studentJson = new JSONObject();
         Student student = studentService.getByStudentId(studentId);
         studentJson.put("studentId",student.getStudentId());
+        studentJson.put("nickname",student.getNickname());
         studentJson.put("realname",student.getRealname());
         studentJson.put("mobile",student.getMobile());
         studentJson.put("email",student.getEmail());
