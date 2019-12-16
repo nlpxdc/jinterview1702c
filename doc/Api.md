@@ -227,10 +227,11 @@ Response Field
 
 ## 3.1 笔试题上传
 
-URL: /examphoto/upload?interviewId={interviewId}  
+URL: /examphoto/upload  
 Method：POST  
 Request Content-Type: multipart/formdata  
-RequestParam: examphotos  
+RequestParam: interviewId
+RequestPart: examphotos  
 
 ResponseBody:  
 ```json

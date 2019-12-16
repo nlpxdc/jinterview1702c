@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface ExamPhotoService {
     List<ExamPhoto> getExaminationPhotoById(Integer examId);
+
+    Integer createExamPhoto(ExamPhoto examPhoto);
 }

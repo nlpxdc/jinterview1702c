@@ -4,10 +4,12 @@ import io.cjf.jinterviewback.dto.ExaminationExamByIdDTO;
 import io.cjf.jinterviewback.dto.ExaminationSearchDTO;
 import io.cjf.jinterviewback.po.Examination;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
 
+@Repository
 public interface ExaminationMapper {
     int deleteByPrimaryKey(Integer examId);
 
@@ -21,7 +23,7 @@ public interface ExaminationMapper {
 
     int updateByPrimaryKey(Examination record);
 
-    Examination selectExaminationById(Integer interviewId);
+    Examination selectExamByInterviewId(@Param("interviewId") Integer interviewId);
 
     List<ExaminationSearchDTO> search(@Param("keyword") String keyword, @Param("time") Date time);
 

@@ -44,7 +44,7 @@ CREATE TABLE `examination` (
     `content` varchar(4000),
     `likes` int(11) not null,
     PRIMARY KEY (`exam_id`),
-    index `idx_interview_id` (`interview_id`)
+    unique `idx_interview_id` (`interview_id`)
   ) ENGINE = InnoDB DEFAULT CHARSET = utf8 auto_increment = 1;
 #--------------------------------------------------------------------------
   DROP TABLE IF EXISTS `exam_photo`;

@@ -72,7 +72,7 @@ public class InterviewController {
         interviewJson.put("status",interview.getStatus());
         interviewJson.put("note",interview.getNote());
         interviewJson.put("offerUrl",interview.getOfferUrl());
-        Examination examination=examinationService.getExamination(interview.getInterviewId());
+        Examination examination=examinationService.getExamByInterviewId(interview.getInterviewId());
         List<JSONObject> ExamPhotoJsons = new ArrayList<>();
         if (examination != null){
             List<ExamPhoto> ExamPhotos = examPhotoService.getExaminationPhotoById(examination.getExamId());

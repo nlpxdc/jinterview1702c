@@ -31,7 +31,7 @@
 | 字段  | 类型  | 约束  |  说明 |
 |---|---|---|---|
 | exam_id  | int(11)  | 主键 自增 | Id  |
-| interview_id | int(11)  | 非空 外键 索引 | 面试Id  |
+| interview_id | int(11)  | 非空 外键 唯一索引 | 面试Id  |
 | title  | varchar(100)  |  | 标题  |
 | content  | varchar(4000)  |  | OCR内容  |
 | likes  | int(11)  | 非空 默认0  | 点赞数  |

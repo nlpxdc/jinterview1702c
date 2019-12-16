@@ -9,10 +9,11 @@ import java.util.List;
 
 public interface ExaminationService {
 
-
-    Examination getExamination(Integer interviewId);
+    Examination getExamByInterviewId(Integer interviewId);
 
     List<ExaminationSearchDTO> search(String keyword, Date time);
 
     ExaminationExamByIdDTO getExamById(Integer examId);
+
+    Integer createExamination(Examination examination);
 }

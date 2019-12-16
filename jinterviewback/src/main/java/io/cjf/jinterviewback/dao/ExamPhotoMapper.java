@@ -1,9 +1,11 @@
 package io.cjf.jinterviewback.dao;
 
 import io.cjf.jinterviewback.po.ExamPhoto;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface ExamPhotoMapper {
     int deleteByPrimaryKey(Integer examPhotoId);
 

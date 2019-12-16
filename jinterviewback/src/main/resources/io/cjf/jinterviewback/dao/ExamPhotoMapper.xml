@@ -19,10 +19,10 @@
     delete from exam_photo
     where exam_photo_id = #{examPhotoId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="io.cjf.jinterviewback.po.ExamPhoto">
-    insert into exam_photo (exam_photo_id, exam_id, url
+  <insert id="insert" parameterType="io.cjf.jinterviewback.po.ExamPhoto" useGeneratedKeys="true" keyProperty="examPhotoId">
+    insert into exam_photo (exam_id, url
       )
-    values (#{examPhotoId,jdbcType=INTEGER}, #{examId,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}
+    values (#{examId,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="io.cjf.jinterviewback.po.ExamPhoto">

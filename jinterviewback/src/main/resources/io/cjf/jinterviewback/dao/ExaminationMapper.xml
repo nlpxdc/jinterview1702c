@@ -21,10 +21,10 @@
     delete from examination
     where exam_id = #{examId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="io.cjf.jinterviewback.po.Examination">
-    insert into examination (exam_id, interview_id, title, 
+  <insert id="insert" parameterType="io.cjf.jinterviewback.po.Examination" useGeneratedKeys="true" keyProperty="examId">
+    insert into examination (interview_id, title,
       content, likes)
-    values (#{examId,jdbcType=INTEGER}, #{interviewId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
+    values (#{interviewId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR},
       #{content,jdbcType=VARCHAR}, #{likes,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="io.cjf.jinterviewback.po.Examination">
@@ -91,10 +91,11 @@
     where exam_id = #{examId,jdbcType=INTEGER}
   </update>
 
-  <select id="selectExaminationById" resultMap="BaseResultMap">
+  <select id="selectExamByInterviewId" resultMap="BaseResultMap">
     SELECT
     <include refid="Base_Column_List" />
-    FROM `examination` where interview_id=#{interviewId}
+    FROM `examination`
+    where interview_id=#{interviewId}
   </select>
 
   <!--面试列表-->

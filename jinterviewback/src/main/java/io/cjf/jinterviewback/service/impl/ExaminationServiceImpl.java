@@ -21,13 +21,15 @@ public class ExaminationServiceImpl implements ExaminationService {
     private ExamPhotoMapper examPhotoMapper;
 
     @Override
-    public Examination getExamination(Integer interviewId) {
-        return examinationMapper.selectExaminationById(interviewId);
+    public Examination getExamByInterviewId(Integer interviewId) {
+        final Examination examination = examinationMapper.selectExamByInterviewId(interviewId);
+        return examination;
     }
 
     @Override
     public List<ExaminationSearchDTO> search(String keyword, Date time) {
-        return examinationMapper.search(keyword,time);
+        final List<ExaminationSearchDTO> exams = examinationMapper.search(keyword, time);
+        return exams;
     }
 
     @Override
@@ -37,5 +39,12 @@ public class ExaminationServiceImpl implements ExaminationService {
         List<ExamPhoto>  list = examPhotoMapper.selectExaminationPhotoById(examId1);
         examinationExamByIdDTO.setExamPhotolist(list);
         return examinationExamByIdDTO;
+    }
+
+    @Override
+    public Integer createExamination(Examination examination) {
+        examinationMapper.insert(examination);
+        final Integer examId = examination.getExamId();
+        return examId;
     }
 }

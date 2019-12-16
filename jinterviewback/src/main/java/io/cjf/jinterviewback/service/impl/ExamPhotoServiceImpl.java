@@ -10,10 +10,20 @@ import java.util.List;
 
 @Service
 public class ExamPhotoServiceImpl implements ExamPhotoService {
+
     @Autowired
     private ExamPhotoMapper examPhotoMapper;
+
     @Override
     public List<ExamPhoto> getExaminationPhotoById(Integer examId) {
-        return examPhotoMapper.selectExaminationPhotoById(examId);
+        final List<ExamPhoto> examPhotos = examPhotoMapper.selectExaminationPhotoById(examId);
+        return examPhotos;
+    }
+
+    @Override
+    public Integer createExamPhoto(ExamPhoto examPhoto) {
+        examPhotoMapper.insert(examPhoto);
+        final Integer examId = examPhoto.getExamId();
+        return examId;
     }
 }
