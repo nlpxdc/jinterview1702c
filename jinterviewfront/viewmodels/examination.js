@@ -13,10 +13,18 @@ var app = new Vue({
         };
     },
     methods: {
-        onSearch(){
-            this.listexam=[];
-           
-           this.onLoad();
+        show(examId) {
+            if(!examId){
+                alert("没有试题");
+                return ;
+            }
+            location.href = "/GetExamById.html?examId=" + examId;
+        },
+
+        onSearch() {
+            this.listexam = [];
+
+            this.onLoad();
         },
         onClickLeft() {
 
@@ -24,43 +32,43 @@ var app = new Vue({
         onClickRight() {
 
         },
-    
+
 
         onLoad() {
             // 异步更新数据
             setTimeout(() => {
-               
-                var time=null;
+
+                var time = null;
                 console.log(this.listexam.length);
-                if(this.listexam.length>0){
-                   var times=((this.listexam[this.listexam.length-1].time));
-                   time=  (new Date(times).getTime()+'').substring(0,10);              
-                              
-                }else{
-                    time=(new Date().getTime()+'').substring(0,10);                  
-                                             
+                if (this.listexam.length > 0) {
+                    var times = ((this.listexam[this.listexam.length - 1].time));
+                    time = (new Date(times).getTime());
+
+                } else {
+                    time = (new Date().getTime());
+
                 }
                 console.log(time);
-                axios.get("http://192.168.137.1:8080/exam/search", {
+                axios.get("/exam/search", {
                     params: {
                         keyword: this.keyword,
                         time: time,
                     }
                 })
                     .then(function (response) {
-                        app.list=[];
-                    
+                        app.list = [];
+
                         app.list = response.data;
-                       
-                      
+
+
 
                         app.list.forEach(list => {
                             app.listexam.push(list);
                         });
-                        if (app.list.length<4) {
+                        if (app.list.length < 4) {
                             app.finished = true;
                         }
-                       
+
                         console.log("111111")
                         console.log(app.listexam);
                         console.log("111111")
@@ -70,8 +78,8 @@ var app = new Vue({
                         console.log(error);
                     });
                 // 加载状态结束 
-                
-                
+
+
                 this.loading = false;
                 // if (app.list.length == 0) {
                 //     app.finished = true;

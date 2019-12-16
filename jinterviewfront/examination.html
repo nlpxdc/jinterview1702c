@@ -28,7 +28,7 @@
             <div style="clear: left;margin-left: 50px;margin-right: 50px;margin-bottom: 10px;" v-for="(item,a) in listexam" :key="a">
                 <div>
                     <div style="float: left; width: 380px;"><van-icon name="coupon-o" />&nbsp;&nbsp;{{item.company}}公司面试题</div>
-                    <div style="float: left;"> <button>详情</button></div>
+                    <div style="float: left;"> <button  @click=show(item.examId)>详情</button></div>
                 </div>
                 <div style="clear: left;margin-top: 30px;">
                     <div style="float: left; width: 380px;"> 
@@ -50,6 +50,7 @@
 
 
     <script src="assets/js/axios.min.js"></script>
+    <script src="assets/js/common.js"></script>
     <script src="assets/js/vue.js"></script>
     <script src="assets/js/vant.min.js"></script>
     <script src="viewmodels/examination.js"></script>

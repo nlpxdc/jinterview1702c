@@ -110,8 +110,8 @@
         and  i.company like concat('%',#{keyword},'%') or s.realname like concat('%',#{keyword},'%')
       </if>
 
-      <if test="time!=null and time!=''">
-        and i.interview_time &lt; FROM_UNIXTIME(${time})
+      <if test="time!=null">
+        and i.interview_time &lt; #{time}
       </if>
     </where>
     order by i.interview_time desc

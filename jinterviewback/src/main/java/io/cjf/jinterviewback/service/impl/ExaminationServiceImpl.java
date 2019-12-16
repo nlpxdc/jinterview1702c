@@ -10,6 +10,7 @@ import io.cjf.jinterviewback.service.ExaminationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -25,7 +26,7 @@ public class ExaminationServiceImpl implements ExaminationService {
     }
 
     @Override
-    public List<ExaminationSearchDTO> search(String keyword,Long time) {
+    public List<ExaminationSearchDTO> search(String keyword, Date time) {
         return examinationMapper.search(keyword,time);
     }
 

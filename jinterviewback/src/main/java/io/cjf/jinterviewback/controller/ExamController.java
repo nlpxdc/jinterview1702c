@@ -4,15 +4,19 @@ import com.alibaba.fastjson.JSONObject;
 import io.cjf.jinterviewback.dto.ExaminationExamByIdDTO;
 import io.cjf.jinterviewback.dto.ExaminationSearchDTO;
 import io.cjf.jinterviewback.service.ExaminationService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/exam")
 public class ExamController {
+    Logger logger = LoggerFactory.getLogger(this.getClass());
 
 
     @Autowired
@@ -21,12 +25,10 @@ public class ExamController {
     @GetMapping("/search")
     public List<JSONObject> search(@RequestParam(required = false) String keyword,
                                    @RequestParam(required = false) Long time){
-        System.out.println(keyword);
-        System.out.println(time);
-        List<ExaminationSearchDTO> list= examinationService.search(keyword,time+50);
-        for (ExaminationSearchDTO s:list) {
-            System.out.println(s);
-        }
+        logger.info("keyword"+keyword);
+        logger.info("time"+time);
+        Date date = new Date(time);
+        List<ExaminationSearchDTO> list= examinationService.search(keyword,date);
         List<JSONObject> exams = list.stream().map(exam -> {
             JSONObject blockJson = new JSONObject();
             blockJson.put("realname", exam.getRealname());
@@ -42,9 +44,6 @@ public class ExamController {
     @GetMapping("/getExamById")
     public ExaminationExamByIdDTO getExamById(@RequestParam Integer examId){
         ExaminationExamByIdDTO examinationExamByIdDTO= examinationService.getExamById(examId);
-
-        System.out.println(examinationExamByIdDTO);
-
         return examinationExamByIdDTO;
     }
 

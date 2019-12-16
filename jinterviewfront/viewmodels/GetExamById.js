@@ -24,7 +24,7 @@ time:null,
     methods: {
 
         getExamById(){
-            axios.get("http://localhost:8080/exam/getExamById", { params: { examId: this.examId } })
+            axios.get("exam/getExamById", { params: { examId: this.examId } })
             .then(res => {
 
                 console.log(res.data);
