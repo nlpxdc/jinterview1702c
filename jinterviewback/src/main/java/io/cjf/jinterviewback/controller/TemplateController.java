@@ -2,12 +2,16 @@ package io.cjf.jinterviewback.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import io.cjf.jinterviewback.client.WechatService;
 import io.cjf.jinterviewback.dto.InterviewCreateDTO;
 import io.cjf.jinterviewback.template.TemplateData;
 import io.cjf.jinterviewback.template.TemplateMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,27 +34,22 @@ public class TemplateController {
     @Value("${wechat.templateid}")
     private String TemplateId;
 
-    private InterviewCreateDTO interviewCreateDTO;
+    @Autowired
+    private WechatService wechatService;
 
-    private final String appId = "wx0f80605c53171199";
-
-    private final String secret = "ba5c9d4cb324450ea9c715d68814c548";
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @GetMapping("/test")
     Object  getToken() throws Exception {
 
-        String token = "28_DcKL54UUHME2tsqQe-bizgP-xyZc8uummGFhwCSjd8fDBxuzIA36V_4D7X5Bs6RObb8mUW0eXX-jsk3h72VRDTMF7nGmGQnJ2rc0YCQ789FKkZgJqcXedv-zRL2IJRkRqjI5s5vTbCi3BdejCOXeABASEN";
+        JSONObject getTemToken = wechatService.getTemToken();
+        String token = getTemToken.getString("access_token");
+        logger.info("token : "+token);
 
-        //获得access_token的接口
-        String getTokenUrl = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid="
-                + appId + "&secret=" + secret;
-        System.out.println("getTokenUrl="+getTokenUrl);
-        String sendUrl = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token="+token;
-        System.out.println("sendUrl="+sendUrl);
         //创建消息发送实体对象
         TemplateMessage templateMessage=new TemplateMessage();
         templateMessage.setUrl("http://www.baidu.com");//跳转页面
-        templateMessage.setTouser("oHiGkxGvu4QxawlIhtJuY4Mwjvrw");
+        templateMessage.setTouser("oHiGkxCX4TsoPkPs8qxQPWWNzAOQ");
         templateMessage.setTemplate_id(TemplateId);
         //设置模板标题
         Map<String, TemplateData> m = new HashMap<>();
@@ -82,35 +81,10 @@ public class TemplateController {
         m.put("remark",remark);
         templateMessage.setData(m);
 
-        //将封装的数据转成JSON
-        String jsonString = JSON.toJSONString(templateMessage);
-        System.out.println(jsonString);
-        PrintWriter out = null;
-        BufferedReader in = null;
-        JSONObject jsonObject = null;
-        String result = "";
-        URL realUrl = new URL(sendUrl);
-
-        // 打开和URL之间的连接
-        URLConnection conn = realUrl.openConnection();
-        // 发送POST请求必须设置如下两行
-        conn.setDoOutput(true);
-        conn.setDoInput(true);
-        // 获取URLConnection对象对应的输出流（设置请求编码为UTF-8）
-        out = new PrintWriter(new OutputStreamWriter(conn.getOutputStream(), "UTF-8"));
-        // 发送请求参数
-        out.print(jsonString);
-        // flush输出流的缓冲
-        out.flush();
-        // 获取请求返回数据（设置返回数据编码为UTF-8）
-        in = new BufferedReader(
-                new InputStreamReader(conn.getInputStream(), "UTF-8"));
-        String line;
-        while ((line = in.readLine()) != null) {
-            result += line;
-        }
-
-        System.out.println(result);
+        JSONObject jsonData = (JSONObject) JSONObject.toJSON(templateMessage);
+        JSONObject getTemplateMessage = wechatService.templateMessage(token,jsonData);
+        String temMessageStr = getTemplateMessage.toString();
+        logger.info("temMessageStr : "+temMessageStr);
         return "";
     }
 }

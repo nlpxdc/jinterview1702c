@@ -28,6 +28,20 @@ public class WechatServiceImpl implements WechatService{
     }
 
     @Override
+    public JSONObject getTemToken() {
+        String getTemTokenStr = wechatApi.getTemToken(appid,secret,"client_credential");
+        JSONObject getTemTokenObj = JSON.parseObject(getTemTokenStr);
+        return getTemTokenObj;
+    }
+
+    @Override
+    public JSONObject templateMessage(String access_token,JSON jsonData) {
+        String templateMessageStr = wechatApi.templateMessage(access_token,jsonData);
+        JSONObject templateMessageObj = JSON.parseObject(templateMessageStr);
+        return templateMessageObj;
+    }
+
+    @Override
     public JSONObject getUserInfo(String accessToken) {
         final String userInfoJsonStr = wechatApi.getUserInfo(accessToken, "myopenId", "zh_CN");
         final JSONObject userInfoJsonObj = JSON.parseObject(userInfoJsonStr);
