@@ -1,6 +1,7 @@
 package io.cjf.jinterviewback.dao;
 
 import io.cjf.jinterviewback.dto.InterviewListDTO;
+import io.cjf.jinterviewback.dto.TemplateMessageDTO;
 import io.cjf.jinterviewback.po.Interview;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -31,4 +32,6 @@ public interface InterviewMapper {
     List<InterviewListDTO> search(@Param("keyword") String keyword,
                                   @Param("studentId") Integer studentId,
                                   @Param("time") Date time);
+
+    List<TemplateMessageDTO> getTemById(Integer interviewId);
 }

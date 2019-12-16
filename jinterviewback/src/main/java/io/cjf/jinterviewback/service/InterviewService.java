@@ -1,6 +1,7 @@
 package io.cjf.jinterviewback.service;
 
 import io.cjf.jinterviewback.dto.InterviewListDTO;
+import io.cjf.jinterviewback.dto.TemplateMessageDTO;
 import io.cjf.jinterviewback.po.Interview;
 
 import java.util.Date;
@@ -19,4 +20,6 @@ public interface InterviewService {
     Integer createInterview(String company, String address, Date time, Integer studentId);
 
     void deleteById(Integer interviewId);
+
+    List<TemplateMessageDTO> getTemById(Integer interviewId);
 }

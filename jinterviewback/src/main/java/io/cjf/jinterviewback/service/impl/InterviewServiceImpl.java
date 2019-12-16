@@ -2,6 +2,7 @@ package io.cjf.jinterviewback.service.impl;
 
 import io.cjf.jinterviewback.dao.InterviewMapper;
 import io.cjf.jinterviewback.dto.InterviewListDTO;
+import io.cjf.jinterviewback.dto.TemplateMessageDTO;
 import io.cjf.jinterviewback.enumeration.InterviewStatus;
 import io.cjf.jinterviewback.po.Interview;
 import io.cjf.jinterviewback.service.InterviewService;
@@ -59,5 +60,10 @@ public class InterviewServiceImpl implements InterviewService {
     @Override
     public void deleteById(Integer interviewId) {
         interviewMapper.deleteByPrimaryKey(interviewId);
+    }
+
+    @Override
+    public List<TemplateMessageDTO> getTemById(Integer interviewId) {
+        return interviewMapper.getTemById(interviewId);
     }
 }
