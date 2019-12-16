@@ -16,7 +16,7 @@
 <body>
 
     <div id="app">
-        <div class="row" align="center">
+        <div style="text-align: center;">
             <img :src="avatarUrl" style="width: 100px; height: 100px;" />
         </div>
         <van-cell title="昵称" v-model="nickname"></van-cell>
@@ -24,8 +24,14 @@
         <van-cell title="邮箱" v-model="email"></van-cell>
         <van-cell title="联系方式" v-model="mobile"></van-cell>
         <br><br>
-        <van-button type="primary" size="large">录入真实信息</van-button>
-        </van-button>
+
+        <div v-show="!realname">
+            <div style="text-align: center;">
+                <van-uploader v-model="IdCardPhotos" :max-count="1"></van-uploader>
+            </div>
+            <van-button type="primary" size="large" @click="handleSubmitIdcardClick">提交</van-button>
+        </div>
+
     </div>
 
 

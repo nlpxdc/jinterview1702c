@@ -6,7 +6,8 @@ var app = new Vue({
         realname: '',
         email: '',
         mobile: '',
-        avatarUrl: ''
+        avatarUrl: '',
+        IdCardPhotos: []
 
     },
     mounted() {
@@ -39,6 +40,34 @@ var app = new Vue({
                 })
                 .catch(function (error) {
                     console.error(error);
+                });
+        },
+        handleSubmitIdcardClick() {
+            console.log('submit idcard click');
+            if (!this.IdCardPhotos.length) {
+                alert('请选择图片');
+                return;
+            }
+            this.submitIdcard();
+        },
+        submitIdcard() {
+            var formData = new FormData();
+            this.IdCardPhotos.forEach(file => {
+                formData.append("photo", file.file);
+            });
+            axios.post('/student/submitIdcard', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+                .then(function (response) {
+                    console.log(response);
+                    alert('提交成功');
+                    app.getstudent();
+                })
+                .catch(function (error) {
+                    console.log(error);
+                    alert(error.response.data.message);
                 });
         }
     }
