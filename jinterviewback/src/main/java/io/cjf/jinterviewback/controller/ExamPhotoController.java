@@ -16,9 +16,14 @@ import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.*;
+import java.util.List;
 
 @RestController
 @RequestMapping("/examphoto")
@@ -45,12 +50,12 @@ public class ExamPhotoController {
     @PostMapping("/upload")
     public void upload(@RequestPart("examphotos") List<MultipartFile> photos,
                        @RequestParam Integer interviewId) throws IOException, ClientException {
-        if (photos.size() == 0){
+        if (photos.size() == 0) {
             throw new ClientException(ClientExceptionConstant.PHOTO_EMPTY_ERRCODE, ClientExceptionConstant.PHOTO_EMPTY_ERRMSG);
         }
         for (MultipartFile photo : photos) {
             final String contentType = photo.getContentType();
-            if (!contentType.equals(MediaType.IMAGE_JPEG_VALUE)){
+            if (!contentType.equals(MediaType.IMAGE_JPEG_VALUE)) {
                 throw new ClientException(ClientExceptionConstant.NOT_JPEG_FORMAT_ERRCODE, ClientExceptionConstant.NOT_JPEG_FORMAT_ERRMSG);
             }
         }
@@ -70,8 +75,34 @@ public class ExamPhotoController {
         final LinkedList<String> storeFilenames = new LinkedList<>();
         for (MultipartFile photo : photos) {
 
-            byte[] data = photo.getBytes();
+//            byte[] data = photo.getBytes();
             //todo redraw photo with fixed size, 看短边，最大为720p
+            final BufferedImage originImage = ImageIO.read(photo.getInputStream());
+            final int width = originImage.getWidth();
+            final int height = originImage.getHeight();
+            BufferedImage newImage = originImage;
+            if (width < height) {
+                if (width > 720) {
+                    double newHeight = 720.0 * height / width;
+                    newImage = new BufferedImage(720, (int) newHeight, originImage.getType());
+                    final Graphics2D graphics = newImage.createGraphics();
+                    graphics.drawImage(originImage, 0, 0, 720, (int) newHeight, null);
+                    graphics.dispose();
+                }
+            } else {
+                if (height > 720) {
+                    double newWidth = 720.0 * width / height;
+                    newImage = new BufferedImage((int) newWidth, 720, originImage.getType());
+                    final Graphics2D graphics = newImage.createGraphics();
+                    graphics.drawImage(originImage, 0, 0, (int) newWidth, 720, null);
+                    graphics.dispose();
+                }
+            }
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(newImage, "jpg", baos);
+            byte[] data = baos.toByteArray();
+
+
             String md5HexStr = DigestUtils.md5DigestAsHex(data);
             String filename = String.format("%s.%s", md5HexStr, "jpg");
             filenames.add(filename);
