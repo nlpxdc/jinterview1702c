@@ -8,6 +8,14 @@
     <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="likes" jdbcType="INTEGER" property="likes" />
   </resultMap>
+  <resultMap id="ExamWithPhotosDTO" type="io.cjf.jinterviewback.dto.ExamWithPhotosDTO">
+    <id column="exam_id" jdbcType="INTEGER" property="examId" />
+    <result column="interview_id" jdbcType="INTEGER" property="interviewId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="likes" jdbcType="INTEGER" property="likes" />
+    <collection property="examPhotos" javaType="ArrayList" column="exam_id" ofType="io.cjf.jinterviewback.po.ExamPhoto" select="io.cjf.jinterviewback.dao.ExamPhotoMapper.selectByPrimaryKey"/>
+  </resultMap>
   <sql id="Base_Column_List">
     exam_id, interview_id, title, content, likes
   </sql>
@@ -120,15 +128,11 @@
 
   </select>
 
-  <select id="getExamById" resultType="io.cjf.jinterviewback.dto.ExaminationExamByIdDTO">
-
-    select s.realname realname ,i.interview_id interviewId ,e.exam_id  examId, e.content content, i.company company,
-           i.interview_time time,e.likes likes
-    from student  s inner JOIN interview i
-    on s.student_id=i.student_id
-       LEFT JOIN examination e on i.interview_id=e.exam_id
-
-    where exam_id=#{examId}
+  <select id="selectExamById" resultMap="ExamWithPhotosDTO">
+    select
+    <include refid="Base_Column_List" />
+    from examination
+    where exam_id = #{examId,jdbcType=INTEGER}
   </select>
 
 

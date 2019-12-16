@@ -53,7 +53,8 @@ CREATE TABLE `exam_photo` (
     `exam_id` int(11) not null,
     `url` varchar(300) not null,
     PRIMARY KEY (`exam_photo_id`),
-    index `idx_exam_id` (`exam_id`)
+    index `idx_exam_id` (`exam_id`),
+    index `idx_url` (`url`),
   ) ENGINE = InnoDB DEFAULT CHARSET = utf8 auto_increment = 1;
 #--------------------------------------------------------------------------
   DROP TABLE IF EXISTS `audio_record`;

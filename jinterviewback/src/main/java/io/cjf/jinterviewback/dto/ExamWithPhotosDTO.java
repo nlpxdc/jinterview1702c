@@ -5,7 +5,7 @@ import io.cjf.jinterviewback.po.ExamPhoto;
 import java.util.Date;
 import java.util.List;
 
-public class ExaminationExamByIdDTO {
+public class ExamWithPhotosDTO {
 
     private String   realname;
     private  Integer  examId;
@@ -13,18 +13,7 @@ public class ExaminationExamByIdDTO {
     private  String content;
     private Date time;
     private Integer likes;
-
-    private List<ExamPhoto> ExamPhotolist;
-
-    public ExaminationExamByIdDTO(String realname, Integer examId, String company, String content, Date time, Integer likes, List<ExamPhoto> examPhotolist) {
-        this.realname = realname;
-        this.examId = examId;
-        this.company = company;
-        this.content = content;
-        this.time = time;
-        this.likes = likes;
-        ExamPhotolist = examPhotolist;
-    }
+    private List<ExamPhoto> examPhotos;
 
     public String getRealname() {
         return realname;
@@ -74,28 +63,12 @@ public class ExaminationExamByIdDTO {
         this.likes = likes;
     }
 
-    public List<ExamPhoto> getExamPhotolist() {
-        return ExamPhotolist;
+
+    public List<ExamPhoto> getExamPhotos() {
+        return examPhotos;
     }
 
-    public void setExamPhotolist(List<ExamPhoto> examPhotolist) {
-        ExamPhotolist = examPhotolist;
-    }
-
-    public ExaminationExamByIdDTO() {
-
-    }
-
-    @Override
-    public String toString() {
-        return "ExaminationExamByIdDTO{" +
-                "realname='" + realname + '\'' +
-                ", examId=" + examId +
-                ", company='" + company + '\'' +
-                ", content='" + content + '\'' +
-                ", time=" + time +
-                ", likes=" + likes +
-                ", ExamPhotolist=" + ExamPhotolist +
-                '}';
+    public void setExamPhotos(List<ExamPhoto> examPhotos) {
+        this.examPhotos = examPhotos;
     }
 }

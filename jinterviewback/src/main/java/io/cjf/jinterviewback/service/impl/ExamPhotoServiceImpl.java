@@ -15,8 +15,14 @@ public class ExamPhotoServiceImpl implements ExamPhotoService {
     private ExamPhotoMapper examPhotoMapper;
 
     @Override
-    public List<ExamPhoto> getExaminationPhotoById(Integer examId) {
-        final List<ExamPhoto> examPhotos = examPhotoMapper.selectExaminationPhotoById(examId);
+    public List<ExamPhoto> getExamPhotoByExamId(Integer examId) {
+        final List<ExamPhoto> examPhotos = examPhotoMapper.selectExamPhotoByExamId(examId);
+        return examPhotos;
+    }
+
+    @Override
+    public List<ExamPhoto> getByFilename(String filename) {
+        final List<ExamPhoto> examPhotos = examPhotoMapper.selectByFilename(filename);
         return examPhotos;
     }
 
@@ -25,5 +31,11 @@ public class ExamPhotoServiceImpl implements ExamPhotoService {
         examPhotoMapper.insert(examPhoto);
         final Integer examId = examPhoto.getExamId();
         return examId;
+    }
+
+    @Override
+    public Integer deleteByExamId(Integer examId) {
+        final int count = examPhotoMapper.deleteByExamId(examId);
+        return count;
     }
 }

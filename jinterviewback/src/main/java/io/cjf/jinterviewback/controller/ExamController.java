@@ -1,7 +1,7 @@
 package io.cjf.jinterviewback.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import io.cjf.jinterviewback.dto.ExaminationExamByIdDTO;
+import io.cjf.jinterviewback.dto.ExamWithPhotosDTO;
 import io.cjf.jinterviewback.dto.ExaminationSearchDTO;
 import io.cjf.jinterviewback.service.ExaminationService;
 import org.slf4j.Logger;
@@ -42,9 +42,9 @@ public class ExamController {
     }
 
     @GetMapping("/getExamById")
-    public ExaminationExamByIdDTO getExamById(@RequestParam Integer examId){
-        ExaminationExamByIdDTO examinationExamByIdDTO= examinationService.getExamById(examId);
-        return examinationExamByIdDTO;
+    public ExamWithPhotosDTO getExamById(@RequestParam Integer examId){
+        ExamWithPhotosDTO examWithPhotosDTO = examinationService.getExamById(examId);
+        return examWithPhotosDTO;
     }
 
 }

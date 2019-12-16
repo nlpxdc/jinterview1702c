@@ -1,6 +1,6 @@
 package io.cjf.jinterviewback.service;
 
-import io.cjf.jinterviewback.dto.ExaminationExamByIdDTO;
+import io.cjf.jinterviewback.dto.ExamWithPhotosDTO;
 import io.cjf.jinterviewback.dto.ExaminationSearchDTO;
 import io.cjf.jinterviewback.po.Examination;
 
@@ -13,7 +13,7 @@ public interface ExaminationService {
 
     List<ExaminationSearchDTO> search(String keyword, Date time);
 
-    ExaminationExamByIdDTO getExamById(Integer examId);
+    ExamWithPhotosDTO getExamById(Integer examId);
 
     Integer createExamination(Examination examination);
 }

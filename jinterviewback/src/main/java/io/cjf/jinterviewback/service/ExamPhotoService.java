@@ -5,7 +5,11 @@ import io.cjf.jinterviewback.po.ExamPhoto;
 import java.util.List;
 
 public interface ExamPhotoService {
-    List<ExamPhoto> getExaminationPhotoById(Integer examId);
+    List<ExamPhoto> getExamPhotoByExamId(Integer examId);
+
+    List<ExamPhoto> getByFilename(String filename);
 
     Integer createExamPhoto(ExamPhoto examPhoto);
+
+    Integer deleteByExamId(Integer examId);
 }

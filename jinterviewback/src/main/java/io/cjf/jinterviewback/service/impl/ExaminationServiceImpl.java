@@ -2,7 +2,7 @@ package io.cjf.jinterviewback.service.impl;
 
 import io.cjf.jinterviewback.dao.ExamPhotoMapper;
 import io.cjf.jinterviewback.dao.ExaminationMapper;
-import io.cjf.jinterviewback.dto.ExaminationExamByIdDTO;
+import io.cjf.jinterviewback.dto.ExamWithPhotosDTO;
 import io.cjf.jinterviewback.dto.ExaminationSearchDTO;
 import io.cjf.jinterviewback.po.ExamPhoto;
 import io.cjf.jinterviewback.po.Examination;
@@ -15,10 +15,9 @@ import java.util.List;
 
 @Service
 public class ExaminationServiceImpl implements ExaminationService {
+
     @Autowired
     private ExaminationMapper examinationMapper;
-    @Autowired
-    private ExamPhotoMapper examPhotoMapper;
 
     @Override
     public Examination getExamByInterviewId(Integer interviewId) {
@@ -33,12 +32,9 @@ public class ExaminationServiceImpl implements ExaminationService {
     }
 
     @Override
-    public ExaminationExamByIdDTO getExamById(Integer examId) {
-        ExaminationExamByIdDTO examinationExamByIdDTO = examinationMapper.getExamById(examId);
-        Integer examId1 = examinationExamByIdDTO.getExamId();
-        List<ExamPhoto>  list = examPhotoMapper.selectExaminationPhotoById(examId1);
-        examinationExamByIdDTO.setExamPhotolist(list);
-        return examinationExamByIdDTO;
+    public ExamWithPhotosDTO getExamById(Integer examId) {
+        ExamWithPhotosDTO examWithPhotosDTO = examinationMapper.selectExamById(examId);
+        return examWithPhotosDTO;
     }
 
     @Override

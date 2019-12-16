@@ -1,6 +1,6 @@
 package io.cjf.jinterviewback.dao;
 
-import io.cjf.jinterviewback.dto.ExaminationExamByIdDTO;
+import io.cjf.jinterviewback.dto.ExamWithPhotosDTO;
 import io.cjf.jinterviewback.dto.ExaminationSearchDTO;
 import io.cjf.jinterviewback.po.Examination;
 import org.apache.ibatis.annotations.Param;
@@ -27,5 +27,5 @@ public interface ExaminationMapper {
 
     List<ExaminationSearchDTO> search(@Param("keyword") String keyword, @Param("time") Date time);
 
-    ExaminationExamByIdDTO getExamById(Integer examId);
+    ExamWithPhotosDTO selectExamById(Integer examId);
 }

@@ -75,7 +75,7 @@ public class InterviewController {
         Examination examination=examinationService.getExamByInterviewId(interview.getInterviewId());
         List<JSONObject> ExamPhotoJsons = new ArrayList<>();
         if (examination != null){
-            List<ExamPhoto> ExamPhotos = examPhotoService.getExaminationPhotoById(examination.getExamId());
+            List<ExamPhoto> ExamPhotos = examPhotoService.getExamPhotoByExamId(examination.getExamId());
             ExamPhotoJsons = ExamPhotos.stream().map(ExamPhoto -> {
                 JSONObject ExamPhotoJson = new JSONObject();
                 ExamPhotoJson.put("url", ExamPhoto.getUrl());
