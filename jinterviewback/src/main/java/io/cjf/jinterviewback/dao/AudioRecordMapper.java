@@ -26,4 +26,8 @@ public interface AudioRecordMapper {
 
     //录音详情列表
     AudioRecordDTO getByid(Integer audiorecordId);
+
+    void insertAudio(AudioRecord audioRecord);
+
+    List<AudioRecord> selectAudioListByid(Integer interviewId);
 }

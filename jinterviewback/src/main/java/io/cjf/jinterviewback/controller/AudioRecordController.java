@@ -4,24 +4,56 @@ import com.alibaba.fastjson.JSONObject;
 import io.cjf.jinterviewback.dto.AudioRecordDTO;
 import io.cjf.jinterviewback.po.AudioRecord;
 import io.cjf.jinterviewback.service.AudioRecordService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/audiorecord")
 public class AudioRecordController {
-
+    private HashSet md5Set = new HashSet();
+    private static final Logger log = LoggerFactory.getLogger(AudioRecordController.class);
     @Autowired
     private AudioRecordService audioRecordService;
 
-    @PostMapping("/upload")
-    public List<String> upload(@RequestParam MultipartFile[] audiorecords,
-                               @RequestParam Integer interviewId){
-        return null;
+ @PostMapping("/upload")
+    public List<String> upload(@RequestParam MultipartFile audiorecords,
+                               @RequestParam Integer interviewId) throws IOException {
+         AudioRecord audioRecord = new AudioRecord();
+         String name = audiorecords.getOriginalFilename();
+         String[] split = name.split("\\.");
+         String ext = split[split.length-1];
+         byte[] data = audiorecords.getBytes();
+         String uuid = UUID.randomUUID().toString();
+         String filename = String.format("Audio/%s.%s", uuid, ext);
+         try(FileOutputStream out = new FileOutputStream(filename)){
+             out.write(data);
+         }
+         String md5HexStr = DigestUtils.md5DigestAsHex(data);
+         md5Set.add(md5HexStr);
+
+         audioRecord.setInterviewId(interviewId);
+         audioRecord.setUrl(filename);
+         audioRecord.setLikes(0);
+         audioRecordService.insertAudio(audioRecord);
+         List<AudioRecord> audioRecordList=audioRecordService.getAudioListByid(interviewId);
+         ArrayList<String> urls = new ArrayList<>();
+         for (AudioRecord audio:audioRecordList
+         ) {
+             urls.add(audio.getUrl());
+         }
+     return urls;
     }
 
     @GetMapping("/search")
@@ -63,4 +95,5 @@ public class AudioRecordController {
 
         return jsonObject;
     }
+
 }

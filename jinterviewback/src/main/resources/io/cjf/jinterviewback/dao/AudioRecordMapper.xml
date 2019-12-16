@@ -169,4 +169,12 @@
     WHERE audio_record_id=#{audiorecordId}
   </select>
 
+  <insert id="insertAudio" parameterType="io.cjf.jinterviewback.po.AudioRecord">
+    insert into audio_record (interview_id,likes,url
+      )
+    values ( #{interviewId,jdbcType=INTEGER},#{likes,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR})
+  </insert>
+    <select id="selectAudioListByid" resultType="io.cjf.jinterviewback.po.AudioRecord">
+        SELECT url FROM `audio_record` where interview_id=#{interviewId}
+    </select>
 </mapper>

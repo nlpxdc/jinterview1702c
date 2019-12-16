@@ -30,5 +30,15 @@ public class AudioRecordServiceImpl implements AudioRecordService {
         return audioRecordMapper.getByid(audiorecordId);
     }
 
+    @Override
+    public void insertAudio(AudioRecord audioRecord) {
+        audioRecordMapper.insertAudio(audioRecord);
+    }
+
+    @Override
+    public List<AudioRecord> getAudioListByid(Integer interviewId) {
+        return audioRecordMapper.selectAudioListByid(interviewId);
+    }
+
 
 }

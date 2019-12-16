@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="assets/css/vant.css">
+    <script src="assets/js/vconsole.min.js"></script>
+    <script>
+        var vConsole = new VConsole();
+    </script>
+    <title>Demo</title>
+</head>
+
+<body>
+
+
+
+    <div id="app" style="text-align: center;">
+
+        <van-uploader v-model="files" :after-read="afterRead" :max-count=1 accept="audio/*"></van-uploader>
+        <br>
+        <van-button icon="audio" type="primary" @click="handleUpload">上传音频</van-button>
+        <van-button type="primary" @click="">确认提交</van-button>
+
+    </div>
+
+
+
+
+    <script src="assets/js/axios.min.js"></script>
+    <script src="assets/js/common.js"></script>
+    <script src="assets/js/vue.js"></script>
+    <script src="assets/js/vant.min.js"></script>
+    <script src="viewmodels/AudioUpload.js"></script>
+
+</body>
+
+</html>

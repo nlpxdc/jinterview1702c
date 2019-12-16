@@ -13,4 +13,9 @@ public interface AudioRecordService {
 
 
     AudioRecordDTO getByid(Integer audiorecordId);
+
+
+    void insertAudio(AudioRecord audioRecord);
+
+    List<AudioRecord> getAudioListByid(Integer interviewId);
 }
