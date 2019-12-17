@@ -10,18 +10,17 @@
     <script>
         var vConsole = new VConsole();
     </script>
-    <title>AuthCode</title>
+    <title>微信授权码登陆</title>
 </head>
 
 <body>
 
     <div id="app">
-        AuthCode <br>
         code: {{code}} <br>
         <van-button type="primary" @click="handleLoginClick">授权码登陆</van-button>
         <br>
 
-        <a href="StudentActivate.html">激活页</a>
+        <a href="student-activate.html">激活页</a>
 
     </div>
 
@@ -30,7 +29,7 @@
     <script src="assets/js/common.js"></script>
     <script src="assets/js/vue.js"></script>
     <script src="assets/js/vant.min.js"></script>
-    <script src="viewmodels/AuthCode.js"></script>
+    <script src="viewmodels/auto-code.js"></script>
 
 </body>
 
