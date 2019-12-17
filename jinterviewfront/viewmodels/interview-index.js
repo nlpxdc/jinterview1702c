@@ -8,11 +8,11 @@ var app = new Vue({
         onlyme: false,
         time: '',
         interviews: [],
-        active:0,
+        active: 0,
     },
     mounted() {
         console.log('view mounted');
-       
+
     },
     watch: {
         onlyme() {
@@ -47,7 +47,7 @@ var app = new Vue({
                 })
                 .catch(function (error) {
                     console.error(error);
-                    alert('错误请检查');
+                    alert(error.response.data.message);
                 });
         },
         handleSearchClick() {
@@ -58,53 +58,62 @@ var app = new Vue({
                 this.searchInterview();
             }
         },
-        handleDownloadClick(){
+        handleDownloadClick() {
             axios(
                 {
-                    baseURL:"/jinterviewback",
-                    url:"/interview/downloadinterview",
-                    method:"get",
+                    baseURL: "/jinterviewback",
+                    url: "/interview/downloadinterview",
+                    method: "get",
                     responseType: 'blob',
                     header: {
-                     'jinterviewToken': localStorage['jinterviewToken']
-                            } 
-            }
-            )
-            .then(res => {
-                
-                console.log(res)
-                const fileName = '面试记录.xls';
-                if ('download' in document.createElement('a')) { // 非IE下载
-                    const blob = new Blob([res.data], {type: 'application/ms-excel'});
-                    const elink = document.createElement('a');
-                    elink.download = fileName;
-                    elink.style.display = 'none';
-                    elink.href = URL.createObjectURL(blob);
-                    document.body.appendChild(elink);
-                    elink.click();
-                    URL.revokeObjectURL(elink.href); // 释放URL 对象
-                    document.body.removeChild(elink);
+                        'jinterviewToken': localStorage['jinterviewToken']
+                    }
                 }
-              
-            })
-            .catch(err => {
-                console.error(err); 
-            })
+            )
+                .then(res => {
+
+                    console.log(res)
+                    const fileName = '面试记录.xls';
+                    if ('download' in document.createElement('a')) { // 非IE下载
+                        const blob = new Blob([res.data], { type: 'application/ms-excel' });
+                        const elink = document.createElement('a');
+                        elink.download = fileName;
+                        elink.style.display = 'none';
+                        elink.href = URL.createObjectURL(blob);
+                        document.body.appendChild(elink);
+                        elink.click();
+                        URL.revokeObjectURL(elink.href); // 释放URL 对象
+                        document.body.removeChild(elink);
+                    }
+
+                })
+                .catch(err => {
+                    console.error(err);
+                })
         },
-        onRefresh(){
+        onRefresh() {
             console.log('pull refresh trigger');
             this.finished = false;
             this.time = '';
             this.interviews = [];
             this.searchInterview();
         },
-        handleInterviewTouch(interview){
+        handleInterviewTouch(interview) {
             console.log('interview touch', interview);
             location.href = 'interview-show.html?interviewId=' + interview.interviewId;
         },
-        handleCreateTouch(){
+        handleCreateTouch() {
             console.log('create interview touch');
             location.href = 'interview-create.html';
         }
     }
 });
+
+window.onpageshow = function (event) {
+    console.log('event: ', event);
+
+    if (event.persisted) {
+
+    }
+
+};
