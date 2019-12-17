@@ -33,6 +33,10 @@ var app = new Vue({
                     console.error(err);
                 })
         },
+        handleExamShowClick(){
+            console.log('exam show click');
+            
+        },
         onClickLeft() {
             location.href="InterviewIndex.html";
         },

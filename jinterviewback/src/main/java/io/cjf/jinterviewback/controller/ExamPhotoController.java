@@ -43,8 +43,7 @@ public class ExamPhotoController {
     @Value("${exam.photo.directory}")
     private String examPhotoDirectory;
 
-    @Value("${exam.photo.url.prefix}")
-    private String examPhotoUrlPrefix;
+
 
     @Transactional
     @PostMapping("/upload")
@@ -127,4 +126,5 @@ public class ExamPhotoController {
         }
 
     }
+
 }

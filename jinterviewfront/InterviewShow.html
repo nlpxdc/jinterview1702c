@@ -17,8 +17,7 @@
 <body>
 
     <div id="app">
-        <van-nav-bar title="标题" left-text="返回"  left-arrow @click-left="onClickLeft"
-            @click-right="onClickRight">
+        <van-nav-bar title="标题" left-text="返回" left-arrow @click-left="onClickLeft" @click-right="onClickRight">
             <van-icon name="wap-home-o" slot="right"></van-icon>
         </van-nav-bar>
 
@@ -30,6 +29,8 @@
         <van-cell title="面试结果:" :value="status[interview.status]"></van-cell>
 
         <van-divider>面试图片</van-divider>
+
+        <van-button type="primary" size="large" @click="handleExamShowClick">查看笔试题</van-button>
 
         <van-divider>面试录音</van-divider>
 

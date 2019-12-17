@@ -29,6 +29,19 @@
     <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="interview_time" jdbcType="TIMESTAMP" property="interview_time" />
   </resultMap>
+  <resultMap id="InterviewShowDTO" type="io.cjf.jinterviewback.dto.InterviewShowDTO">
+    <id column="interview_id" jdbcType="INTEGER" property="interviewId" />
+    <result column="student_id" jdbcType="INTEGER" property="studentId" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="interview_time" jdbcType="TIMESTAMP" property="interviewTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="stars" jdbcType="TINYINT" property="stars" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+    <result column="offer_url" jdbcType="VARCHAR" property="offerUrl" />
+    <association property="student" column="student_id" javaType="io.cjf.jinterviewback.po.Student" select="io.cjf.jinterviewback.dao.StudentMapper.selectByPrimaryKey"/>
+  </resultMap>
   <sql id="Base_Column_List">
     interview_id, student_id, company, address, interview_time, create_time, status, 
     stars, note, offer_url
@@ -209,4 +222,12 @@
       interview_id = #{interviewId}
     </where>
   </select>
+
+  <select id="selectWithStudentByPrimaryKey" parameterType="java.lang.Integer" resultMap="InterviewShowDTO">
+    select
+    <include refid="Base_Column_List" />
+    from interview
+    where interview_id = #{interviewId,jdbcType=INTEGER}
+  </select>
+
 </mapper>

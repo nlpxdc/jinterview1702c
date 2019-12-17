@@ -8,13 +8,14 @@
     <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="likes" jdbcType="INTEGER" property="likes" />
   </resultMap>
-  <resultMap id="ExamWithPhotosDTO" type="io.cjf.jinterviewback.dto.ExamWithPhotosDTO">
+  <resultMap id="ExamShowDTO" type="io.cjf.jinterviewback.dto.ExamShowDTO">
     <id column="exam_id" jdbcType="INTEGER" property="examId" />
     <result column="interview_id" jdbcType="INTEGER" property="interviewId" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="likes" jdbcType="INTEGER" property="likes" />
-    <collection property="examPhotos" javaType="ArrayList" column="exam_id" ofType="io.cjf.jinterviewback.po.ExamPhoto" select="io.cjf.jinterviewback.dao.ExamPhotoMapper.selectByPrimaryKey"/>
+    <association property="interviewShowDTO" column="interview_id" javaType="io.cjf.jinterviewback.dto.InterviewShowDTO" select="io.cjf.jinterviewback.dao.InterviewMapper.selectWithStudentByPrimaryKey"/>
+    <collection property="examPhotos" javaType="ArrayList" column="exam_id" ofType="io.cjf.jinterviewback.po.ExamPhoto" select="io.cjf.jinterviewback.dao.ExamPhotoMapper.selectExamPhotoByExamId"/>
   </resultMap>
   <sql id="Base_Column_List">
     exam_id, interview_id, title, content, likes
@@ -128,7 +129,7 @@
 
   </select>
 
-  <select id="selectExamById" resultMap="ExamWithPhotosDTO">
+  <select id="selectExamById" resultMap="ExamShowDTO">
     select
     <include refid="Base_Column_List" />
     from examination

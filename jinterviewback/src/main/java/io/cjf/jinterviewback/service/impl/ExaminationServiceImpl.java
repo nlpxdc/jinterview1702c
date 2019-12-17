@@ -1,10 +1,8 @@
 package io.cjf.jinterviewback.service.impl;
 
-import io.cjf.jinterviewback.dao.ExamPhotoMapper;
 import io.cjf.jinterviewback.dao.ExaminationMapper;
-import io.cjf.jinterviewback.dto.ExamWithPhotosDTO;
+import io.cjf.jinterviewback.dto.ExamShowDTO;
 import io.cjf.jinterviewback.dto.ExaminationSearchDTO;
-import io.cjf.jinterviewback.po.ExamPhoto;
 import io.cjf.jinterviewback.po.Examination;
 import io.cjf.jinterviewback.service.ExaminationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +30,9 @@ public class ExaminationServiceImpl implements ExaminationService {
     }
 
     @Override
-    public ExamWithPhotosDTO getExamById(Integer examId) {
-        ExamWithPhotosDTO examWithPhotosDTO = examinationMapper.selectExamById(examId);
-        return examWithPhotosDTO;
+    public ExamShowDTO getExamById(Integer examId) {
+        final ExamShowDTO examShowDTO = examinationMapper.selectExamById(examId);
+        return examShowDTO;
     }
 
     @Override
