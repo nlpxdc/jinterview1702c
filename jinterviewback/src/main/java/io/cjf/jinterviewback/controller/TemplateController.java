@@ -90,7 +90,7 @@ public class TemplateController {
     @Scheduled(fixedRate = 1000*60*60)//每隔一小时执行一次
     public String timerTask(){
         List<TemplateMessageDTO> tempTime = interviewService.getInterviewTime();
-        for(int index=0;index<=tempTime.size();index++){
+        for(int index=0;index<tempTime.size();index++){
             Date time = new Date();
             if(time.getMonth() == tempTime.get(index).getInterview_time().getMonth()){
                 if(time.getDay() == tempTime.get(index).getInterview_time().getDay()){
