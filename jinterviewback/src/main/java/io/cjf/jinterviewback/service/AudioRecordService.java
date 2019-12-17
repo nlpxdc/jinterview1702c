@@ -6,7 +6,7 @@ import io.cjf.jinterviewback.po.AudioRecord;
 import java.util.List;
 
 public interface AudioRecordService {
-    AudioRecord getAudioRecordByid(Integer interviewId);
+    AudioRecord getAudioRecordByInterviewId(Integer interviewId);
 
 
     List<AudioRecordDTO> search(String keyword, Long time);
@@ -17,5 +17,5 @@ public interface AudioRecordService {
 
     void insertAudio(AudioRecord audioRecord);
 
-    List<AudioRecord> getAudioListByid(Integer interviewId);
+    List<AudioRecord> getAudioByInterviewId(Integer interviewId);
 }

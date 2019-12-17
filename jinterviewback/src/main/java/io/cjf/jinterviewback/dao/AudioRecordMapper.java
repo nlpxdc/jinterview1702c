@@ -20,7 +20,7 @@ public interface AudioRecordMapper {
 
     int updateByPrimaryKey(AudioRecord record);
 
-    AudioRecord selectAudioRecordByid(Integer interviewId);
+    AudioRecord selectAudioRecordByInterviewId(Integer interviewId);
     //录音列表
     List<AudioRecordDTO> search(String keyword, Long time);
 
@@ -29,5 +29,5 @@ public interface AudioRecordMapper {
 
     void insertAudio(AudioRecord audioRecord);
 
-    List<AudioRecord> selectAudioListByid(Integer interviewId);
+    List<AudioRecord> selectAudioByInterviewId(Integer interviewId);
 }

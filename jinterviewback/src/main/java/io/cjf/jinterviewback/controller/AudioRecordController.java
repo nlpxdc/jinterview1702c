@@ -47,7 +47,7 @@ public class AudioRecordController {
          audioRecord.setUrl(filename);
          audioRecord.setLikes(0);
          audioRecordService.insertAudio(audioRecord);
-         List<AudioRecord> audioRecordList=audioRecordService.getAudioListByid(interviewId);
+         List<AudioRecord> audioRecordList=audioRecordService.getAudioByInterviewId(interviewId);
          ArrayList<String> urls = new ArrayList<>();
          for (AudioRecord audio:audioRecordList
          ) {

@@ -83,7 +83,7 @@ public class InterviewController {
             }).collect(Collectors.toList());
         }
         interviewJson.put("examphotoUrls", ExamPhotoJsons);
-        AudioRecord audioRecord=audioRecordService.getAudioRecordByid(interview.getInterviewId());
+        AudioRecord audioRecord=audioRecordService.getAudioRecordByInterviewId(interview.getInterviewId());
         String audioRecordUrl = audioRecord != null ? audioRecord.getUrl() : "";
         interviewJson.put("audiorecordUrl",audioRecordUrl);
         return interviewJson;

@@ -143,7 +143,7 @@
   </update>
 
 
-  <select id="selectAudioRecordByid" resultMap="BaseResultMap">
+  <select id="selectAudioRecordByInterviewId" resultMap="BaseResultMap">
     SELECT
     <include refid="Base_Column_List" />
     FROM `audio_record` WHERE interview_id=#{interviewId}
@@ -174,7 +174,7 @@
       )
     values ( #{interviewId,jdbcType=INTEGER},#{likes,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR})
   </insert>
-    <select id="selectAudioListByid" resultType="io.cjf.jinterviewback.po.AudioRecord">
+    <select id="selectAudioByInterviewId" resultType="io.cjf.jinterviewback.po.AudioRecord">
         SELECT url FROM `audio_record` where interview_id=#{interviewId}
     </select>
 </mapper>

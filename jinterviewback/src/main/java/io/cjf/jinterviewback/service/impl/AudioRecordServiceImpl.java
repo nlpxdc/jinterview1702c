@@ -16,8 +16,8 @@ public class AudioRecordServiceImpl implements AudioRecordService {
     private AudioRecordMapper audioRecordMapper;
 
     @Override
-    public AudioRecord getAudioRecordByid(Integer interviewId) {
-        return audioRecordMapper.selectAudioRecordByid(interviewId);
+    public AudioRecord getAudioRecordByInterviewId(Integer interviewId) {
+        return audioRecordMapper.selectAudioRecordByInterviewId(interviewId);
     }
 
     @Override
@@ -36,8 +36,8 @@ public class AudioRecordServiceImpl implements AudioRecordService {
     }
 
     @Override
-    public List<AudioRecord> getAudioListByid(Integer interviewId) {
-        return audioRecordMapper.selectAudioListByid(interviewId);
+    public List<AudioRecord> getAudioByInterviewId(Integer interviewId) {
+        return audioRecordMapper.selectAudioByInterviewId(interviewId);
     }
 
 
