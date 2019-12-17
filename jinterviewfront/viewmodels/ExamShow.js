@@ -3,17 +3,16 @@ var app = new Vue({
     data() {
         return {
             examId: '',
-            company: '',
-            content: '',
-            likes: 0,
-            time: '',
-            realname: '',
-            examphotoUrls: []
+            exam: ''
         };
     },
     mounted() {
         var url = new URL(location.href);
         this.examId = url.searchParams.get("examId");
+        if (!this.examId) {
+            alert('examId 不存在');
+            return;
+        }
         this.getExamById();
     },
     methods: {
@@ -25,13 +24,7 @@ var app = new Vue({
             })
                 .then(res => {
                     console.log(res.data);
-                    this.company = res.data.company;
-                    this.time = res.data.time;
-                    this.content = res.data.content;
-                    this.examId = res.data.examId;
-                    this.likes = res.data.likes;
-                    this.realname = res.data.realname;
-                    this.examphotoUrls = res.data.examPhotolist;
+                    this.exam = res.data;
                 })
                 .catch(err => {
                     console.error(err);

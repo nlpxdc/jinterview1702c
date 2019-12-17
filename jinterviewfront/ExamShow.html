@@ -16,10 +16,8 @@
 <body>
 
     <div id="app">
-
+        <van-image v-for="examPhoto in exam.examPhotoUrls" :src="examPhoto"></van-image>
     </div>
-
-
 
     <script src="assets/js/axios.min.js"></script>
     <script src="assets/js/common.js"></script>
