@@ -10,22 +10,22 @@
     <script>
         var vConsole = new VConsole();
     </script>
-    <title>InterviewCreate</title>
+    <title>添加面试</title>
 </head>
 
 <body>
 
     <div id="app">
 
-        <van-nav-bar title="标题" left-text="返回" left-arrow @click-left="onClickLeft" @click-right="onClickRight">
+        <!-- <van-nav-bar title="标题" left-text="返回" left-arrow @click-left="onClickLeft" @click-right="onClickRight">
             <van-icon name="wap-home-o" slot="right"></van-icon>
-        </van-nav-bar>
+        </van-nav-bar> -->
         <van-field v-model="company" placeholder="请输入公司名"></van-field>
         <van-field v-model="address" placeholder="请输入公司地址"></van-field>
         <van-datetime-picker v-model="interviewTime" type="datetime" :show-toolbar="false"></van-datetime-picker>
         <br>
         <van-button type="primary" @click="handleCreateClick">确认</van-button>
-        <van-button type="default">取消</van-button>
+        <van-button type="default" @click="handleCancelTouch">取消</van-button>
     </div>
 
 
@@ -33,7 +33,7 @@
     <script src="assets/js/common.js"></script>
     <script src="assets/js/vue.js"></script>
     <script src="assets/js/vant.min.js"></script>
-    <script src="viewmodels/InterviewCreate.js"></script>
+    <script src="viewmodels/interview-create.js"></script>
 
 </body>
 

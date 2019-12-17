@@ -72,17 +72,9 @@ public class InterviewController {
         interviewJson.put("status",interview.getStatus());
         interviewJson.put("note",interview.getNote());
         interviewJson.put("offerUrl",interview.getOfferUrl());
-        Examination examination=examinationService.getExamByInterviewId(interview.getInterviewId());
-        List<JSONObject> ExamPhotoJsons = new ArrayList<>();
-        if (examination != null){
-            List<ExamPhoto> ExamPhotos = examPhotoService.getExamPhotoByExamId(examination.getExamId());
-            ExamPhotoJsons = ExamPhotos.stream().map(ExamPhoto -> {
-                JSONObject ExamPhotoJson = new JSONObject();
-                ExamPhotoJson.put("url", ExamPhoto.getUrl());
-                return ExamPhotoJson;
-            }).collect(Collectors.toList());
-        }
-        interviewJson.put("examphotoUrls", ExamPhotoJsons);
+        Examination exam=examinationService.getExamByInterviewId(interview.getInterviewId());
+        Integer examId = exam != null ? exam.getExamId() : null;
+        interviewJson.put("examId", examId);
         AudioRecord audioRecord=audioRecordService.getAudioRecordByInterviewId(interview.getInterviewId());
         String audioRecordUrl = audioRecord != null ? audioRecord.getUrl() : "";
         interviewJson.put("audiorecordUrl",audioRecordUrl);

@@ -10,7 +10,7 @@
     <script>
         var vConsole = new VConsole();
     </script>
-    <title>InterviewIndex</title>
+    <title>面试列表</title>
 </head>
 
 <body>
@@ -22,12 +22,12 @@
         只看自己：<van-switch v-model="onlyme"></van-switch>
 
         <van-button type="primary" @click="handleSearchClick">查询</van-button>
-        <van-button type="primary" @click="handleDownloadClick">导出</van-button>
+        <van-button type="primary" @click="handleCreateTouch">添加面试</van-button>
 
         <van-pull-refresh v-model="loading" @refresh="onRefresh">
 
             <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad" :offset="0">
-                <van-cell v-for="interview in interviews" :key="interview.interviewId" :title="interview.company">
+                <van-cell v-for="interview in interviews" :key="interview.interviewId" :title="interview.company" @click="handleInterviewTouch(interview)">
                     <div slot="default">{{interview.time.substr(0,16)}}</div>
                     <div slot="label">{{interview.studentName}}</div>
                     <img :src="interview.avatarUrl" alt="" slot="icon" width="48px" height="48px">
@@ -52,7 +52,7 @@
     <script src="assets/js/common.js"></script>
     <script src="assets/js/vue.js"></script>
     <script src="assets/js/vant.min.js"></script>
-    <script src="viewmodels/InterviewIndex.js"></script>
+    <script src="viewmodels/interview-index.js"></script>
 
 </body>
 

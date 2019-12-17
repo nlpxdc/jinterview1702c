@@ -33,6 +33,7 @@ var app = new Vue({
                 .then(function (response) {
                     console.log(response);
                     alert('提交成功');
+                    history.back();
                 })
                 .catch(function (error) {
                     console.log(error);

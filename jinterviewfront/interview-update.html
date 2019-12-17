@@ -10,16 +10,16 @@
     <script>
         var vConsole = new VConsole();
     </script>
-    <title>UpdateInterview</title>
+    <title>更新面试</title>
 
 </head>
 
 <body>
 
     <div id="app">
-        <van-nav-bar title="标题" left-text="返回" left-arrow @click-left="onClickLeft" @click-right="onClickRight">
+        <!-- <van-nav-bar title="标题" left-text="返回" left-arrow @click-left="onClickLeft" @click-right="onClickRight">
             <van-icon name="wap-home-o" slot="right"></van-icon>
-        </van-nav-bar>
+        </van-nav-bar> -->
         <van-divider>公司</van-divider>
         <van-cell title="公司" :value="company"></van-cell>
         <van-divider>地址</van-divider>
@@ -44,7 +44,7 @@
         </van-field>
 
         <van-divider>面试试题/录音查看</van-divider>
-        <van-button type="info">笔试题上传</van-button>
+        <van-button type="info" @click="handleExamPhotoUploadTouch">笔试题上传</van-button>
         <van-button type="info">录音上传</van-button>
 
         <br>
@@ -65,7 +65,7 @@
     <script src="assets/js/common.js"></script>
     <script src="assets/js/vue.js"></script>
     <script src="assets/js/vant.min.js"></script>
-    <script src="viewmodels/InterviewUpdate.js"></script>
+    <script src="viewmodels/interview-update.js"></script>
 
 </body>
 

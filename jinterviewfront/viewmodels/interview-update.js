@@ -59,6 +59,7 @@ var app = new Vue({
                 .then(function (response) {
                     console.log(response);
                     alert('修改成功');
+                    history.back();
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -76,11 +77,16 @@ var app = new Vue({
                 .then(function (response) {
                     console.log(response);
                     alert('删除成功');
+                    history.back();
                 })
                 .catch(function (error) {
                     console.log(error);
                     alert(error.response.data.message);
                 });
+        },
+        handleExamPhotoUploadTouch(){
+            console.log('exam photo upload touch');
+            location.href = 'examphoto-upload.html?interviewId=' + this.interviewId;
         },
         onClickLeft() {
 

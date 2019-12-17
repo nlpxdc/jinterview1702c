@@ -97,6 +97,14 @@ var app = new Vue({
             this.time = '';
             this.interviews = [];
             this.searchInterview();
+        },
+        handleInterviewTouch(interview){
+            console.log('interview touch', interview);
+            location.href = 'interview-show.html?interviewId=' + interview.interviewId;
+        },
+        handleCreateTouch(){
+            console.log('create interview touch');
+            location.href = 'interview-create.html';
         }
     }
 });

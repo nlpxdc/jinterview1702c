@@ -33,15 +33,19 @@ var app = new Vue({
                     console.error(err);
                 })
         },
-        handleExamShowClick(){
+        handleExamShowTouch() {
             console.log('exam show click');
-            
+            location.href = 'exam-show.html?examId=' + this.interview.examId;
+        },
+        handleUpdateTouch() {
+            console.log('update touch');
+            location.href = 'interview-update.html?interviewId=' + this.interviewId;
         },
         onClickLeft() {
-            location.href="InterviewIndex.html";
+            location.href = "InterviewIndex.html";
         },
         onClickRight() {
-            location.href="InterviewIndex.html";
+            location.href = "InterviewIndex.html";
         }
     }
 });
