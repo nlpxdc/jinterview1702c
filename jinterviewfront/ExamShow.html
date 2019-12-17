@@ -17,6 +17,12 @@
 
     <div id="app">
         <van-image v-for="examPhoto in exam.examPhotoUrls" :src="examPhoto"></van-image>
+
+        <van-cell title="学生名称:" :value="exam.interview.student.realname"></van-cell>
+        <van-cell title="微信名称:" :value="exam.interview.student.nickname"></van-cell>
+        <van-cell title="转换文字:" :value="exam.content"></van-cell>
+        <van-cell title="时间:" :value="exam.interview.createTime"></van-cell>
+
     </div>
 
     <script src="assets/js/axios.min.js"></script>
