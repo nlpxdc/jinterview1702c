@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
@@ -84,5 +85,26 @@ public class TemplateController {
         String temMessageStr = getTemplateMessage.toString();
         logger.info("temMessageStr : "+temMessageStr);
         return "access";
+    }
+
+    @Scheduled(fixedRate = 1000*60*60)//每隔一小时执行一次
+    public String timerTask(){
+        List<TemplateMessageDTO> tempTime = interviewService.getInterviewTime();
+        for(int index=0;index<=tempTime.size();index++){
+            Date time = new Date();
+            if(time.getMonth() == tempTime.get(index).getInterview_time().getMonth()){
+                if(time.getDay() == tempTime.get(index).getInterview_time().getDay()){
+                    if(time.getHours()+3 == tempTime.get(index).getInterview_time().getHours()){
+                        try {
+                            logger.info(tempTime.get(index).getInterview_time()+"");
+                            getToken(tempTime.get(index).getInterviewId());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }
+        return  null;
     }
 }

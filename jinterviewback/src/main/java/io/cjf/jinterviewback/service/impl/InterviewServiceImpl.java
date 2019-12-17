@@ -66,4 +66,9 @@ public class InterviewServiceImpl implements InterviewService {
     public List<TemplateMessageDTO> getTemById(Integer interviewId) {
         return interviewMapper.getTemById(interviewId);
     }
+
+    @Override
+    public List<TemplateMessageDTO> getInterviewTime() {
+        return interviewMapper.getInterviewTime();
+    }
 }

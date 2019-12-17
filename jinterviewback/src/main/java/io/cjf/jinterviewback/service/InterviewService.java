@@ -22,4 +22,6 @@ public interface InterviewService {
     void deleteById(Integer interviewId);
 
     List<TemplateMessageDTO> getTemById(Integer interviewId);
+
+    List<TemplateMessageDTO> getInterviewTime();
 }

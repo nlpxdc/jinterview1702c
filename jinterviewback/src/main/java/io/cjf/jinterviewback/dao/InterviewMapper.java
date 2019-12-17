@@ -34,4 +34,6 @@ public interface InterviewMapper {
                                   @Param("time") Date time);
 
     List<TemplateMessageDTO> getTemById(Integer interviewId);
+
+    List<TemplateMessageDTO> getInterviewTime();
 }

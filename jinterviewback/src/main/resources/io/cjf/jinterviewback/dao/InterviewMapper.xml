@@ -230,4 +230,7 @@
     where interview_id = #{interviewId,jdbcType=INTEGER}
   </select>
 
+  <select id="getInterviewTime" resultMap="TemplateMessageDTO">
+    select interview_id,interview_time from interview
+  </select>
 </mapper>

@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.util.unit.DataSize;
 
 import javax.servlet.MultipartConfigElement;
@@ -13,6 +14,7 @@ import javax.servlet.MultipartConfigElement;
 @SpringBootApplication
 @MapperScan("io.cjf.jinterviewback.dao")
 @EnableFeignClients
+@EnableScheduling
 public class JinterviewsiteApplication {
 
     public static void main(String[] args) {
