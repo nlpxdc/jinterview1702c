@@ -4,7 +4,7 @@ var app = new Vue({
         return {
             list: [],
             audiorecordId: "",
-            aaa:1,
+           
             
             
             
@@ -12,12 +12,20 @@ var app = new Vue({
     },
 
     mounted () {
+
+        
+        var url=new URL(location.href);
+        this.interviewId = url.searchParams.get("audiorecordId");
+        if (!this.audiorecordId) {
+        alert('audiorecordId 不存在');
+        return;
+        }
         this.onSearch();
     },
     
     methods: {
         onSearch(){
-           axios.get("http://localhost/audiorecord/getById", {
+           axios.get("/audiorecord/getById", {
             params: {
                 audiorecordId: this.aaa,
                 // time: time,

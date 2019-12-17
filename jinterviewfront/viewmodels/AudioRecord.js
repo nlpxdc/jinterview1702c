@@ -7,30 +7,39 @@ var app = new Vue({
             loading: false,
             finished: false,
             keyword: "",
-            //time:new Date().getTime().subString(0,10),
+            
 
 
         };
     },
     methods: {
         onSearch(){
-            this.listexam=[];
-           
-           this.onLoad();
+
+            axios.get("/audiorecord/search",{params:
+                {  keyword: this.keyword,
+                    time: this.time,}})
+               .then(res => {
+                   console.log(res);
+                        this.lists=res.data;
+                        console.log(this.lists.length);
+                        if(this.lists.length<2){
+                            this.finished=true;
+                        }
+                        this.lists.forEach(element => {
+                            this.list.push(element);
+                        });
+                        
+                        
+               })
+               .catch(err => {
+                   console.error(err); 
+               })
         },
 
-        onbutton(audiorecordId){
-
-            alert(audiorecordId);
-
-            location.href = "AudioParticulars.js?audiorecordId="+audiorecordId;
-
-
-            
-
+        onbutton(audiorecordId){},
            
 
-        },
+        
         onClickLeft() {
 
         },
@@ -44,52 +53,17 @@ var app = new Vue({
             setTimeout(() => {
                
                 var time=null;
-                console.log(this.listexam.length);
-                if(this.listexam.length>0){
-                   var times=((this.listexam[this.listexam.length-1].time));
-                   time=  (new Date(times).getTime()+'').substring(0,10);              
-                              
+                if(this.list.length>0){
+                    var longtime=this.list[this.list.length-1].time;
+                     time=new Date(longtime).getTime();    
                 }else{
-                    time=(new Date().getTime()+'').substring(0,10);                  
-                                             
+                     time=new Date().getTime();
                 }
-                console.log(time);
-                axios.get("http://localhost/audiorecord/search", {
-                    params: {
-                        keyword: this.keyword,
-                        time: time,
-                    }
-                })
-                    .then(function (response) {
-                        app.list=[];
-                         alert(response.data);
-                        app.list = response.data;
-                       
-                      
-
-                        app.list.forEach(list => {
-                            app.listexam.push(list);
-                        });
-                        if (app.list.length<4) {
-                            app.finished = true;
-                        }
-                       
-                        console.log("111111")
-                        console.log(app.listexam);
-                        console.log("111111")
-
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
-                // 加载状态结束 
+               
+                this.getInterviews(time);
+                this.loading=false;
                 
-                
-                this.loading = false;
-                // if (app.list.length == 0) {
-                //     app.finished = true;
-                // }
-            }, 2000);
+            },2000)
         }
     }
 });

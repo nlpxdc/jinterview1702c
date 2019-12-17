@@ -23,6 +23,7 @@
         <van-search v-model="keyword" placeholder="请输入搜索关键词" show-action shape="round" @search="onSearch">
             <div slot="action" @click="onSearch">搜索</div>
         </van-search>
+        
         <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
             <!-- <van-cell v-for="(item,a) in listexam" :key="a" :title="item.realname" /> -->
 
@@ -34,7 +35,7 @@
                         </div>
                     </div>
                     <div style="float: right;"> 
-                        <a :href="'http://localhost:5000/audiorecord/getById?audiorecordId='+item.audiorecordId"
+                        <a :href="'/AudioRecord.html?audiorecordId='+item.audiorecordId"
                         style="text-decoration: none;color: blue;">详情
                         </a>
                         
@@ -60,6 +61,7 @@
 
 
     <script src="assets/js/axios.min.js"></script>
+    <script src="assets/js/common.js"></script>
     <script src="assets/js/vue.js"></script>
     <script src="assets/js/vant.min.js"></script>
     <script src="viewmodels/AudioRecord.js"></script>
