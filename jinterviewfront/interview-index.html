@@ -35,7 +35,7 @@
             <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad" :offset="0">
                 <van-cell v-for="interview in interviews" :key="interview.interviewId" :title="interview.company"
                     @click="handleInterviewTouch(interview)">
-                    <div slot="default">{{(new Date(interview.time)).toLocaleString()}}</div>
+                    <div slot="default">{{(new Date(interview.timestamp)).toLocaleString()}}</div>
                     <div slot="label">{{interview.studentName}}</div>
                     <img :src="interview.avatarUrl" alt="" slot="icon" width="48px" height="48px">
                 </van-cell>
