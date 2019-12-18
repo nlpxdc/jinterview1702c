@@ -105,6 +105,10 @@ var app = new Vue({
         handleCreateTouch() {
             console.log('create interview touch');
             location.href = 'interview-create.html';
+        },
+        handleMeTouch(){
+            console.log('me touch');
+            location.href = 'student-show.html';
         }
     }
 });

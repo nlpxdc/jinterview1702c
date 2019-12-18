@@ -136,7 +136,7 @@ public class StudentController {
     }
 
     @GetMapping("/getBasicInfo")
-    public JSONObject getBasicInfo(@RequestParam Integer studentId) {
+    public JSONObject getBasicInfo(@RequestAttribute Integer studentId) {
         JSONObject studentJson = new JSONObject();
         Student student = studentService.getByStudentId(studentId);
         studentJson.put("studentId", student.getStudentId());

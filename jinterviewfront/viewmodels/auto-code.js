@@ -30,7 +30,6 @@ var app = new Vue({
                     localStorage['jinterviewToken'] = tokenObj.token;
                     localStorage['expire_in'] = tokenObj.expire_in;
                     localStorage['studentStatus'] = tokenObj.status;
-                    alert('登陆成功');
                     if (tokenObj.status == 1) {
                         location.href = 'interview-index.html';
                     } else {

@@ -12,7 +12,7 @@ var app = new Vue({
                 location.href = 'student-activate.html';
             }
         } else {
-            location.href = 'login.html';
+            location.href = 'ilogin.html';
         }
 
     }
