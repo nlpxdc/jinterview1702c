@@ -87,21 +87,18 @@ public class TemplateController {
         return "access";
     }
 
-    @Scheduled(fixedRate = 1000*60*60)//每隔一小时执行一次
+    @Scheduled(fixedRate = 1000*60*5)//隔5分钟执行一次
     public String timerTask(){
         List<TemplateMessageDTO> tempTime = interviewService.getInterviewTime();
         for(int index=0;index<tempTime.size();index++){
-            Date time = new Date();
-            if(time.getMonth() == tempTime.get(index).getInterview_time().getMonth()){
-                if(time.getDay() == tempTime.get(index).getInterview_time().getDay()){
-                    if(time.getHours()+3 == tempTime.get(index).getInterview_time().getHours()){
-                        try {
-                            logger.info(tempTime.get(index).getInterview_time()+"");
-                            getToken(tempTime.get(index).getInterviewId());
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
+            Date time = new Date();//当前时间
+            Date interTime = tempTime.get(index).getInterview_time();//面试时间
+            if(time.getTime()+10800000 > interTime.getTime()&& interTime.getTime() > time.getTime()+10500000){
+                try {
+                    logger.info(tempTime.get(index).getInterview_time()+"");
+                    getToken(tempTime.get(index).getInterviewId());
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         }
