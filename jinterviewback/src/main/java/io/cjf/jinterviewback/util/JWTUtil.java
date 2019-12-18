@@ -1,5 +1,6 @@
 package io.cjf.jinterviewback.util;
 
+import com.alibaba.fastjson.JSONObject;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
@@ -31,7 +32,7 @@ public class JWTUtil {
         algorithm = Algorithm.HMAC256(jwtHS256Secret);
     }
 
-    public String issueToken(Student student){
+    public JSONObject issueToken(Student student){
         final Date now = new Date();
         final long nowTimestamp = now.getTime();
         final long expireTimestamp = nowTimestamp + jwtValidDuration*1000;
@@ -47,8 +48,12 @@ public class JWTUtil {
                 .sign(algorithm);
 
         logger.info("jwt token: {}", token);
+        logger.info("jwt expire date: {}", expireTimestamp);
+        final JSONObject jsonObject = new JSONObject();
+        jsonObject.put("token", token);
+        jsonObject.put("expireDate", expireTimestamp);
 
-        return token;
+        return jsonObject;
     }
 
     public StudentLoginVO verifyToken(String token){

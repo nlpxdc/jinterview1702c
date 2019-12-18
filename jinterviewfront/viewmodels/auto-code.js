@@ -28,7 +28,7 @@ var app = new Vue({
                     console.log(response);
                     const tokenObj = response.data;
                     localStorage['jinterviewToken'] = tokenObj.token;
-                    localStorage['expire_in'] = tokenObj.expire_in;
+                    localStorage['expireDate'] = tokenObj.expireDate;
                     localStorage['studentStatus'] = tokenObj.status;
                     if (tokenObj.status == 1) {
                         location.href = 'interview-index.html';

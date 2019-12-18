@@ -95,12 +95,8 @@ public class StudentController {
             studentService.updateStudent(student);
         }
 
-        final String token = jwtUtil.issueToken(student);
+        final JSONObject tokenObj = jwtUtil.issueToken(student);
         final Byte status = student.getStatus();
-
-        final JSONObject tokenObj = new JSONObject();
-        tokenObj.put("token", token);
-        tokenObj.put("expire_in", expire_in);
         tokenObj.put("status", status);
 
         return tokenObj;

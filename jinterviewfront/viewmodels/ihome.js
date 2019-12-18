@@ -4,16 +4,17 @@ var app = new Vue({
     mounted() {
         console.log('view mounted');
         const token = localStorage['jinterviewToken'];
-        if (token) {
+        const expireDate = localStorage['expireDate'];
+        const now = Date.now();
+        if (!token || now > expireDate) {
+            location.href = 'ilogin.html';
+        } else {
             const status = localStorage['studentStatus'];
             if (status == 1) {
                 location.href = 'interview-index.html';
             } else {
                 location.href = 'student-activate.html';
             }
-        } else {
-            location.href = 'ilogin.html';
         }
-
     }
 });
