@@ -22,7 +22,7 @@
 
         <van-collapse v-model="activeName" accordion>
             <van-collapse-item title="面试时间" name="1">
-                <van-datetime-picker v-model="time" type="datetime" :show-toolbar="false"></van-datetime-picker>
+                <van-datetime-picker v-model="time" type="datetime" :show-toolbar="false" :filter="filter"></van-datetime-picker>
                 <div slot="value">{{(new Date(time)).toLocaleString()}}</div>
             </van-collapse-item>
         </van-collapse>
@@ -80,7 +80,7 @@
     <script src="assets/js/common.js"></script>
     <script src="assets/js/vue.js"></script>
     <script src="assets/js/vant.min.js"></script>
-    <script src="viewmodels/interview-update.js?201912182236"></script>
+    <script src="viewmodels/interview-update.js?201912182257"></script>
 
 </body>
 

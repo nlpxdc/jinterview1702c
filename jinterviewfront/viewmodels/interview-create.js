@@ -46,11 +46,12 @@ var app = new Vue({
                     alert('创建失败');
                 });
         },
-        onClickLeft() {
+        filter(type, options) {
+            if (type === 'minute') {
+                return options.filter(option => option % 30 === 0)
+            }
 
-        },
-        onClickRight() {
-
+            return options;
         }
     }
 });

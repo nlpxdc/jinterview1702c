@@ -63,7 +63,7 @@ var app = new Vue({
             })
                 .then(function (response) {
                     console.log(response);
-                    alert('修改成功');
+                    alert('更新成功');
                     history.back();
                 })
                 .catch(function (error) {
@@ -93,11 +93,12 @@ var app = new Vue({
             console.log('exam photo upload touch');
             location.href = 'examphoto-upload.html?interviewId=' + this.interviewId;
         },
-        onClickLeft() {
+        filter(type, options) {
+            if (type === 'minute') {
+                return options.filter(option => option % 30 === 0)
+            }
 
-        },
-        onClickRight() {
-
+            return options;
         }
     }
 });

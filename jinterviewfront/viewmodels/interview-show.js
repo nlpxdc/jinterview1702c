@@ -31,6 +31,7 @@ var app = new Vue({
                 })
                 .catch(err => {
                     console.error(err);
+                    alert(err.response.data.message);
                 })
         },
         handleExamShowTouch() {
