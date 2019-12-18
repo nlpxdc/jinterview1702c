@@ -21,9 +21,18 @@
         </div>
         <van-cell title="昵称" v-model="nickname"></van-cell>
         <van-cell title="真实姓名" v-model="realname"></van-cell>
-        <van-cell title="邮箱" v-model="email"></van-cell>
+        <van-cell title="邮箱" v-model="email" v-show="emailVerified"></van-cell>
         <van-cell title="联系方式" v-model="mobile"></van-cell>
         <br><br>
+
+        <div v-show="!emailVerified">
+            <van-button type="primary" size="normal" @click="handleSendEmailCaptchaTouch">发送邮箱验证码</van-button>
+            <van-field v-model="emailCaptcha" placeholder="请输入邮箱验证码"></van-field>
+            <van-button type="primary" size="normal" @click="handleSubmitEmailCaptchaTouch">提交邮箱验证码</van-button>
+        </div>
+
+        <br>
+        <br>
 
         <div v-show="!realname">
             <div style="text-align: center;">
@@ -39,7 +48,7 @@
     <script src="assets/js/common.js"></script>
     <script src="assets/js/vue.js"></script>
     <script src="assets/js/vant.min.js"></script>
-    <script src="viewmodels/student-show.js"></script>
+    <script src="viewmodels/student-show.js?201912181620"></script>
 
 </body>
 

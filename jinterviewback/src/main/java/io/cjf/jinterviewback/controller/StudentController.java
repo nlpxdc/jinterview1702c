@@ -144,6 +144,7 @@ public class StudentController {
         studentJson.put("realname", student.getRealname());
         studentJson.put("mobile", student.getMobile());
         studentJson.put("email", student.getEmail());
+        studentJson.put("emailVerified", student.getEmailVerified());
         studentJson.put("avatarUrl", student.getAvatarUrl());
         return studentJson;
     }
@@ -175,7 +176,7 @@ public class StudentController {
             throw new ClientException(ClientExceptionConstant.CAPTCHA_INVALID_ERRCODE, ClientExceptionConstant.CAPTCHA_INVALID_ERRMSG);
         } else {
             final Student student = studentService.getByStudentId(studentId);
-            student.setMobileVerified(true);
+            student.setEmailVerified(true);
             studentService.updateStudent(student);
         }
 
