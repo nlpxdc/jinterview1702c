@@ -22,7 +22,8 @@ var app = new Vue({
         getInterviewById() {
             axios.get("/interview/getById", {
                 params: {
-                    interviewId: this.interviewId
+                    interviewId: this.interviewId,
+                    nonce: Date.now()
                 }
             })
                 .then(res => {
@@ -42,11 +43,12 @@ var app = new Vue({
             console.log('update touch');
             location.href = 'interview-update.html?interviewId=' + this.interviewId;
         },
-        onClickLeft() {
-            location.href = "InterviewIndex.html";
+        handleAddressTouch() {
+            console.log('address touch');
         },
-        onClickRight() {
-            location.href = "InterviewIndex.html";
+        handleBackTouch() {
+            console.log('back touch');
+            history.back();
         }
     }
 });

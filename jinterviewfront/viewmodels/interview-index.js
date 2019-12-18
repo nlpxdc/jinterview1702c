@@ -35,7 +35,8 @@ var app = new Vue({
                 params: {
                     keyword: this.keyword,
                     onlyme: this.onlyme,
-                    time: this.time
+                    time: this.time,
+                    nonce: Date.now()
                 }
             })
                 .then(function (response) {

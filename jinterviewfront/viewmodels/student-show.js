@@ -17,7 +17,11 @@ var app = new Vue({
     },
     methods: {
         getstudent() {
-            axios.get("/student/getBasicInfo")
+            axios.get("/student/getBasicInfo", {
+                params: {
+                    nonce: Date.now()
+                }
+            })
                 .then(response => {
                     console.log(response);
                     var student = response.data

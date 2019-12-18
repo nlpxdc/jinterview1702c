@@ -21,20 +21,21 @@
             <van-icon name="wap-home-o" slot="right"></van-icon>
         </van-nav-bar> -->
 
-        <van-cell title="学生:" :value="interview.studentName"></van-cell>
-        <van-cell title="公司:" :value="interview.company"></van-cell>
-        <van-cell title="面试时间:">
+        <van-cell title="学生" :value="interview.studentName"></van-cell>
+        <van-cell title="公司" :value="interview.company"></van-cell>
+        <van-cell title="地址" :value="interview.address" @click="handleAddressTouch" is-link></van-cell>
+        <van-cell title="面试时间">
             <div slot="default">{{(new Date(interview.time)).toLocaleString()}}</div>
         </van-cell>
-        <van-cell title="面试结果:" :value="status[interview.status]"></van-cell>
+        <van-cell title="面试结果" :value="status[interview.status]"></van-cell>
 
 
-        <van-cell title="评分:">
+        <van-cell title="评分">
             <van-rate slot="default" v-model="interview.stars" readonly></van-rate>
         </van-cell>
 
 
-        <van-cell title="点评:" :value="interview.note"></van-cell>
+        <van-cell title="点评" :value="interview.note"></van-cell>
 
         <div v-show="interview.examId">
             <van-divider>笔试题</van-divider>
@@ -50,6 +51,9 @@
         <br>
 
         <van-button type="primary" size="large" v-show="interview.self" @click="handleUpdateTouch">更新</van-button>
+        <br>
+        <br>
+        <van-button size="large" @click="handleBackTouch">返回</van-button>
         <br><br>
 
     </div>
@@ -60,7 +64,7 @@
     <script src="assets/js/common.js"></script>
     <script src="assets/js/vue.js"></script>
     <script src="assets/js/vant.min.js"></script>
-    <script src="viewmodels/interview-show.js"></script>
+    <script src="viewmodels/interview-show.js?201912190035"></script>
 
 </body>
 
