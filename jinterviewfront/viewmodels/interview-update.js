@@ -8,7 +8,8 @@ var app = new Vue({
         address: '',
         time: '',
         note: ' ',
-        selectStatus: ''
+        selectStatus: '',
+        activeName: ''
     },
     mounted() {
         console.log('view mounted');
@@ -45,8 +46,12 @@ var app = new Vue({
                 });
         },
         handleUpdateClick() {
-            console.log('update click');
+            console.log('update touch');
             this.updateInterview();
+        },
+        handleCancelClick() {
+            console.log('cancel touch');
+            history.back();
         },
         updateInterview() {
             axios.post('/interview/update', {
@@ -77,14 +82,14 @@ var app = new Vue({
                 .then(function (response) {
                     console.log(response);
                     alert('删除成功');
-                    history.back();
+                    history.go(-2);
                 })
                 .catch(function (error) {
                     console.log(error);
                     alert(error.response.data.message);
                 });
         },
-        handleExamPhotoUploadTouch(){
+        handleExamPhotoUploadTouch() {
             console.log('exam photo upload touch');
             location.href = 'examphoto-upload.html?interviewId=' + this.interviewId;
         },

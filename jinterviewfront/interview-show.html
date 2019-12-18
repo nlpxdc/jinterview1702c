@@ -28,14 +28,6 @@
         </van-cell>
         <van-cell title="面试结果:" :value="status[interview.status]"></van-cell>
 
-        <div v-show="interview.examId">
-            <van-divider>笔试题</van-divider>
-            <van-button type="primary" size="large" @click="handleExamShowTouch">查看笔试题</van-button>
-        </div>
-
-
-        <!-- <van-divider>面试录音</van-divider> -->
-
 
         <van-cell title="评分:">
             <van-rate slot="default" v-model="interview.stars" readonly></van-rate>
@@ -43,6 +35,14 @@
 
 
         <van-cell title="点评:" :value="interview.note"></van-cell>
+
+        <div v-show="interview.examId">
+            <van-divider>笔试题</van-divider>
+            <van-button type="primary" size="large" @click="handleExamShowTouch">查看笔试题</van-button>
+        </div>
+
+
+        <!-- <van-divider>面试录音</van-divider> -->
 
 
         <!-- <van-divider>OFFER截图</van-divider> -->

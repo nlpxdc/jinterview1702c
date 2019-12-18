@@ -17,15 +17,16 @@
 <body>
 
     <div id="app">
-        <!-- <van-nav-bar title="标题" left-text="返回" left-arrow @click-left="onClickLeft" @click-right="onClickRight">
-            <van-icon name="wap-home-o" slot="right"></van-icon>
-        </van-nav-bar> -->
-        <van-divider>公司</van-divider>
         <van-cell title="公司" :value="company"></van-cell>
-        <van-divider>地址</van-divider>
         <van-cell title="地址" :value="address"></van-cell>
-        <van-divider>面试时间</van-divider>
-        <van-datetime-picker v-model="time" type="datetime" :show-toolbar="false"></van-datetime-picker>
+
+        <van-collapse v-model="activeName" accordion>
+            <van-collapse-item title="面试时间" name="1">
+                <van-datetime-picker v-model="time" type="datetime" :show-toolbar="false"></van-datetime-picker>
+                <div slot="value">{{(new Date(time)).toLocaleString()}}</div>
+            </van-collapse-item>
+        </van-collapse>
+        <br>
 
         <van-divider>面试结果</van-divider>
         <div style="background: white;">
@@ -38,15 +39,17 @@
                 <van-radio name="5">取消面试</van-radio>
             </van-radio-group>
         </div>
+        <br>
+        <br>
 
-
-        <van-divider>评星</van-divider>
         <div style="background: white;">
-            <van-rate v-model="stars" :size="25" color="#ee0a24" void-icon="star" void-color="#eee"></van-rate>
+            <van-field label="评星">
+                <van-rate slot="input" v-model="stars" :size="25" color="#ee0a24" void-icon="star" void-color="#eee">
+                </van-rate>
+            </van-field>
+
         </div>
 
-
-        <van-divider>备注</van-divider>
         <van-field v-model="note" rows="3" autosize label="备注" type="textarea" placeholder="请输入留言" show-word-limit>
         </van-field>
 
@@ -59,7 +62,12 @@
         <br>
 
         <van-button type="primary" size="large" @click="handleUpdateClick">保存</van-button>
-        <br><br>
+        <br>
+        <br>
+        <van-button type="primary" size="large" @click="handleCancelClick">取消</van-button>
+        <br>
+        <br>
+        <br>
         <van-button type="danger" size="large" @click="handleDeleteClick">删除</van-button>
         <br>
         <br>
@@ -72,7 +80,7 @@
     <script src="assets/js/common.js"></script>
     <script src="assets/js/vue.js"></script>
     <script src="assets/js/vant.min.js"></script>
-    <script src="viewmodels/interview-update.js"></script>
+    <script src="viewmodels/interview-update.js?201912182236"></script>
 
 </body>
 
