@@ -20,9 +20,7 @@
         <van-sticky>
             <div style="background: white;">
                 <van-field v-model="keyword" placeholder="请输入关键字"></van-field>
-
                 只看自己：<van-switch v-model="onlyme"></van-switch>
-
                 <van-button type="primary" @click="handleSearchClick">查询</van-button>
                 <van-button type="primary" size="small" @click="handleCreateTouch">添加面试</van-button>
                 <van-button type="primary" size="small" @click="handleMeTouch">我</van-button>
@@ -36,7 +34,9 @@
                 <van-cell v-for="interview in interviews" :key="interview.interviewId" :title="interview.company"
                     @click="handleInterviewTouch(interview)">
                     <div slot="default">{{(new Date(interview.timestamp)).toLocaleString()}}</div>
-                    <div slot="label">{{interview.studentName}}</div>
+                    <div slot="label">
+                        {{(interview.studentName ? interview.studentName : interview.nickName) + ' ' + statuses[interview.status]}}
+                    </div>
                     <img :src="interview.avatarUrl" alt="" slot="icon" width="48px" height="48px">
                 </van-cell>
             </van-list>
