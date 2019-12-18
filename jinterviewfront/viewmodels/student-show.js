@@ -95,6 +95,7 @@ var app = new Vue({
                 .then(function (response) {
                     console.log(response);
                     alert("邮箱验证成功");
+                    location.reload();
                 })
                 .catch(function (error) {
                     console.error(error);

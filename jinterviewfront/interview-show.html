@@ -34,7 +34,7 @@
         </div>
 
 
-        <van-divider>面试录音</van-divider>
+        <!-- <van-divider>面试录音</van-divider> -->
 
 
         <van-cell title="评分:">
@@ -45,17 +45,12 @@
         <van-cell title="点评:" :value="interview.note"></van-cell>
 
 
-        <van-divider>OFFER截图</van-divider>
+        <!-- <van-divider>OFFER截图</van-divider> -->
+        <br>
+        <br>
 
         <van-button type="primary" size="large" v-show="interview.self" @click="handleUpdateTouch">更新</van-button>
         <br><br>
-        <!-- <van-tabbar v-model="active">
-            <van-tabbar-item icon="phone-o" url="InterviewCreate.html">我的面试</van-tabbar-item>
-            <van-tabbar-item icon="friends" url="examination.html">共享试题</van-tabbar-item>
-            <van-tabbar-item icon="service-o" url="AudioRecord.html">高频录音</van-tabbar-item>
-            <van-tabbar-item icon="chart-trending-o" url="BarChart.html">报表</van-tabbar-item>
-            <van-tabbar-item icon="user-o" url="Student.html">我的信息</van-tabbar-item>
-        </van-tabbar> -->
 
     </div>
 
