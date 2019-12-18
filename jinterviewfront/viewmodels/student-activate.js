@@ -3,7 +3,6 @@ var app = new Vue({
     data: {
         mobile: "",
         captcha: "",
-        studentId: 1,
         showbtn: true,
         showbtnn: false,
         code_ts: '',
