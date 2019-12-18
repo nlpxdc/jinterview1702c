@@ -5,23 +5,28 @@ var app = new Vue({
         address: '',
         interviewTime: ''
     },
+    computed: {
+        now() {
+            return new Date();
+        }
+    },
     mounted() {
         console.log('view mounted');
     },
     methods: {
         handleCreateClick() {
             console.log('create click');
-            if(!this.company){
+            if (!this.company) {
                 alert('公司名不能为空');
                 return;
             }
-            if(!this.address){
+            if (!this.address) {
                 alert('地址不能为空');
                 return;
             }
             this.createInterview();
         },
-        handleCancelTouch(){
+        handleCancelTouch() {
             console.log('cancel touch');
             history.back();
         },

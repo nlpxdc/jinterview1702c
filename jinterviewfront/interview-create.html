@@ -22,7 +22,7 @@
         </van-nav-bar> -->
         <van-field v-model="company" placeholder="请输入公司名"></van-field>
         <van-field v-model="address" placeholder="请输入公司地址"></van-field>
-        <van-datetime-picker v-model="interviewTime" type="datetime" :show-toolbar="false"></van-datetime-picker>
+        <van-datetime-picker v-model="interviewTime" type="datetime" :show-toolbar="false" :min-date="now"></van-datetime-picker>
         <br>
         <van-button type="primary" @click="handleCreateClick">确认</van-button>
         <van-button type="default" @click="handleCancelTouch">取消</van-button>
