@@ -9,13 +9,15 @@ var app = new Vue({
         var url = new URL(location.href);
         console.log(url);
         this.code = url.searchParams.get("code");
+        if (!this.code) {
+            alert('code 不存在');
+            return;
+        }
+
+        this.studentAutoLogin();
 
     },
     methods: {
-        handleLoginClick() {
-            console.log('login click');
-            this.studentAutoLogin();
-        },
         studentAutoLogin() {
             axios.get('/student/autoRegisterLogin', {
                 params: {
@@ -24,9 +26,16 @@ var app = new Vue({
             })
                 .then(function (response) {
                     console.log(response);
-                    var jinterviewToken = response.data;
-                    localStorage['jinterviewToken'] = jinterviewToken;
+                    const tokenObj = response.data;
+                    localStorage['jinterviewToken'] = tokenObj.token;
+                    localStorage['expire_in'] = tokenObj.expire_in;
+                    localStorage['studentStatus'] = tokenObj.status;
                     alert('登陆成功');
+                    if (tokenObj.status == 1) {
+                        location.href = 'interview-index.html';
+                    } else {
+                        location.href = 'student-activate.html';
+                    }
                 })
                 .catch(function (error) {
                     console.error(error);

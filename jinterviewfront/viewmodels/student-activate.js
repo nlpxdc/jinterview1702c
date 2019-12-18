@@ -53,7 +53,9 @@ var app = new Vue({
             })
                 .then(function (response) {
                     console.log(response);
-                    alert("激活成功")
+                    alert("激活成功");
+                    localStorage['studentStatus'] = 1;
+                    location.href = 'interview-index.html';
                 })
                 .catch(function (error) {
                     console.error(error);
