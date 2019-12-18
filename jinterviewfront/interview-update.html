@@ -26,18 +26,25 @@
         <van-cell title="地址" :value="address"></van-cell>
         <van-divider>面试时间</van-divider>
         <van-datetime-picker v-model="time" type="datetime" :show-toolbar="false"></van-datetime-picker>
+
         <van-divider>面试结果</van-divider>
-        <van-radio-group v-model="selectStatus">
-            <van-radio name="0">待面试</van-radio>
-            <van-radio name="1">OFFER</van-radio>
-            <van-radio name="2">等通知</van-radio>
-            <van-radio name="3">凉凉</van-radio>
-            <van-radio name="4">复试</van-radio>
-            <van-radio name="5">取消面试</van-radio>
-        </van-radio-group>
+        <div style="background: white;">
+            <van-radio-group v-model="selectStatus">
+                <van-radio name="0">待面试</van-radio>
+                <van-radio name="1">OFFER</van-radio>
+                <van-radio name="2">等通知</van-radio>
+                <van-radio name="3">凉凉</van-radio>
+                <van-radio name="4">复试</van-radio>
+                <van-radio name="5">取消面试</van-radio>
+            </van-radio-group>
+        </div>
+
 
         <van-divider>评星</van-divider>
-        <van-rate v-model="stars" :size="25" color="#ee0a24" void-icon="star" void-color="#eee"></van-rate>
+        <div style="background: white;">
+            <van-rate v-model="stars" :size="25" color="#ee0a24" void-icon="star" void-color="#eee"></van-rate>
+        </div>
+
 
         <van-divider>备注</van-divider>
         <van-field v-model="note" rows="3" autosize label="备注" type="textarea" placeholder="请输入留言" show-word-limit>

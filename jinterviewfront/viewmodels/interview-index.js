@@ -106,18 +106,9 @@ var app = new Vue({
             console.log('create interview touch');
             location.href = 'interview-create.html';
         },
-        handleMeTouch(){
+        handleMeTouch() {
             console.log('me touch');
             location.href = 'student-show.html';
         }
     }
 });
-
-window.onpageshow = function (event) {
-    console.log('event: ', event);
-
-    if (event.persisted) {
-
-    }
-
-};
