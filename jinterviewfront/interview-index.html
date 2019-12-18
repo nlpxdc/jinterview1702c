@@ -17,17 +17,23 @@
 
     <div id="app">
 
-        <van-field v-model="keyword" placeholder="请输入关键字"></van-field>
+        <van-sticky>
+            <div style="background: white;">
+                <van-field v-model="keyword" placeholder="请输入关键字"></van-field>
 
-        只看自己：<van-switch v-model="onlyme"></van-switch>
+                只看自己：<van-switch v-model="onlyme"></van-switch>
 
-        <van-button type="primary" @click="handleSearchClick">查询</van-button>
-        <van-button type="primary" @click="handleCreateTouch">添加面试</van-button>
+                <van-button type="primary" @click="handleSearchClick">查询</van-button>
+                <van-button type="primary" @click="handleCreateTouch">添加面试</van-button>
+            </div>
+        </van-sticky>
+
 
         <van-pull-refresh v-model="loading" @refresh="onRefresh">
 
             <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad" :offset="0">
-                <van-cell v-for="interview in interviews" :key="interview.interviewId" :title="interview.company" @click="handleInterviewTouch(interview)">
+                <van-cell v-for="interview in interviews" :key="interview.interviewId" :title="interview.company"
+                    @click="handleInterviewTouch(interview)">
                     <div slot="default">{{(new Date(interview.time)).toLocaleString()}}</div>
                     <div slot="label">{{interview.studentName}}</div>
                     <img :src="interview.avatarUrl" alt="" slot="icon" width="48px" height="48px">
