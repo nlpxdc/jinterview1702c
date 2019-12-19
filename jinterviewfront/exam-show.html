@@ -16,9 +16,9 @@
 <body>
 
     <div id="app">
-        <van-image v-for="examPhoto in exam.examPhotoUrls" :src="examPhoto"></van-image>
-
-        <van-cell title="转换文字:" :value="exam.content"></van-cell>
+        <van-image v-for="(examPhoto,index) in exam.examPhotoUrls" :src="examPhoto" @click="onChange(index)"></van-image>
+        <van-image-preview v-model="show" :images="images" :start-position="startPosition"></van-image-preview>
+            <van-cell title="转换文字:" :value="exam.content"></van-cell>
 
     </div>
 

@@ -3,7 +3,10 @@ var app = new Vue({
     data() {
         return {
             examId: '',
-            exam: ''
+            exam: '',
+            images: [],
+            show: false,
+            startPosition:0,
         };
     },
     mounted() {
@@ -25,10 +28,16 @@ var app = new Vue({
                 .then(res => {
                     console.log(res.data);
                     this.exam = res.data;
+                    this.images = this.exam.examPhotoUrls;
                 })
                 .catch(err => {
                     console.error(err);
                 });
+        },
+        onChange(index) {
+            console.log(index);
+            this.startPosition = index;
+            this.show=true;
         }
     }
 });
