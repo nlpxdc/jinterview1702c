@@ -16,6 +16,8 @@
 <body>
 
     <div id="app">
+        <van-loading v-if="loading" vertical=true type="spinner" color="#1989fa">微信登陆中</van-loading>
+
         <van-button type="primary" @click="handleGetAuthCodeClick">微信登陆</van-button>
     </div>
 

@@ -2,7 +2,8 @@ var app = new Vue({
     el: '#app',
     data: {
         interviewId: '',
-        examPhotos: []
+        examPhotos: [],
+        Photoloading:false,
     },
     mounted() {
         console.log('view mounted');
@@ -17,6 +18,7 @@ var app = new Vue({
     methods: {
         handleSubmitUploadClick() {
             console.log('submit upload click');
+            this.Photoloading=true;
             this.submitUpload();
         },
         submitUpload() {
@@ -32,12 +34,16 @@ var app = new Vue({
             })
                 .then(function (response) {
                     console.log(response);
+                    app.Photoloading=false;
                     alert('提交成功');
                     history.back();
                 })
                 .catch(function (error) {
+                    app.Photoloading=false;
+
                     console.log(error);
                     alert(error.response.data.message);
+                    app.Photoloading=false;
                 });
         }
     }

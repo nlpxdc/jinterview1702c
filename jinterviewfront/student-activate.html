@@ -16,6 +16,8 @@
 <body>
 
     <div id="app" width="360px">
+        <van-loading v-if="Idloading" vertical=true type="spinner" color="#1989fa">激活加载中</van-loading>
+
 
         <van-button type="primary" v-if="showbtn" @click="send">
             发送验证码

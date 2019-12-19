@@ -18,6 +18,8 @@
     <div id="app">
         <van-uploader v-model="examPhotos"></van-uploader>
         <br>
+        <van-loading v-if="Photoloading" vertical=true type="spinner" color="#1989fa">上传笔试题图中</van-loading>
+
         <van-button type="primary" @click="handleSubmitUploadClick">确认上传</van-button>
     </div>
 

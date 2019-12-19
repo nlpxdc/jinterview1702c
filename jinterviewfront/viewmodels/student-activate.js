@@ -7,6 +7,7 @@ var app = new Vue({
         showbtnn: false,
         code_ts: '',
         sec: 60,
+        Idloading:false,
     },
     mounted() {
         console.log('view mounted');
@@ -45,6 +46,7 @@ var app = new Vue({
                 alert("请输入验证码");
                 return;
             }
+            this.Idloading=true;
 
             axios.get('/student/submitMobileCaptcha', {
                 params: {
@@ -53,12 +55,14 @@ var app = new Vue({
             })
                 .then(function (response) {
                     console.log(response);
+                    this.Idloading=false;
                     alert("激活成功");
                     localStorage['studentStatus'] = 1;
                     location.href = 'interview-index.html';
                 })
                 .catch(function (error) {
                     console.error(error);
+                    this.Idloading=false;
                     alert(error.response.data.message);
                 });
 
