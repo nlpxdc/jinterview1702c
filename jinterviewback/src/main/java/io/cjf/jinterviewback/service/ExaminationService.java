@@ -16,4 +16,10 @@ public interface ExaminationService {
     ExamShowDTO getExamById(Integer examId);
 
     Integer createExamination(Examination examination);
+
+    void updateByPrimaryKeySelective(Examination examination);
+    //service链接Mapper自动生成SQL代码
+    Examination selectByPrimaryKey(Integer examId);
+
+
 }

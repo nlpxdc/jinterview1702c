@@ -41,4 +41,17 @@ public class ExaminationServiceImpl implements ExaminationService {
         final Integer examId = examination.getExamId();
         return examId;
     }
+
+
+
+    @Override
+    public void updateByPrimaryKeySelective(Examination examination) {
+        examinationMapper.updateByPrimaryKeySelective(examination);
+    }
+
+    @Override
+    public Examination selectByPrimaryKey(Integer examId) {
+        return examinationMapper.selectByPrimaryKey(examId);
+    }
+
 }

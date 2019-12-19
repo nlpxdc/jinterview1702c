@@ -1,5 +1,6 @@
 package io.cjf.jinterviewback.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import io.cjf.jinterviewback.client.BaiduAIService;
 import io.cjf.jinterviewback.constant.ClientExceptionConstant;
@@ -176,5 +177,63 @@ public class InterviewController {
         return distinguish;
 
     }
+
+
+    @PostMapping("/distinguish")
+    public String distinguish(@RequestBody String[] examIndex){
+
+        String path="D:/cjf/bai/jinterview1702c/jinterviewfront/exam/photo/";
+        Integer exam_id= Integer.parseInt(examIndex[0]);//获取数组带过来的ID，修改时用
+        Examination examination = examinationService.selectByPrimaryKey(exam_id);//根据ID取对象
+        String content = examination.getContent();//识别内容
+        //数据库里的识别内容是否为空
+        if (content == null){
+            //数组第一个数值为ID 跳过
+            for (int i = 1; i < examIndex.length; i++) {
+
+                String addressUrl = examIndex[i];
+                String[] split = addressUrl.split("/");
+                addressUrl = path + split[split.length-1];
+                String image = null;
+                InputStream in = null;
+                try {
+                    File file = new File(addressUrl);
+                    in = new FileInputStream(file);
+                    byte[] bytes=new byte[(int)file.length()];
+                    in.read(bytes);
+                    image = Base64.getEncoder().encodeToString(bytes);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    if (in != null) {
+                        try {
+                            in.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                logger.info(image);
+                JSONObject distinguish = baiduAIService.distinguish(image, "application/x-www-form-urlencoded");
+                //分割保存
+                JSONArray words_result = distinguish.getJSONArray("words_result");
+
+                for (int j = 0; j < words_result.size(); j++) {
+                    JSONObject words = words_result.getJSONObject(j);
+                    String s = words.toString();
+                    String con = s.substring(10, s.length() - 2);
+                    content += con;
+                }
+            }
+            logger.info(content);
+            //保存到数据库
+            examination.setExamId(exam_id);
+            examination.setContent(content);
+            examinationService.updateByPrimaryKeySelective(examination);
+        }
+        return content;
+    }
+
+
 
 }
