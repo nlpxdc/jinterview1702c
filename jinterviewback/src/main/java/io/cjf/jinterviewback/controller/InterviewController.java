@@ -1,6 +1,7 @@
 package io.cjf.jinterviewback.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import io.cjf.jinterviewback.client.BaiduAIService;
 import io.cjf.jinterviewback.constant.ClientExceptionConstant;
 import io.cjf.jinterviewback.dto.InterviewCreateDTO;
 import io.cjf.jinterviewback.dto.InterviewListDTO;
@@ -10,6 +11,8 @@ import io.cjf.jinterviewback.exception.ClientException;
 import io.cjf.jinterviewback.po.*;
 import io.cjf.jinterviewback.service.*;
 import io.cjf.jinterviewback.util.ExeclUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
@@ -18,11 +21,14 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -46,6 +52,11 @@ public class InterviewController {
 
     @Autowired
     private AudioRecordService audioRecordService;
+
+    Logger logger = LoggerFactory.getLogger(InterviewController.class);
+
+    @Autowired
+    private BaiduAIService baiduAIService;
 
     @Autowired
     private ExeclUtil execlUtil;
@@ -144,6 +155,34 @@ public class InterviewController {
         //todo delete exam, examphoto, audiorecord same time ?
     }
 
+    @PostMapping("/distinguish")
+    public JSONObject distinguish(@RequestParam String addressUrl){
+        String image = null;
+        InputStream in = null;
+        try {
+            File file = new File(addressUrl);
+            in = new FileInputStream(file);
+            byte[] bytes=new byte[(int)file.length()];
+            in.read(bytes);
+            image = Base64.getEncoder().encodeToString(bytes);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        logger.info(image);
+        JSONObject distinguish = baiduAIService.distinguish(image, "application/x-www-form-urlencoded");
 
+        logger.info(String.valueOf(distinguish));
+
+        return distinguish;
+
+    }
 
 }

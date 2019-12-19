@@ -27,4 +27,16 @@ public class BaiduAIServiceImpl implements BaiduAIService {
 
         return jsonObject;
     }
+
+    @Override
+    public JSONObject distinguish(String image, String content_type) {
+
+        final HashMap<String, Object> form = new HashMap<>();
+        form.put("access_token", accessToken);
+        form.put("image", image);
+        form.put("Content-Type", content_type);
+
+        final JSONObject jsonObject = baiduAIApi.distinguish(form);
+        return jsonObject;
+    }
 }

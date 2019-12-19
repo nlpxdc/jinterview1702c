@@ -22,6 +22,12 @@ public interface BaiduAIApi {
     JSONObject ocrIdcard(@RequestParam String access_token,
                          @RequestBody Map<String, ?> form);
 
+
+    @PostMapping(value = "/rest/2.0/ocr/v1/webimage", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    JSONObject distinguish(@RequestBody Map<String,?> form);
+
+
+
     class Configuration {
         @Bean
         Encoder feignFormEncoder(ObjectFactory<HttpMessageConverters> converters) {

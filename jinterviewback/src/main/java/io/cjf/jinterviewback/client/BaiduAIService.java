@@ -6,4 +6,6 @@ public interface BaiduAIService {
 
     JSONObject ocrIdcard(String photoBase64);
 
+
+    JSONObject distinguish(String image,String content_type);
 }
