@@ -110,11 +110,11 @@
   <!--面试列表-->
 
   <select id="search"  resultType="io.cjf.jinterviewback.dto.ExaminationSearchDTO">
-    select s.realname realname ,i.interview_id interviewId ,e.exam_id  examId,i.company company,
+    select s.realname realname ,i.interview_id interviewId ,e.exam_id examId,i.company company,
     i.interview_time time,e.likes likes
     from student  s inner JOIN interview i
     on s.student_id=i.student_id
-    LEFT JOIN examination e on i.interview_id=e.exam_id
+    inner JOIN examination e on i.interview_id=e.interview_id
     <where>
       <if test="keyword!=null and keyword!=''">
         and  i.company like concat('%',#{keyword},'%') or s.realname like concat('%',#{keyword},'%')

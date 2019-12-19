@@ -111,7 +111,6 @@ public void saveword() throws IOException, DocumentException {
 
         BaseFont bfChinese = BaseFont.createFont(BaseFont.HELVETICA,
                 BaseFont.WINANSI, BaseFont.NOT_EMBEDDED);
-        doc.add(new Paragraph("sss 学生面试数统计报告"));
         com.lowagie.text.Image instance = com.lowagie.text.Image.getInstance("pdffile.jpg");
         instance.scalePercent(90);
         doc.add(instance);

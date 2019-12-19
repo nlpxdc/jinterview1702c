@@ -18,7 +18,7 @@ var app = new Vue({
                 alert("没有试题");
                 return ;
             }
-            location.href = "/ExamShow.html?examId=" + examId;
+            location.href = "/exam-show.html?examId=" + examId;
         },
 
         onSearch() {

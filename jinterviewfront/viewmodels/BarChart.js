@@ -31,6 +31,9 @@ var app = new Vue({
                 console.log(this.labels);
                 var myChart = echarts.init(document.getElementById('myChart'));
                 var option = {
+                    title: {
+                        text: '学生面试记录'
+                    },
                     bezierCurve: false,
                     animation: false,
                     color: ['#3398DB'],
