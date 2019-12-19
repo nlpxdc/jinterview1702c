@@ -6,32 +6,24 @@ import io.cjf.jinterviewback.constant.ClientExceptionConstant;
 import io.cjf.jinterviewback.dto.InterviewCreateDTO;
 import io.cjf.jinterviewback.dto.InterviewListDTO;
 import io.cjf.jinterviewback.dto.InterviewUpdateDTO;
-import io.cjf.jinterviewback.enumeration.InterviewStatus;
 import io.cjf.jinterviewback.exception.ClientException;
 import io.cjf.jinterviewback.po.*;
 import io.cjf.jinterviewback.service.*;
-import io.cjf.jinterviewback.util.ExeclUtil;
+import io.cjf.jinterviewback.util.ExcelUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/interview")
@@ -59,7 +51,7 @@ public class InterviewController {
     private BaiduAIService baiduAIService;
 
     @Autowired
-    private ExeclUtil execlUtil;
+    private ExcelUtil excelUtil;
     @GetMapping("/getById")
     public JSONObject getById(@RequestParam Integer interviewId, @RequestAttribute("studentId") Integer currentStudentId) throws ClientException {
         JSONObject interviewJson = new JSONObject();
@@ -109,7 +101,7 @@ public class InterviewController {
     public byte[] downloadinterview() throws IOException {
 
         List<InterviewListDTO> interviewListDTOS = interviewService.search(null, null, null);
-        String filename = execlUtil.appendExeclBodyInfo(interviewListDTOS);
+        String filename = excelUtil.appendExeclBodyInfo(interviewListDTOS);
         FileInputStream fis = new FileInputStream(filename);
         byte[] bytes = StreamUtils.copyToByteArray(fis);
 

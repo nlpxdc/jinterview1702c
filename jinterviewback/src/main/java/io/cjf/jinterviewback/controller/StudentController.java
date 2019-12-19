@@ -15,6 +15,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.*;
 import io.cjf.jinterviewback.util.SMSUtil;
@@ -156,7 +158,9 @@ public class StudentController {
             throw new ClientException(ClientExceptionConstant.EMail_NOT_EXIST_ERRCODE, ClientExceptionConstant.EMail_NOT_EXIST_ERRMSG);
         } else {
             final String captcha = randomUtil.getRandomStr();
-            mailUtil.mailSend(email, captcha);
+//            mailUtil.mailSend(email, captcha);
+            mailUtil.mailSend2(email, "面试系统邮箱验证码", captcha);
+
             logger.info("email captcha: {}, {}", email, captcha);
             studentCaptchaMap.put(CacheKeyConstant.STUDENT_EMAIL_CAPTCHA, captcha);
         }

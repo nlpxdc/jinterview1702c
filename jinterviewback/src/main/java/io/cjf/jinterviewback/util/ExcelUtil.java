@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class ExeclUtil {
+public class ExcelUtil {
     @Value("${execl.filename}")
     private String filename;
 
