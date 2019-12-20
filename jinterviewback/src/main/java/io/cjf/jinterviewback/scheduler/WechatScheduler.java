@@ -33,6 +33,7 @@ public class WechatScheduler {
             final String address = interview.getAddress();
             final Date interviewTime = interview.getInterviewTime();
             try {
+                //todo MQ
                 final Long msgId = interviewService.sendInterviewNotification(openid, company, address, interviewTime);
                 logger.info("interview notification msgId: {}", msgId);
             } catch (Exception ex) {
