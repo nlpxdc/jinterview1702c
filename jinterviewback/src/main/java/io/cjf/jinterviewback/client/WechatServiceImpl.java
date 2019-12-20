@@ -48,6 +48,8 @@ public class WechatServiceImpl implements WechatService {
     @Override
     public JSONObject getAppAccessToken() {
         JSONObject appAccessTokenObj = wechatApi.getAppAccessToken(appid, secret, "client_credential");
+        final String access_token = appAccessTokenObj.getString("access_token");
+        wechatParam.setAppAccessToken(access_token);
         return appAccessTokenObj;
     }
 
