@@ -6,6 +6,7 @@ import io.cjf.jinterviewback.dto.TemplateMessageDTO;
 import io.cjf.jinterviewback.enumeration.InterviewStatus;
 import io.cjf.jinterviewback.po.Interview;
 import io.cjf.jinterviewback.service.InterviewService;
+import io.cjf.jinterviewback.vo.InterviewNotificationVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -63,12 +64,14 @@ public class InterviewServiceImpl implements InterviewService {
     }
 
     @Override
-    public List<TemplateMessageDTO> getTemById(Integer interviewId) {
-        return interviewMapper.getTemById(interviewId);
+    public List<InterviewNotificationVO> getInterviewNotification(Date time) {
+        final long timestamp = time.getTime();
+        long startTimestamp = timestamp + 2 * 60 * 60 * 1000;
+        long endTimestamp = timestamp + 3 * 60 * 60 * 1000;
+        Date startTime = new Date(startTimestamp);
+        Date endTime = new Date(endTimestamp);
+        final List<InterviewNotificationVO> interviewNotificationVOS = interviewMapper.selectBetweenTime(startTime, endTime);
+        return interviewNotificationVOS;
     }
 
-    @Override
-    public List<TemplateMessageDTO> getInterviewTime() {
-        return interviewMapper.getInterviewTime();
-    }
 }

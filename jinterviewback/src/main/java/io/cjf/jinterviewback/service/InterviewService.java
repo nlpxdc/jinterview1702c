@@ -3,6 +3,7 @@ package io.cjf.jinterviewback.service;
 import io.cjf.jinterviewback.dto.InterviewListDTO;
 import io.cjf.jinterviewback.dto.TemplateMessageDTO;
 import io.cjf.jinterviewback.po.Interview;
+import io.cjf.jinterviewback.vo.InterviewNotificationVO;
 
 import java.util.Date;
 import java.util.List;
@@ -21,7 +22,6 @@ public interface InterviewService {
 
     void deleteById(Integer interviewId);
 
-    List<TemplateMessageDTO> getTemById(Integer interviewId);
+    List<InterviewNotificationVO> getInterviewNotification(Date time);
 
-    List<TemplateMessageDTO> getInterviewTime();
 }
