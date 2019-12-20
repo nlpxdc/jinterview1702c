@@ -20,12 +20,9 @@ import java.util.stream.Collectors;
 
 @Component
 public class ExcelUtil {
-    @Value("${execl.filename}")
+
+    @Value("${excel.filename}")
     private String filename;
-
-
-
-
 
     public void createExeclHeaderInfo() throws IOException {
         File filecate = new File(filename);
