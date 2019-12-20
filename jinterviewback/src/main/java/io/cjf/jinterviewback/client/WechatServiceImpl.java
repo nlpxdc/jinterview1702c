@@ -2,12 +2,14 @@ package io.cjf.jinterviewback.client;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import io.cjf.jinterviewback.component.WechatParam;
+import io.cjf.jinterviewback.dto.WechatTemplateMessageDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
-public class WechatServiceImpl implements WechatService{
+public class WechatServiceImpl implements WechatService {
 
     @Value("${wechat.appId}")
     private String appid;
@@ -20,6 +22,9 @@ public class WechatServiceImpl implements WechatService{
     @Autowired
     private WechatApi wechatApi;
 
+    @Autowired
+    private WechatParam wechatParam;
+
     @Override
     public JSONObject getUserAccessToken(String code) {
         final String userAccessTokenJsonStr = wechatApi.getUserAccessToken(appid, secret, code, grant_type);
@@ -28,16 +33,14 @@ public class WechatServiceImpl implements WechatService{
     }
 
     @Override
-    public JSONObject getTemToken() {
-        String getTemTokenStr = wechatApi.getTemToken(appid,secret,"client_credential");
-        JSONObject getTemTokenObj = JSON.parseObject(getTemTokenStr);
-        return getTemTokenObj;
+    public JSONObject getAppAccessToken() {
+        JSONObject appAccessTokenObj = wechatApi.getAppAccessToken(appid, secret, "client_credential");
+        return appAccessTokenObj;
     }
 
     @Override
-    public JSONObject templateMessage(String access_token,JSON jsonData) {
-        String templateMessageStr = wechatApi.templateMessage(access_token,jsonData);
-        JSONObject templateMessageObj = JSON.parseObject(templateMessageStr);
+    public JSONObject sendTemplateMessage(WechatTemplateMessageDTO templateMessageDTO) {
+        JSONObject templateMessageObj = wechatApi.sendTemplateMessage(wechatParam.getAppAccessToken(), templateMessageDTO);
         return templateMessageObj;
     }
 

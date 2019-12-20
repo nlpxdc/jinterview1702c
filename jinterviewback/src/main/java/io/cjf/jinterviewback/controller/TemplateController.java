@@ -38,7 +38,7 @@ public class TemplateController {
     @GetMapping("/test")
     Object  getToken(@RequestParam(defaultValue = "21") Integer interviewId) throws Exception {
 
-        JSONObject getTemToken = wechatService.getTemToken();
+        JSONObject getTemToken = wechatService.getAppAccessToken();
         String token = getTemToken.getString("access_token");
         logger.info("token : "+token);
 
@@ -81,9 +81,9 @@ public class TemplateController {
         templateMessage.setData(m);
 
         JSONObject jsonData = (JSONObject) JSONObject.toJSON(templateMessage);
-        JSONObject getTemplateMessage = wechatService.templateMessage(token,jsonData);
-        String temMessageStr = getTemplateMessage.toString();
-        logger.info("temMessageStr : "+temMessageStr);
+//        JSONObject getTemplateMessage = wechatService.sendTemplateMessage(token,jsonData);
+//        String temMessageStr = getTemplateMessage.toString();
+//        logger.info("temMessageStr : "+temMessageStr);
         return "access";
     }
 
