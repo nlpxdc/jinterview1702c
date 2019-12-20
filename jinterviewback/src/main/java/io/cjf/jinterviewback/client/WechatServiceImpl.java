@@ -2,7 +2,6 @@ package io.cjf.jinterviewback.client;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import io.cjf.jinterviewback.component.WechatParam;
 import io.cjf.jinterviewback.dto.WechatTemplateMessageDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,14 +21,14 @@ public class WechatServiceImpl implements WechatService {
     @Autowired
     private WechatApi wechatApi;
 
-    @Autowired
-    private WechatParam wechatParam;
-
     @Value("${interview.notification.templateId}")
     private String templateId;
 
     @Value("${interview.notification.url}")
     private String interviewUrl;
+
+    private String appAccessToken;
+    private Long expireTimestamp;
 
     @Override
     public JSONObject getUserAccessToken(String code) {
@@ -77,11 +76,23 @@ public class WechatServiceImpl implements WechatService {
 
         templateMessageDTO.setData(dataJson);
 
-        final String appAccessToken = wechatParam.getAppAccessToken();
+        final String appAccessToken = autoGetAppAccessToken();
         final JSONObject jsonObject = wechatApi.sendTemplateMessage(appAccessToken, templateMessageDTO);
         final Long msgid = jsonObject.getLong("msgid");
 
         return msgid;
+    }
+
+    private String autoGetAppAccessToken() {
+        final Date now = new Date();
+        final long nowTimestamp = now.getTime();
+        if (appAccessToken == null || nowTimestamp > expireTimestamp) {
+            final JSONObject appAccessTokenObj = getAppAccessToken();
+            appAccessToken = appAccessTokenObj.getString("access_token");
+            final Long expires_in = appAccessTokenObj.getLong("expires_in");
+            expireTimestamp = nowTimestamp + expires_in * 1000;
+        }
+        return appAccessToken;
     }
 
 

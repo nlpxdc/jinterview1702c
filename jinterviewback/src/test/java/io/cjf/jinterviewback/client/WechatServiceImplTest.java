@@ -1,7 +1,6 @@
 package io.cjf.jinterviewback.client;
 
 import com.alibaba.fastjson.JSONObject;
-import io.cjf.jinterviewback.component.WechatParam;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,9 +24,6 @@ class WechatServiceImplTest {
 
     @Autowired
     private WechatService wechatService;
-
-    @Autowired
-    private WechatParam wechatParam;
 
     @BeforeEach
     void setUp() {

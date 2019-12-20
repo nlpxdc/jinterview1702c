@@ -2,7 +2,6 @@ package io.cjf.jinterviewback.client;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import io.cjf.jinterviewback.component.WechatParam;
 import io.cjf.jinterviewback.dto.WechatTemplateMessageDTO;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -35,9 +34,6 @@ class WechatApiTest {
 
     private String access_token;
 
-    @Autowired
-    private WechatParam wechatParam;
-
     @BeforeEach
     void setUp() {
     }
@@ -58,7 +54,7 @@ class WechatApiTest {
     }
 
     @Test
-    void getUserInfo(){
+    void getUserInfo() {
         final String userInfoJsonStr = wechatApi.getUserInfo(access_token, "myopenid", "zh_CN");
         assertNotNull(userInfoJsonStr);
         final JSONObject userInfoJsonObj = JSON.parseObject(userInfoJsonStr);
@@ -68,7 +64,7 @@ class WechatApiTest {
     }
 
     @Test
-    void getAppAccessToken(){
+    void getAppAccessToken() {
         final JSONObject appAccessTokenObj = wechatApi.getAppAccessToken(appid, secret, "client_credential");
         assertNotNull(appAccessTokenObj);
         final String access_token = appAccessTokenObj.getString("access_token");
@@ -78,7 +74,7 @@ class WechatApiTest {
     }
 
     @Test
-    void sendTemplateMessage(){
+    void sendTemplateMessage() {
         String openid = "oUwXe58JsPM6MBFsI3YvnbFIpg-8";
         String templateId = "rfqhowneOh3u7y1JCyKB0NUOMvPUx2FWiao4OSVt9Sw";
         String url = "http://www.baidu.com";
@@ -109,7 +105,7 @@ class WechatApiTest {
 
         templateMessageDTO.setData(dataJson);
 
-        final String appAccessToken = wechatParam.getAppAccessToken();
+        final String appAccessToken = "";
         final JSONObject jsonObject = wechatApi.sendTemplateMessage(appAccessToken, templateMessageDTO);
         final Long msgid = jsonObject.getLong("msgid");
         assertTrue(msgid != 0);
