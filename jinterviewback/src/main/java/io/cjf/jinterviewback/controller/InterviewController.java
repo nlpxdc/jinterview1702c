@@ -148,36 +148,6 @@ public class InterviewController {
         //todo delete exam, examphoto, audiorecord same time ?
     }
 
-    @PostMapping("/distinguish")
-    public JSONObject distinguish(@RequestParam String addressUrl){
-        String image = null;
-        InputStream in = null;
-        try {
-            File file = new File(addressUrl);
-            in = new FileInputStream(file);
-            byte[] bytes=new byte[(int)file.length()];
-            in.read(bytes);
-            image = Base64.getEncoder().encodeToString(bytes);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (in != null) {
-                try {
-                    in.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        logger.info(image);
-        JSONObject distinguish = baiduAIService.distinguish(image, "application/x-www-form-urlencoded");
-
-        logger.info(String.valueOf(distinguish));
-
-        return distinguish;
-
-    }
-
 
     @PostMapping("/distinguish")
     public String distinguish(@RequestBody String[] examIndex){
