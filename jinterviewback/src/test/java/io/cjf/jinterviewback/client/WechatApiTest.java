@@ -81,7 +81,6 @@ class WechatApiTest {
 
     @Test
     void sendTemplateMessage(){
-        String appAccessToken = "28_C7B8FMY9ovN0LdAja1vOAwYU5BimTPH9BI-qfjMLzuJzeMXhkTJYthmyzj4fNaK7kpHXUM2zvpIxWLNNLZ_l4YTD5lLEUy80wXXLI2dcWeWbKwrQ8mQmNMiXqDCNS-LsjiJ_iBdj67_cUSLENEUgADAFWM";
         String openid = "oUwXe58JsPM6MBFsI3YvnbFIpg-8";
         String templateId = "rfqhowneOh3u7y1JCyKB0NUOMvPUx2FWiao4OSVt9Sw";
         String url = "http://www.baidu.com";
@@ -89,7 +88,6 @@ class WechatApiTest {
         Date time = new Date();
         String address = "紫竹科技园区";
 
-        wechatParam.setAppAccessToken(appAccessToken);
         final WechatTemplateMessageDTO templateMessageDTO = new WechatTemplateMessageDTO();
         templateMessageDTO.setTouser(openid);
         templateMessageDTO.setTemplateId(templateId);
@@ -113,6 +111,7 @@ class WechatApiTest {
 
         templateMessageDTO.setData(dataJson);
 
+        final String appAccessToken = wechatParam.getAppAccessToken();
         final JSONObject jsonObject = wechatApi.sendTemplateMessage(appAccessToken, templateMessageDTO);
         final Long msgid = jsonObject.getLong("msgid");
         assertTrue(msgid != 0);

@@ -64,13 +64,11 @@ class WechatServiceImplTest {
 
     @Test
     void sendInterviewNotification(){
-        String appAccessToken = "28_mqVkxbFMeg0tTLZzucBJEZ5SJ9tpKnxmDJ6faRPTlx2w7dKTZtBpnvDesGuS7qBxFveEtj2jneS0ltmVi7MtTVHFvJveJOlG4xS2JOtg_DeX9CiKjytIP3VgenqKJFbk3SophnDVQZN857gjDLDfACAKSK";
         String openid = "oUwXe58JsPM6MBFsI3YvnbFIpg-8";
         String company = "微软";
         Date time = new Date();
         String address = "紫竹科技园区";
 
-        wechatParam.setAppAccessToken(appAccessToken);
         final Long msgId = wechatService.sendInterviewNotification(openid, company, address, time);
         assertTrue( msgId != 0);
     }
