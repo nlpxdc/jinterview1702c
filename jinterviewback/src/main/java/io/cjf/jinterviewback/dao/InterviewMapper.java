@@ -1,7 +1,6 @@
 package io.cjf.jinterviewback.dao;
 
 import io.cjf.jinterviewback.dto.InterviewListDTO;
-import io.cjf.jinterviewback.dto.TemplateMessageDTO;
 import io.cjf.jinterviewback.po.Interview;
 import io.cjf.jinterviewback.vo.InterviewNotificationVO;
 import org.apache.ibatis.annotations.Param;

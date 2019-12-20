@@ -1,11 +1,9 @@
 package io.cjf.jinterviewback.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import io.cjf.jinterviewback.client.WechatApi;
 import io.cjf.jinterviewback.client.WechatService;
 import io.cjf.jinterviewback.dao.InterviewMapper;
 import io.cjf.jinterviewback.dto.InterviewListDTO;
-import io.cjf.jinterviewback.dto.TemplateMessageDTO;
 import io.cjf.jinterviewback.dto.WechatTemplateMessageDTO;
 import io.cjf.jinterviewback.enumeration.InterviewStatus;
 import io.cjf.jinterviewback.po.Interview;
