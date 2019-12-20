@@ -31,10 +31,8 @@ class WechatApiTest {
     @Value("${wechat.appSecret}")
     private String secret;
 
-    @Value("${testcase.wechat.user.authcode}")
     private String code;
 
-    @Value("${testcase.wechat.user.access_token}")
     private String access_token;
 
     @Autowired
