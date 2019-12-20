@@ -30,4 +30,15 @@ class InterviewServiceImplTest {
         final List<InterviewNotificationVO> interviews = interviewService.getInterviewNotification(now);
         assertTrue(interviews.size() != 0);
     }
+
+    @Test
+    void sendInterviewNotification(){
+        String openid = "oUwXe58JsPM6MBFsI3YvnbFIpg-8";
+        String company = "微软";
+        Date time = new Date();
+        String address = "紫竹科技园区";
+
+        final Long msgId = interviewService.sendInterviewNotification(openid, company, address, time);
+        assertTrue( msgId != 0);
+    }
 }

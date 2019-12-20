@@ -58,14 +58,4 @@ class WechatServiceImplTest {
         assertTrue(expires_in != 0);
     }
 
-    @Test
-    void sendInterviewNotification(){
-        String openid = "oUwXe58JsPM6MBFsI3YvnbFIpg-8";
-        String company = "微软";
-        Date time = new Date();
-        String address = "紫竹科技园区";
-
-        final Long msgId = wechatService.sendInterviewNotification(openid, company, address, time);
-        assertTrue( msgId != 0);
-    }
 }

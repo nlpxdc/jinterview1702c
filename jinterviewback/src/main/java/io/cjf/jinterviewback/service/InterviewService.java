@@ -1,7 +1,6 @@
 package io.cjf.jinterviewback.service;
 
 import io.cjf.jinterviewback.dto.InterviewListDTO;
-import io.cjf.jinterviewback.dto.TemplateMessageDTO;
 import io.cjf.jinterviewback.po.Interview;
 import io.cjf.jinterviewback.vo.InterviewNotificationVO;
 
@@ -23,5 +22,7 @@ public interface InterviewService {
     void deleteById(Integer interviewId);
 
     List<InterviewNotificationVO> getInterviewNotification(Date time);
+
+    Long sendInterviewNotification(String openid, String company, String address, Date time);
 
 }

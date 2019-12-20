@@ -21,12 +21,6 @@ public class WechatServiceImpl implements WechatService {
     @Autowired
     private WechatApi wechatApi;
 
-    @Value("${interview.notification.templateId}")
-    private String templateId;
-
-    @Value("${interview.notification.url}")
-    private String interviewUrl;
-
     private String appAccessToken;
     private Long expireTimestamp;
 
@@ -51,35 +45,10 @@ public class WechatServiceImpl implements WechatService {
     }
 
     @Override
-    public Long sendInterviewNotification(String openid, String company, String address, Date time) {
-
-        final WechatTemplateMessageDTO templateMessageDTO = new WechatTemplateMessageDTO();
-        templateMessageDTO.setTouser(openid);
-        templateMessageDTO.setTemplateId(templateId);
-        templateMessageDTO.setUrl(interviewUrl);
-        final JSONObject dataJson = new JSONObject();
-
-        final JSONObject companyObj = new JSONObject();
-        companyObj.put("value", company);
-        companyObj.put("color", "#ff0000");
-        dataJson.put("company", companyObj);
-
-        final JSONObject timeObj = new JSONObject();
-        timeObj.put("value", time.toString());
-        timeObj.put("color", "#ff0000");
-        dataJson.put("time", timeObj);
-
-        final JSONObject addressObj = new JSONObject();
-        addressObj.put("value", address);
-        addressObj.put("color", "#ff0000");
-        dataJson.put("address", addressObj);
-
-        templateMessageDTO.setData(dataJson);
-
+    public Long sendTemplateMessage(WechatTemplateMessageDTO templateMessageDTO) {
         final String appAccessToken = autoGetAppAccessToken();
         final JSONObject jsonObject = wechatApi.sendTemplateMessage(appAccessToken, templateMessageDTO);
         final Long msgid = jsonObject.getLong("msgid");
-
         return msgid;
     }
 
@@ -94,6 +63,5 @@ public class WechatServiceImpl implements WechatService {
         }
         return appAccessToken;
     }
-
 
 }

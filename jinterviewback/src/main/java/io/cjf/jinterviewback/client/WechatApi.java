@@ -17,6 +17,11 @@ public interface WechatApi {
                               @RequestParam String code,
                               @RequestParam String grant_type);
 
+    @GetMapping("/sns/userinfo")
+    String getUserInfo(@RequestParam String access_token,
+                       @RequestParam String openid,
+                       @RequestParam String lang);
+
     @GetMapping("/cgi-bin/token")
     JSONObject getAppAccessToken(@RequestParam String appid,
                                  @RequestParam String secret,
@@ -26,8 +31,4 @@ public interface WechatApi {
     JSONObject sendTemplateMessage(@RequestParam String access_token,
                                    @RequestBody WechatTemplateMessageDTO templateMessageDTO);
 
-    @GetMapping("/sns/userinfo")
-    String getUserInfo(@RequestParam String access_token,
-                       @RequestParam String openid,
-                       @RequestParam String lang);
 }

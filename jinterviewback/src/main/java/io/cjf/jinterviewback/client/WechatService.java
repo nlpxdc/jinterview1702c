@@ -1,8 +1,7 @@
 package io.cjf.jinterviewback.client;
 
 import com.alibaba.fastjson.JSONObject;
-
-import java.util.Date;
+import io.cjf.jinterviewback.dto.WechatTemplateMessageDTO;
 
 public interface WechatService {
 
@@ -12,8 +11,6 @@ public interface WechatService {
 
     JSONObject getAppAccessToken();
 
-    Long sendInterviewNotification(String openid, String company, String address, Date time);
-
-
+    Long sendTemplateMessage(WechatTemplateMessageDTO templateMessageDTO);
 
 }

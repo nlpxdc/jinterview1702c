@@ -20,9 +20,6 @@ public class WechatScheduler {
     @Autowired
     private InterviewService interviewService;
 
-    @Autowired
-    private WechatService wechatService;
-
     @Scheduled(cron = "${interview.notification.interval}")
     public void sendInterviewNotification() {
         logger.info("begin to send interview notification");
@@ -36,7 +33,7 @@ public class WechatScheduler {
             final String address = interview.getAddress();
             final Date interviewTime = interview.getInterviewTime();
             try {
-                final Long msgId = wechatService.sendInterviewNotification(openid, company, address, interviewTime);
+                final Long msgId = interviewService.sendInterviewNotification(openid, company, address, interviewTime);
                 logger.info("interview notification msgId: {}", msgId);
             } catch (Exception ex) {
                 ex.printStackTrace();
