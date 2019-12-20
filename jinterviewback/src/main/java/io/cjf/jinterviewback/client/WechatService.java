@@ -7,10 +7,12 @@ public interface WechatService {
 
     JSONObject getUserAccessToken(String code);
 
+    JSONObject getUserInfo(String accessToken);
+
     JSONObject getAppAccessToken();
 
-    JSONObject sendTemplateMessage(WechatTemplateMessageDTO templateMessageDTO);
+    Long sendTemplateMessage(WechatTemplateMessageDTO templateMessageDTO);
 
-    JSONObject getUserInfo(String accessToken);
+
 
 }

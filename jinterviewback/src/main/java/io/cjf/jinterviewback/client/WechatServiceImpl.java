@@ -17,8 +17,6 @@ public class WechatServiceImpl implements WechatService {
     @Value("${wechat.appSecret}")
     private String secret;
 
-    private String grant_type = "authorization_code";
-
     @Autowired
     private WechatApi wechatApi;
 
@@ -27,7 +25,7 @@ public class WechatServiceImpl implements WechatService {
 
     @Override
     public JSONObject getUserAccessToken(String code) {
-        final String userAccessTokenJsonStr = wechatApi.getUserAccessToken(appid, secret, code, grant_type);
+        final String userAccessTokenJsonStr = wechatApi.getUserAccessToken(appid, secret, code, "authorization_code");
         final JSONObject userAccessTokenJsonObj = JSON.parseObject(userAccessTokenJsonStr);
         return userAccessTokenJsonObj;
     }
@@ -39,9 +37,10 @@ public class WechatServiceImpl implements WechatService {
     }
 
     @Override
-    public JSONObject sendTemplateMessage(WechatTemplateMessageDTO templateMessageDTO) {
+    public Long sendTemplateMessage(WechatTemplateMessageDTO templateMessageDTO) {
         JSONObject templateMessageObj = wechatApi.sendTemplateMessage(wechatParam.getAppAccessToken(), templateMessageDTO);
-        return templateMessageObj;
+        final Long msgid = templateMessageObj.getLong("msgid");
+        return msgid;
     }
 
     @Override

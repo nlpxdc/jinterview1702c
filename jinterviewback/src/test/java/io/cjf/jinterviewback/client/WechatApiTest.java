@@ -33,7 +33,6 @@ class WechatApiTest {
 
     @Value("${testcase.wechat.user.authcode}")
     private String code;
-    private String grant_type = "authorization_code";
 
     @Value("${testcase.wechat.user.access_token}")
     private String access_token;
@@ -51,7 +50,7 @@ class WechatApiTest {
 
     @Test
     void getUserAccessToken() {
-        final String userAccessTokenJsonStr = wechatApi.getUserAccessToken(appid, secret, code, grant_type);
+        final String userAccessTokenJsonStr = wechatApi.getUserAccessToken(appid, secret, code, "authorization_code");
         assertNotNull(userAccessTokenJsonStr);
         final JSONObject userAccessTokenJsonObj = JSON.parseObject(userAccessTokenJsonStr);
         assertNotNull(userAccessTokenJsonObj);
@@ -76,6 +75,8 @@ class WechatApiTest {
         assertNotNull(appAccessTokenObj);
         final String access_token = appAccessTokenObj.getString("access_token");
         assertNotNull(access_token);
+        final Long expires_in = appAccessTokenObj.getLong("expires_in");
+        assertTrue(expires_in == 7200);
     }
 
     @Test
@@ -113,7 +114,7 @@ class WechatApiTest {
         templateMessageDTO.setData(dataJson);
 
         final JSONObject jsonObject = wechatApi.sendTemplateMessage(appAccessToken, templateMessageDTO);
-        final String msgid = jsonObject.getString("msgid");
-        assertNotNull(msgid);
+        final Long msgid = jsonObject.getLong("msgid");
+        assertTrue(msgid != 0);
     }
 }
