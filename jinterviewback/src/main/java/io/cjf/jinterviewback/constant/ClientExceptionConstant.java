@@ -28,7 +28,9 @@ public class ClientExceptionConstant {
     public static final String NOT_JPEG_FORMAT_ERRMSG = "not jpeg format";
     public static final String PHOTO_EMPTY_ERRCODE = "0013";
     public static final String PHOTO_EMPTY_ERRMSG = "photo empty";
-    public static final String PHOTO_TOO_LARGE_ERRCODE = "0014";
+    public static final String IDCARD_TOO_LARGE_ERRCODE = "0014";
+    public static final String IDCARD_TOO_LARGE_ERRMSG = "idcard too large";
+    public static final String PHOTO_TOO_LARGE_ERRCODE = "0015";
     public static final String PHOTO_TOO_LARGE_ERRMSG = "photo too large";
 
 }

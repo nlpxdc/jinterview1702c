@@ -1,5 +1,6 @@
 package io.cjf.jinterviewback.client;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import io.cjf.jinterviewback.exception.ClientException;
 import org.junit.jupiter.api.Test;
@@ -37,5 +38,17 @@ class BaiduAIServiceImplTest {
         final JSONObject nameObj = words_result.getJSONObject("姓名");
         final String name = nameObj.getString("words");
         assertNotNull(name);
+    }
+
+    @Test
+    void ocrGeneralBasic() throws IOException, ClientException {
+        String pathname = "img/exam720p.jpg";
+        final File file = new File(pathname);
+        final byte[] bytes = Files.readAllBytes(file.toPath());
+        final JSONObject jsonObject = baiduAIService.ocrGeneralBasic(bytes);
+        assertNotNull(jsonObject);
+        final JSONArray words_result = jsonObject.getJSONArray("words_result");
+        final int size = words_result.size();
+        assertTrue(size != 0);
     }
 }

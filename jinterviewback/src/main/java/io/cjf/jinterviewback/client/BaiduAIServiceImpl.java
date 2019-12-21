@@ -1,7 +1,6 @@
 package io.cjf.jinterviewback.client;
 
 import com.alibaba.fastjson.JSONObject;
-import feign.Client;
 import io.cjf.jinterviewback.constant.ClientExceptionConstant;
 import io.cjf.jinterviewback.exception.ClientException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +34,8 @@ public class BaiduAIServiceImpl implements BaiduAIService {
 
     @Override
     public JSONObject ocrIdcard(byte[] photo) throws ClientException {
-        if (photo.length > 100 * 1024){
-            throw new ClientException(ClientExceptionConstant.PHOTO_TOO_LARGE_ERRCODE, ClientExceptionConstant.PHOTO_TOO_LARGE_ERRMSG);
+        if (photo.length > 100 * 1024) {
+            throw new ClientException(ClientExceptionConstant.IDCARD_TOO_LARGE_ERRCODE, ClientExceptionConstant.IDCARD_TOO_LARGE_ERRMSG);
         }
 
         final String photoBase64 = Base64Utils.encodeToString(photo);
@@ -52,14 +51,17 @@ public class BaiduAIServiceImpl implements BaiduAIService {
     }
 
     @Override
-    public JSONObject distinguish(String image, String content_type) {
+    public JSONObject ocrGeneralBasic(byte[] photo) throws ClientException {
+        if (photo.length > 300 * 1024){
+            throw new ClientException(ClientExceptionConstant.PHOTO_TOO_LARGE_ERRCODE, ClientExceptionConstant.PHOTO_TOO_LARGE_ERRMSG);
+        }
 
         final HashMap<String, Object> form = new HashMap<>();
-        form.put("access_token", appAccessToken);
-        form.put("image", image);
-        form.put("Content-Type", content_type);
+        final String photoBase64 = Base64Utils.encodeToString(photo);
+        form.put("image", photoBase64);
 
-        final JSONObject jsonObject = baiduAIApi.distinguish(form);
+        autoGetAppAccessToken();
+        final JSONObject jsonObject = baiduAIApi.ocrGeneralBasic(appAccessToken, form);
         return jsonObject;
     }
 

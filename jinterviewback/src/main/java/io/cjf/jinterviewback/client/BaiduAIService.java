@@ -9,6 +9,6 @@ public interface BaiduAIService {
 
     JSONObject ocrIdcard(byte[] photo) throws ClientException;
 
-    JSONObject distinguish(String image,String content_type);
+    JSONObject ocrGeneralBasic(byte[] photo) throws ClientException;
 
 }

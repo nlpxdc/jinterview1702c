@@ -28,9 +28,9 @@ public interface BaiduAIApi {
                          @RequestBody Map<String, ?> form);
 
 
-    @PostMapping(value = "/rest/2.0/ocr/v1/webimage", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    JSONObject distinguish(@RequestBody Map<String,?> form);
-
+    @PostMapping(value = "/rest/2.0/ocr/v1/general_basic", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    JSONObject ocrGeneralBasic(@RequestParam String access_token,
+                               @RequestBody Map<String, ?> form);
 
 
     class Configuration {
