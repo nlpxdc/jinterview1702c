@@ -38,10 +38,11 @@
         <div v-show="!realname">
             <van-divider>身份证录入</van-divider>
             <div style="text-align: center;">
-                <van-uploader v-model="IdCardPhotos" :max-count="1" upload-text="身份证头像照" :after-read="afterRead" :before-read="beforeRead">
+                <van-uploader v-model="IdCardPhotos" :max-count="1" upload-text="身份证头像照" :after-read="afterRead"
+                    :before-read="beforeRead">
                 </van-uploader>
             </div>
-            <van-loading v-if="Idloading"></van-loading>
+            <van-loading v-show="Idloading"></van-loading>
             <van-button type="primary" size="large" @click="handleSubmitIdcardClick">提交</van-button>
         </div>
 

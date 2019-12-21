@@ -33,6 +33,7 @@ var app = new Vue({
                 })
                 .catch(function (error) {
                     console.error(error);
+                    alert(error.response.data.message);
                 });
         },
         handleSubmitIdcardClick() {
@@ -109,52 +110,53 @@ var app = new Vue({
                     alert(error.response.data.message);
                 });
         },
-        afterRead(Idcard) {
-            console.log('after read Idcard', Idcard);
+        afterRead() {
+            console.log('after read Idcard');
+            this.uploadIdcards = [];
 
-            var img = new Image();
-            img.onload = function () {
-                console.log('redraw loaded');
+            this.IdCardPhotos.forEach(IdCardPhoto => {
+                var img = new Image();
+                img.onload = function () {
+                    const width = img.naturalWidth;
+                    const height = img.naturalHeight;
+                    const pixel = 360;
 
-                const width = img.naturalWidth;
-                const height = img.naturalHeight;
-                const pixel = 360;
-
-                if (width < height) {
-                    if (width > pixel) {
-                        var canvas = document.createElement('canvas');
-                        canvas.width = pixel;
-                        canvas.height = 1.0 * pixel * height / width;
-                        var ctx = canvas.getContext('2d');
-                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                        canvas.toBlob(function (blob) {
-                            const Idcard = new File([blob], "Idcard.jpg", {
-                                type: "image/jpeg",
+                    if (width < height) {
+                        if (width > pixel) {
+                            var canvas = document.createElement('canvas');
+                            canvas.width = pixel;
+                            canvas.height = 1.0 * pixel * height / width;
+                            var ctx = canvas.getContext('2d');
+                            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                            canvas.toBlob(function (blob) {
+                                const newIdcard = new File([blob], "Idcard.jpg", {
+                                    type: "image/jpeg",
+                                });
+                                app.uploadIdcards.push(newIdcard);
                             });
-                            app.uploadIdcards.push(Idcard);
-                            app.Idloading = false;
-                        });
-                    }
-                } else {
-                    if (height > pixel) {
-                        var canvas = document.createElement('canvas');
-                        canvas.width = 1.0 * pixel * width / height;
-                        canvas.height = pixel;
-                        var ctx = canvas.getContext('2d');
-                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                        canvas.toBlob(function (blob) {
-                            const Idcard = new File([blob], "Idcard.jpg", {
-                                type: "image/jpeg",
+                        } else {
+                            app.uploadIdcards.push(IdCardPhoto);
+                        }
+                    } else {
+                        if (height > pixel) {
+                            var canvas = document.createElement('canvas');
+                            canvas.width = 1.0 * pixel * width / height;
+                            canvas.height = pixel;
+                            var ctx = canvas.getContext('2d');
+                            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                            canvas.toBlob(function (blob) {
+                                const newIdcard = new File([blob], "Idcard.jpg", {
+                                    type: "image/jpeg",
+                                });
+                                app.uploadIdcards.push(newIdcard);
                             });
-                            app.uploadIdcards.push(Idcard);
-                            app.Idloading = false;
-                        });
+                        } else {
+                            app.uploadIdcards.push(IdCardPhoto);
+                        }
                     }
-                }
-            };
-            img.src = Idcard.content;
-            this.Idloading = true;
-
+                };
+                img.src = IdCardPhoto.content;
+            });
         },
         beforeRead(file) {
             if (file.type !== 'image/jpeg') {

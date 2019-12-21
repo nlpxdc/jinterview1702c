@@ -190,7 +190,7 @@ public class StudentController {
         }
 
         final long size = Idcard.getSize();
-        if (size > 300 * 1024){
+        if (size > 512 * 1024){
             throw new ClientException(ClientExceptionConstant.IDCARD_TOO_LARGE_ERRCODE, ClientExceptionConstant.IDCARD_TOO_LARGE_ERRMSG);
         }
 
