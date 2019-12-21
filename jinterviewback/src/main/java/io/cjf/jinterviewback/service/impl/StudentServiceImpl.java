@@ -50,8 +50,5 @@ public class StudentServiceImpl implements StudentService {
         return studentMapper.selectByPrimaryKey(studentId);
     }
 
-    @Override
-    public void updateStudentRealname(Student student) {
-        studentMapper.updateByPrimaryKeySelective(student);
-    }
+
 }
