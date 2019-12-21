@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.util.Base64Utils;
@@ -183,8 +184,13 @@ public class StudentController {
 
     @PostMapping("/submitIdcard")
     public void submitIdcard(@RequestPart MultipartFile Idcard, @RequestAttribute Integer studentId) throws IOException, ClientException {
+        final String contentType = Idcard.getContentType();
+        if (!contentType.equals(MediaType.IMAGE_JPEG_VALUE)){
+            throw new ClientException(ClientExceptionConstant.NOT_JPEG_FORMAT_ERRCODE, ClientExceptionConstant.NOT_JPEG_FORMAT_ERRMSG);
+        }
+
         final long size = Idcard.getSize();
-        if (size > 100 * 1024){
+        if (size > 300 * 1024){
             throw new ClientException(ClientExceptionConstant.IDCARD_TOO_LARGE_ERRCODE, ClientExceptionConstant.IDCARD_TOO_LARGE_ERRMSG);
         }
 

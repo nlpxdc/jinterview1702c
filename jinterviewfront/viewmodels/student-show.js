@@ -9,9 +9,10 @@ var app = new Vue({
         mobile: '',
         avatarUrl: '',
         IdCardPhotos: [],
-        Idloading:false,
-        Emailloading:false,
-        
+        uploadIdcards: [],
+        Idloading: false,
+        Emailloading: false,
+
     },
     mounted() {
         console.log('view mounted');
@@ -40,14 +41,14 @@ var app = new Vue({
                 alert('请选择图片');
                 return;
             }
-            this.Idloading=true;
             this.submitIdcard();
         },
         submitIdcard() {
+            this.Idloading = true;
             //todo redraw the photo
             var formData = new FormData();
-            this.IdCardPhotos.forEach(file => {
-                formData.append("Idcard", file.file);
+            this.uploadIdcards.forEach(Idcard => {
+                formData.append("Idcard", Idcard);
             });
             axios.post('/student/submitIdcard', formData, {
                 headers: {
@@ -56,15 +57,14 @@ var app = new Vue({
             })
                 .then(function (response) {
                     console.log(response);
-                    app.Idloading=false;
+                    app.Idloading = false;
                     alert('提交成功');
                     app.getstudent();
-                    //todo loading
                 })
                 .catch(function (error) {
                     console.error(error);
+                    app.Idloading = false;
                     alert(error.response.data.message);
-                    app.Idloading=false;
                 });
         },
         handleSendEmailCaptchaTouch() {
@@ -73,6 +73,10 @@ var app = new Vue({
         },
         handleSubmitEmailCaptchaTouch() {
             console.log('submit email captcha touch');
+            if (!this.emailCaptcha) {
+                alert("请输入邮箱验证码");
+                return;
+            }
             this.submitEmailCaptcha();
         },
         sendEmailCaptcha() {
@@ -87,12 +91,7 @@ var app = new Vue({
                 });
         },
         submitEmailCaptcha() {
-            if (!this.emailCaptcha) {
-                alert("请输入邮箱验证码");
-                return;
-            }
-            this.Emailloading=true;
-
+            this.Emailloading = true;
             axios.get('/student/submitMailCaptcha', {
                 params: {
                     captcha: this.emailCaptcha
@@ -100,15 +99,62 @@ var app = new Vue({
             })
                 .then(function (response) {
                     console.log(response);
-                    app.Emailloading=false;
+                    app.Emailloading = false;
                     alert("邮箱验证成功");
                     location.reload();
                 })
                 .catch(function (error) {
                     console.error(error);
+                    app.Emailloading = false;
                     alert(error.response.data.message);
-                    app.Emailloading=false;
                 });
+        },
+        afterRead(Idcard) {
+            console.log('after read Idcard', Idcard);
+
+            var img = new Image();
+            img.onload = function () {
+                console.log('redraw loaded');
+
+                const width = img.naturalWidth;
+                const height = img.naturalHeight;
+                const pixel = 360;
+
+                if (width < height) {
+                    if (width > pixel) {
+                        var canvas = document.createElement('canvas');
+                        canvas.width = pixel;
+                        canvas.height = 1.0 * pixel * height / width;
+                        var ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                        canvas.toBlob(function (blob) {
+                            const Idcard = new File([blob], "Idcard.jpg", {
+                                type: "image/jpeg",
+                            });
+                            app.uploadIdcards.push(Idcard);
+                            app.Idloading = false;
+                        });
+                    }
+                } else {
+                    if (height > pixel) {
+                        var canvas = document.createElement('canvas');
+                        canvas.width = 1.0 * pixel * width / height;
+                        canvas.height = pixel;
+                        var ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                        canvas.toBlob(function (blob) {
+                            const Idcard = new File([blob], "Idcard.jpg", {
+                                type: "image/jpeg",
+                            });
+                            app.uploadIdcards.push(Idcard);
+                            app.Idloading = false;
+                        });
+                    }
+                }
+            };
+            img.src = Idcard.content;
+            this.Idloading = true;
+
         }
     }
 

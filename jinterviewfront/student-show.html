@@ -38,9 +38,10 @@
         <div v-show="!realname">
             <van-divider>身份证录入</van-divider>
             <div style="text-align: center;">
-                <van-uploader v-model="IdCardPhotos" :max-count="1" upload-text="身份证头像照"></van-uploader>
+                <van-uploader v-model="IdCardPhotos" :max-count="1" upload-text="身份证头像照" :after-read="afterRead">
+                </van-uploader>
             </div>
-            <van-loading v-if="Idloading" vertical=true type="spinner" color="#1989fa">上传身份证中</van-loading>
+            <van-loading v-if="Idloading"></van-loading>
             <van-button type="primary" size="large" @click="handleSubmitIdcardClick">提交</van-button>
         </div>
 
@@ -51,7 +52,7 @@
     <script src="assets/js/common.js"></script>
     <script src="assets/js/vue.js"></script>
     <script src="assets/js/vant.min.js"></script>
-    <script src="viewmodels/student-show.js?201912181620"></script>
+    <script src="viewmodels/student-show.js?201912212049"></script>
 
 </body>
 
