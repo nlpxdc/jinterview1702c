@@ -13,5 +13,4 @@ public interface StudentService {
 
     Student getByStudentId(Integer studentId);
 
-    void updateStudentRealname(Student student);
 }

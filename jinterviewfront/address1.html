@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
-    <title>关键字检索</title>
+    <title>地图关键字检索</title>
     <link rel="stylesheet" href="https://cache.amap.com/lbs/static/main1119.css"/>
     <style type="text/css">
         #panel {
@@ -26,15 +26,9 @@
     </style>
     <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=c2edc207dcee9bc9d77a4501d078361f"></script>
     <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
-    <script type="text/javascript">
-        function bas(){
-            console.log(decodeURI(this.name))
-            location.href = "http://localhost:5000/route?name="+decodeURI(this.name)
-        }
-    </script>
 </head>
 <body>
-<div style="z-index: 100;"><button type="primary" onclick="bas()">巴士</button></div>
+<div style="z-index: 100;">
 <div id="container"></div>
 <div id="panel"></div>
 
