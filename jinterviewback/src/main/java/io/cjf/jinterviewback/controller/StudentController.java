@@ -183,7 +183,10 @@ public class StudentController {
 
     @PostMapping("/submitIdcard")
     public void submitIdcard(@RequestPart MultipartFile Idcard, @RequestAttribute Integer studentId) throws IOException, ClientException {
-        //todo limit upload size
+        final long size = Idcard.getSize();
+        if (size > 100 * 1024){
+            throw new ClientException(ClientExceptionConstant.IDCARD_TOO_LARGE_ERRCODE, ClientExceptionConstant.IDCARD_TOO_LARGE_ERRMSG);
+        }
 
         final InputStream idcardInputStream = Idcard.getInputStream();
         final byte[] data = ImgUtil.redraw(idcardInputStream, 360);
