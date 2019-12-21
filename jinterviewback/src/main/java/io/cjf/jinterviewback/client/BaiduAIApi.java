@@ -18,6 +18,11 @@ import java.util.Map;
 @FeignClient(name = "BaiduAIApi", url = "https://aip.baidubce.com", configuration = BaiduAIApi.Configuration.class)
 public interface BaiduAIApi {
 
+    @PostMapping("/oauth/2.0/token")
+    JSONObject getAppAccessToken(@RequestParam String grant_type,
+                                 @RequestParam String client_id,
+                                 @RequestParam String client_secret);
+
     @PostMapping(value = "/rest/2.0/ocr/v1/idcard", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     JSONObject ocrIdcard(@RequestParam String access_token,
                          @RequestBody Map<String, ?> form);
