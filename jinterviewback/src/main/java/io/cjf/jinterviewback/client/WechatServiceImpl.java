@@ -56,6 +56,7 @@ public class WechatServiceImpl implements WechatService {
         final Date now = new Date();
         final long nowTimestamp = now.getTime();
         if (appAccessToken == null || nowTimestamp > expireTimestamp) {
+            //todo sync token
             final JSONObject appAccessTokenObj = getAppAccessToken();
             appAccessToken = appAccessTokenObj.getString("access_token");
             final Long expires_in = appAccessTokenObj.getLong("expires_in");
