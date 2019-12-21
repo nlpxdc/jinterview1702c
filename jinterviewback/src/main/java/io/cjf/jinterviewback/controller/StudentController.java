@@ -184,10 +184,9 @@ public class StudentController {
     }
 
     @PostMapping("/submitIdcard")
-    public void submitIdcard(@RequestPart MultipartFile photo, @RequestAttribute Integer studentId) throws IOException {
+    public void submitIdcard(@RequestPart MultipartFile photo, @RequestAttribute Integer studentId) throws IOException, ClientException {
         final byte[] bytes = photo.getBytes();
-        final String photoBase64 = Base64Utils.encodeToString(bytes);
-        final JSONObject jsonObject = baiduAIService.ocrIdcard(photoBase64);
+        final JSONObject jsonObject = baiduAIService.ocrIdcard(bytes);
         final JSONObject words_result = jsonObject.getJSONObject("words_result");
         final JSONObject nameObj = words_result.getJSONObject("姓名");
         final String name = nameObj.getString("words");

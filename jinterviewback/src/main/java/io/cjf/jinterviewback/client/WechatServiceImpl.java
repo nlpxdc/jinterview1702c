@@ -46,13 +46,13 @@ public class WechatServiceImpl implements WechatService {
 
     @Override
     public Long sendTemplateMessage(WechatTemplateMessageDTO templateMessageDTO) {
-        final String appAccessToken = autoGetAppAccessToken();
+        autoGetAppAccessToken();
         final JSONObject jsonObject = wechatApi.sendTemplateMessage(appAccessToken, templateMessageDTO);
         final Long msgid = jsonObject.getLong("msgid");
         return msgid;
     }
 
-    private String autoGetAppAccessToken() {
+    private void autoGetAppAccessToken() {
         final Date now = new Date();
         final long nowTimestamp = now.getTime();
         if (appAccessToken == null || nowTimestamp > expireTimestamp) {
@@ -62,7 +62,6 @@ public class WechatServiceImpl implements WechatService {
             final Long expires_in = appAccessTokenObj.getLong("expires_in");
             expireTimestamp = nowTimestamp + expires_in * 1000;
         }
-        return appAccessToken;
     }
 
 }

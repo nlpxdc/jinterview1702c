@@ -1,6 +1,7 @@
 package io.cjf.jinterviewback.client;
 
 import com.alibaba.fastjson.JSONObject;
+import io.cjf.jinterviewback.exception.ClientException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,12 +20,22 @@ class BaiduAIServiceImplTest {
     private BaiduAIService baiduAIService;
 
     @Test
-    void ocrIdcard() throws IOException {
+    void getAppAccessToken(){
+        final JSONObject appAccessToken = baiduAIService.getAppAccessToken();
+        final String access_token = appAccessToken.getString("access_token");
+        assertNotNull(access_token);
+    }
+
+    @Test
+    void ocrIdcard() throws IOException, ClientException {
         String pathname = "img/IdCardFront360p.jpg";
         final File file = new File(pathname);
         final byte[] bytes = Files.readAllBytes(file.toPath());
-        final String photoBase64 = Base64Utils.encodeToString(bytes);
-        final JSONObject jsonObject = baiduAIService.ocrIdcard(photoBase64);
+        final JSONObject jsonObject = baiduAIService.ocrIdcard(bytes);
         assertNotNull(jsonObject);
+        final JSONObject words_result = jsonObject.getJSONObject("words_result");
+        final JSONObject nameObj = words_result.getJSONObject("姓名");
+        final String name = nameObj.getString("words");
+        assertNotNull(name);
     }
 }
