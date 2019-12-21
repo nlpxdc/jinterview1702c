@@ -1,6 +1,5 @@
 package io.cjf.jinterviewback.scheduler;
 
-import io.cjf.jinterviewback.client.WechatService;
 import io.cjf.jinterviewback.service.InterviewService;
 import io.cjf.jinterviewback.vo.InterviewNotificationVO;
 import org.slf4j.Logger;

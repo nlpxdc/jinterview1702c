@@ -6,6 +6,7 @@ import io.cjf.jinterviewback.po.ExamPhoto;
 import io.cjf.jinterviewback.po.Examination;
 import io.cjf.jinterviewback.service.ExamPhotoService;
 import io.cjf.jinterviewback.service.ExaminationService;
+import io.cjf.jinterviewback.util.ImgUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 import java.util.List;
 
@@ -73,34 +75,8 @@ public class ExamPhotoController {
         final LinkedList<String> filenames = new LinkedList<>();
         final LinkedList<String> storeFilenames = new LinkedList<>();
         for (MultipartFile photo : photos) {
-
-//            byte[] data = photo.getBytes();
-            //todo redraw photo with fixed size, 看短边，最大为720p
-            final BufferedImage originImage = ImageIO.read(photo.getInputStream());
-            final int width = originImage.getWidth();
-            final int height = originImage.getHeight();
-            BufferedImage newImage = originImage;
-            if (width < height) {
-                if (width > 720) {
-                    double newHeight = 720.0 * height / width;
-                    newImage = new BufferedImage(720, (int) newHeight, originImage.getType());
-                    final Graphics2D graphics = newImage.createGraphics();
-                    graphics.drawImage(originImage, 0, 0, 720, (int) newHeight, null);
-                    graphics.dispose();
-                }
-            } else {
-                if (height > 720) {
-                    double newWidth = 720.0 * width / height;
-                    newImage = new BufferedImage((int) newWidth, 720, originImage.getType());
-                    final Graphics2D graphics = newImage.createGraphics();
-                    graphics.drawImage(originImage, 0, 0, (int) newWidth, 720, null);
-                    graphics.dispose();
-                }
-            }
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ImageIO.write(newImage, "jpg", baos);
-            byte[] data = baos.toByteArray();
-
+            final InputStream photoInputStream = photo.getInputStream();
+            final byte[] data = ImgUtil.redraw(photoInputStream, 720);
 
             String md5HexStr = DigestUtils.md5DigestAsHex(data);
             String filename = String.format("%s.%s", md5HexStr, "jpg");

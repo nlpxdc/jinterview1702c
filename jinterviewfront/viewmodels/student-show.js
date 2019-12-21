@@ -47,7 +47,7 @@ var app = new Vue({
             //todo redraw the photo
             var formData = new FormData();
             this.IdCardPhotos.forEach(file => {
-                formData.append("photo", file.file);
+                formData.append("Idcard", file.file);
             });
             axios.post('/student/submitIdcard', formData, {
                 headers: {

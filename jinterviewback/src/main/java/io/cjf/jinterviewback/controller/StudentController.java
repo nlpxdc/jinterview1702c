@@ -8,9 +8,7 @@ import io.cjf.jinterviewback.constant.ClientExceptionConstant;
 import io.cjf.jinterviewback.exception.ClientException;
 import io.cjf.jinterviewback.po.Student;
 import io.cjf.jinterviewback.service.StudentService;
-import io.cjf.jinterviewback.util.JWTUtil;
-import io.cjf.jinterviewback.util.MailUtil;
-import io.cjf.jinterviewback.util.RandomUtil;
+import io.cjf.jinterviewback.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +17,12 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.*;
-import io.cjf.jinterviewback.util.SMSUtil;
 import io.cjf.jinterviewback.vo.StudentLoginVO;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.security.GeneralSecurityException;
 import java.util.HashMap;
 import java.util.Map;
@@ -184,9 +182,13 @@ public class StudentController {
     }
 
     @PostMapping("/submitIdcard")
-    public void submitIdcard(@RequestPart MultipartFile photo, @RequestAttribute Integer studentId) throws IOException, ClientException {
-        final byte[] bytes = photo.getBytes();
-        final JSONObject jsonObject = baiduAIService.ocrIdcard(bytes);
+    public void submitIdcard(@RequestPart MultipartFile Idcard, @RequestAttribute Integer studentId) throws IOException, ClientException {
+        //todo limit upload size
+
+        final InputStream idcardInputStream = Idcard.getInputStream();
+        final byte[] data = ImgUtil.redraw(idcardInputStream, 360);
+
+        final JSONObject jsonObject = baiduAIService.ocrIdcard(data);
         final JSONObject words_result = jsonObject.getJSONObject("words_result");
         final JSONObject nameObj = words_result.getJSONObject("姓名");
         final String name = nameObj.getString("words");
