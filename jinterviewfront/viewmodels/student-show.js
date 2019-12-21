@@ -155,6 +155,14 @@ var app = new Vue({
             img.src = Idcard.content;
             this.Idloading = true;
 
+        },
+        beforeRead(file) {
+            if (file.type !== 'image/jpeg') {
+                alert('请上传 jpg 格式图片');
+                return false;
+            }
+
+            return true;
         }
     }
 
