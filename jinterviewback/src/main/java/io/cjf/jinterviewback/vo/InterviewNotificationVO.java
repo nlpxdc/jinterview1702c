@@ -1,14 +1,13 @@
-package io.cjf.jinterviewback.dto;
+package io.cjf.jinterviewback.vo;
 
 import java.util.Date;
 
-public class TemplateMessageDTO {
-
+public class InterviewNotificationVO {
     private Integer interviewId;
-    private String openId;
     private String company;
     private String address;
-    private Date interview_time;
+    private Date interviewTime;
+    private String openid;
 
     public Integer getInterviewId() {
         return interviewId;
@@ -16,14 +15,6 @@ public class TemplateMessageDTO {
 
     public void setInterviewId(Integer interviewId) {
         this.interviewId = interviewId;
-    }
-
-    public String getOpenId() {
-        return openId;
-    }
-
-    public void setOpenId(String openId) {
-        this.openId = openId;
     }
 
     public String getCompany() {
@@ -42,11 +33,19 @@ public class TemplateMessageDTO {
         this.address = address;
     }
 
-    public Date getInterview_time() {
-        return interview_time;
+    public String getOpenid() {
+        return openid;
     }
 
-    public void setInterview_time(Date interview_time) {
-        this.interview_time = interview_time;
+    public void setOpenid(String openid) {
+        this.openid = openid;
+    }
+
+    public Date getInterviewTime() {
+        return interviewTime;
+    }
+
+    public void setInterviewTime(Date interviewTime) {
+        this.interviewTime = interviewTime;
     }
 }

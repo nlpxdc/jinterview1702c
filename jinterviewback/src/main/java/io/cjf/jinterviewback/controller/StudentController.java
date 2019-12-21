@@ -64,6 +64,7 @@ public class StudentController {
 
     @GetMapping("/autoRegisterLogin")
     public JSONObject autoRegisterLogin(@RequestParam String code) throws ClientException {
+        logger.info("auth code: {}", code);
 
         final JSONObject userAccessTokenJsonObj = wechatService.getUserAccessToken(code);
         final Integer errcode = userAccessTokenJsonObj.getInteger("errcode");

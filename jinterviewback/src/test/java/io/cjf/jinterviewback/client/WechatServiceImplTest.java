@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Date;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -46,4 +48,14 @@ class WechatServiceImplTest {
         final String openid = userInfoJsonObj.getString("openid");
         assertNotNull(openid);
     }
+
+    @Test
+    void getAppAccessToken(){
+        final JSONObject appAccessToken = wechatService.getAppAccessToken();
+        final String access_token = appAccessToken.getString("access_token");
+        assertNotNull(access_token);
+        final Long expires_in = appAccessToken.getLong("expires_in");
+        assertTrue(expires_in != 0);
+    }
+
 }

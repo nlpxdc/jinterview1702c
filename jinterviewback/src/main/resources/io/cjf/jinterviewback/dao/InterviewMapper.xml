@@ -23,13 +23,6 @@
     <result column="interview_time" jdbcType="TIMESTAMP" property="time" />
     <result column="status" jdbcType="TINYINT" property="status" />
   </resultMap>
-  <resultMap id="TemplateMessageDTO" type="io.cjf.jinterviewback.dto.TemplateMessageDTO">
-    <id column="interview_id" jdbcType="INTEGER" property="interviewId" />
-    <result column="openId" jdbcType="VARCHAR" property="openId" />
-    <result column="company" jdbcType="VARCHAR" property="company" />
-    <result column="address" jdbcType="VARCHAR" property="address" />
-    <result column="interview_time" jdbcType="TIMESTAMP" property="interview_time" />
-  </resultMap>
   <resultMap id="InterviewShowDTO" type="io.cjf.jinterviewback.dto.InterviewShowDTO">
     <id column="interview_id" jdbcType="INTEGER" property="interviewId" />
     <result column="student_id" jdbcType="INTEGER" property="studentId" />
@@ -42,6 +35,13 @@
     <result column="note" jdbcType="VARCHAR" property="note" />
     <result column="offer_url" jdbcType="VARCHAR" property="offerUrl" />
     <association property="student" column="student_id" javaType="io.cjf.jinterviewback.po.Student" select="io.cjf.jinterviewback.dao.StudentMapper.selectByPrimaryKey"/>
+  </resultMap>
+  <resultMap id="InterviewNotificationVO" type="io.cjf.jinterviewback.vo.InterviewNotificationVO">
+    <id column="interview_id" jdbcType="INTEGER" property="interviewId" />
+    <result column="openid" jdbcType="VARCHAR" property="openid" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="interview_time" jdbcType="TIMESTAMP" property="interviewTime" />
   </resultMap>
   <sql id="Base_Column_List">
     interview_id, student_id, company, address, interview_time, create_time, status, 
@@ -214,14 +214,6 @@
       </if>
     </where>
     order by i.interview_time desc limit 10
-
-  </select>
-  <select id="getTemById" resultMap="TemplateMessageDTO">
-    select i.company,i.address,i.interview_time,s.openid from interview i left join student s
-    on i.student_id = s.student_id
-    <where>
-      interview_id = #{interviewId}
-    </where>
   </select>
 
   <select id="selectWithStudentByPrimaryKey" parameterType="java.lang.Integer" resultMap="InterviewShowDTO">
@@ -231,7 +223,9 @@
     where interview_id = #{interviewId,jdbcType=INTEGER}
   </select>
 
-  <select id="getInterviewTime" resultMap="TemplateMessageDTO">
-    select interview_id,interview_time from interview
+  <select id="selectBetweenTime" resultMap="InterviewNotificationVO">
+    SELECT i.*, s.openid FROM interview as i left join student as s on i.student_id = s.student_id
+    where i.interview_time between #{startTime} and #{endTime}
   </select>
+
 </mapper>

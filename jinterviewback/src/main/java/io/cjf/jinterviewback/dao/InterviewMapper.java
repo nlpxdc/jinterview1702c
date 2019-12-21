@@ -1,8 +1,8 @@
 package io.cjf.jinterviewback.dao;
 
 import io.cjf.jinterviewback.dto.InterviewListDTO;
-import io.cjf.jinterviewback.dto.TemplateMessageDTO;
 import io.cjf.jinterviewback.po.Interview;
+import io.cjf.jinterviewback.vo.InterviewNotificationVO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -22,8 +22,6 @@ public interface InterviewMapper {
     int updateByPrimaryKeySelective(Interview record);
 
     int updateByPrimaryKey(Interview record);
-    //
-    List<Interview> getStudentInterview();
 
     Interview selectByinterview(Integer interviewId);
 
@@ -33,7 +31,7 @@ public interface InterviewMapper {
                                   @Param("studentId") Integer studentId,
                                   @Param("time") Date time);
 
-    List<TemplateMessageDTO> getTemById(Integer interviewId);
+    List<InterviewNotificationVO> selectBetweenTime(@Param("startTime") Date startTime,
+                                                    @Param("endTime") Date endTime);
 
-    List<TemplateMessageDTO> getInterviewTime();
 }
