@@ -2,6 +2,7 @@ package io.cjf.jinterviewback.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import io.cjf.jinterviewback.client.AMapService;
 import io.cjf.jinterviewback.client.BaiduAIService;
 import io.cjf.jinterviewback.constant.ClientExceptionConstant;
 import io.cjf.jinterviewback.dto.InterviewCreateDTO;
@@ -51,6 +52,9 @@ public class InterviewController {
 
     @Autowired
     private BaiduAIService baiduAIService;
+
+    @Autowired
+    private AMapService aMapService;
 
     @Autowired
     private ExcelUtil excelUtil;
@@ -151,7 +155,8 @@ public class InterviewController {
 
     @GetMapping("/getPositionByAddress")
     public Position getPositionByAddress(@RequestParam String address){
-        return null;
+        final Position position = aMapService.getPosition(address);
+        return position;
     }
 
 
