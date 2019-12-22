@@ -23,7 +23,8 @@
             </van-grid-item>
         </van-grid>
 
-        <van-image-preview v-model="show" :images="exam.examPhotoUrls" @change="onChange" :start-position="index">
+        <van-image-preview v-model="show" :images="exam.examPhotoUrls" @change="onChange" :start-position="index"
+            :loop="false" :show-indicators="true">
         </van-image-preview>
 
         <van-divider>转换文字</van-divider>
@@ -34,7 +35,7 @@
     <script src="assets/js/common.js"></script>
     <script src="assets/js/vue.js"></script>
     <script src="assets/js/vant.min.js"></script>
-    <script src="viewmodels/exam-show.js"></script>
+    <script src="viewmodels/exam-show.js?201912222042"></script>
 
 </body>
 
