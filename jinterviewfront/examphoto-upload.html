@@ -16,11 +16,14 @@
 <body>
 
     <div id="app">
-        <van-uploader v-model="examPhotos" multiple :max-count="9" upload-text="笔试题照片" :before-read="beforeRead"
-            :after-read="afterRead"></van-uploader>
+        <br>
+        <br>
+        <van-uploader v-model="examPhotos" multiple :max-count="9" preview-size="90px" image-fit="scale-down"
+            upload-text="笔试题照片" :before-read="beforeRead" :after-read="afterRead"></van-uploader>
         <br>
         <van-loading v-show="photoLoading"></van-loading>
 
+        <br>
         <van-button type="primary" @click="handleSubmitUploadClick">确认上传</van-button>
     </div>
 
@@ -29,7 +32,7 @@
     <script src="assets/js/common.js"></script>
     <script src="assets/js/vue.js"></script>
     <script src="assets/js/vant.min.js"></script>
-    <script src="viewmodels/examphoto-upload.js?201912212237"></script>
+    <script src="viewmodels/examphoto-upload.js?201912221012"></script>
 
 </body>
 

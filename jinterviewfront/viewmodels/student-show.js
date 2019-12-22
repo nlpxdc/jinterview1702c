@@ -159,9 +159,13 @@ var app = new Vue({
             });
         },
         beforeRead(file) {
-            if (file.type !== 'image/jpeg') {
-                alert('请上传 jpg 格式图片');
-                return false;
+            const newFiles = Array.isArray(file) ? file : [file];
+            for (let i = 0; i < newFiles.length; i++) {
+                const newFile = newFiles[i];
+                if (newFile.type !== 'image/jpeg') {
+                    alert('请上传 jpg 格式图片');
+                    return false;
+                }
             }
 
             return true;

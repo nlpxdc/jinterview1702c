@@ -52,17 +52,10 @@ var app = new Vue({
                 });
         },
         beforeRead(file) {
-            if (Array.isArray(file)) {
-                const files = file;
-                for (let i = 0; i < files.length; i++) {
-                    const sfile = files[i];
-                    if (sfile.type !== 'image/jpeg') {
-                        alert('请上传 jpg 格式图片');
-                        return false;
-                    }
-                }
-            } else {
-                if (file.type !== 'image/jpeg') {
+            const newFiles = Array.isArray(file) ? file : [file];
+            for (let i = 0; i < newFiles.length; i++) {
+                const newFile = newFiles[i];
+                if (newFile.type !== 'image/jpeg') {
                     alert('请上传 jpg 格式图片');
                     return false;
                 }
