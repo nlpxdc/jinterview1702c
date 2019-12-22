@@ -23,6 +23,13 @@ var app = new Vue({
                 alert('请至少选择一张图');
                 return;
             }
+            for (let i = 0; i < this.uploadExamPhotos.length; i++) {
+                const uploadExamPhoto = this.uploadExamPhotos[i];
+                if (uploadExamPhoto.size > 1024 * 1024) {
+                    alert('上床图片太大，不能大于1MB');
+                    return;
+                }
+            }
             this.submitUpload();
         },
         submitUpload() {
@@ -63,7 +70,8 @@ var app = new Vue({
 
             return true;
         },
-        afterRead() {
+        afterRead(file) {
+            console.log('after read file(s)', file);
             this.uploadExamPhotos = [];
             this.examPhotos.forEach(examphoto => {
                 var img = new Image();

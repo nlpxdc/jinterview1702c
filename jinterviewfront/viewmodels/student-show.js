@@ -42,6 +42,13 @@ var app = new Vue({
                 alert('请选择图片');
                 return;
             }
+            for (let i = 0; i < this.uploadIdcards.length; i++) {
+                const uploadIdcard = this.uploadIdcards[i];
+                if (uploadIdcard.size > 300 * 1024) {
+                    alert('上传图片太大，不能大于300KB');
+                    return;
+                }
+            }
             this.submitIdcard();
         },
         submitIdcard() {
@@ -110,8 +117,8 @@ var app = new Vue({
                     alert(error.response.data.message);
                 });
         },
-        afterRead() {
-            console.log('after read Idcard');
+        afterRead(file) {
+            console.log('after read file(s)', file);
             this.uploadIdcards = [];
 
             this.IdCardPhotos.forEach(IdCardPhoto => {
