@@ -59,7 +59,7 @@ public class ExamPhotoController {
                 throw new ClientException(ClientExceptionConstant.NOT_JPEG_FORMAT_ERRCODE, ClientExceptionConstant.NOT_JPEG_FORMAT_ERRMSG);
             }
             final long size = photo.getSize();
-            if (size > 1024 * 1024) {
+            if (size > 100 * 1024) {
                 throw new ClientException(ClientExceptionConstant.PHOTO_TOO_LARGE_ERRCODE, ClientExceptionConstant.PHOTO_TOO_LARGE_ERRMSG);
             }
         }

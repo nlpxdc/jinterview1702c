@@ -25,8 +25,9 @@ var app = new Vue({
             }
             for (let i = 0; i < this.uploadExamPhotos.length; i++) {
                 const uploadExamPhoto = this.uploadExamPhotos[i];
-                if (uploadExamPhoto.size > 1024 * 1024) {
-                    alert('上床图片太大，不能大于1MB');
+                console.log('upload file size: ', uploadExamPhoto.size);
+                if (uploadExamPhoto.size > 100 * 1024) {
+                    alert('上床图片太大，不能大于100KB');
                     return;
                 }
             }
@@ -51,11 +52,9 @@ var app = new Vue({
                     history.back();
                 })
                 .catch(function (error) {
-                    app.photoLoading = false;
-
                     console.log(error);
-                    alert(error.response.data.message);
                     app.photoLoading = false;
+                    alert(error.response.data.message);
                 });
         },
         beforeRead(file) {
@@ -71,7 +70,11 @@ var app = new Vue({
             return true;
         },
         afterRead(file) {
-            console.log('after read file(s)', file);
+            const newFiles = Array.isArray(file) ? file : [file];
+            newFiles.forEach(newFile => {
+                console.log('file size: ', newFile.file.size);
+            });
+
             this.uploadExamPhotos = [];
             this.examPhotos.forEach(examphoto => {
                 var img = new Image();
@@ -94,7 +97,7 @@ var app = new Vue({
                                     type: "image/jpeg",
                                 });
                                 app.uploadExamPhotos.push(newExamPhoto);
-                            });
+                            }, 'image/jpeg', 0.6);
                         } else {
                             app.uploadExamPhotos.push(examphoto);
                         }
@@ -111,7 +114,7 @@ var app = new Vue({
                                     type: "image/jpeg",
                                 });
                                 app.uploadExamPhotos.push(newExamPhoto);
-                            });
+                            }, 'image/jpeg', 0.6);
                         } else {
                             app.uploadExamPhotos.push(examphoto);
                         }
