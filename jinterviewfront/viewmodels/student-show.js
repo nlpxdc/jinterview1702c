@@ -44,8 +44,9 @@ var app = new Vue({
             }
             for (let i = 0; i < this.uploadIdcards.length; i++) {
                 const uploadIdcard = this.uploadIdcards[i];
-                if (uploadIdcard.size > 300 * 1024) {
-                    alert('上传图片太大，不能大于300KB');
+                console.log('upload file size: ', uploadIdcard.size);
+                if (uploadIdcard.size > 100 * 1024) {
+                    alert('上传图片太大，不能大于100KB');
                     return;
                 }
             }
@@ -66,7 +67,8 @@ var app = new Vue({
                 .then(function (response) {
                     console.log(response);
                     app.Idloading = false;
-                    alert('提交成功');
+                    app.realname = response.data;
+                    alert('欢迎使用，' + app.realname);
                     app.getstudent();
                 })
                 .catch(function (error) {
@@ -118,7 +120,11 @@ var app = new Vue({
                 });
         },
         afterRead(file) {
-            console.log('after read file(s)', file);
+            // console.log('after read file(s)', file);
+            const newFiles = Array.isArray(file) ? file : [file];
+            newFiles.forEach(newFile => {
+                console.log('file size: ', newFile.file.size);
+            });
             this.uploadIdcards = [];
 
             this.IdCardPhotos.forEach(IdCardPhoto => {
@@ -126,6 +132,7 @@ var app = new Vue({
                 img.onload = function () {
                     const width = img.naturalWidth;
                     const height = img.naturalHeight;
+                    console.log('width x height: ', width, height);
                     const pixel = 360;
 
                     if (width < height) {
@@ -135,13 +142,12 @@ var app = new Vue({
                             canvas.height = 1.0 * pixel * height / width;
                             var ctx = canvas.getContext('2d');
                             ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                            //todo canvas.toDataURL("image/jpeg", 0.1)
                             canvas.toBlob(function (blob) {
                                 const newIdcard = new File([blob], "Idcard.jpg", {
                                     type: "image/jpeg",
                                 });
                                 app.uploadIdcards.push(newIdcard);
-                            });
+                            }, 'image/jpeg', 0.6);
                         } else {
                             app.uploadIdcards.push(IdCardPhoto);
                         }
@@ -152,15 +158,12 @@ var app = new Vue({
                             canvas.height = pixel;
                             var ctx = canvas.getContext('2d');
                             ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                            //todo canvas.toDataURL("image/jpeg", 0.1)
-                            //todo dataUrl to File
-                            //todo async await
                             canvas.toBlob(function (blob) {
                                 const newIdcard = new File([blob], "Idcard.jpg", {
                                     type: "image/jpeg",
                                 });
                                 app.uploadIdcards.push(newIdcard);
-                            });
+                            }, 'image/jpeg', 0.6);
                         } else {
                             app.uploadIdcards.push(IdCardPhoto);
                         }

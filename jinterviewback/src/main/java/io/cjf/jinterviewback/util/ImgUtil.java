@@ -1,5 +1,8 @@
 package io.cjf.jinterviewback.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -8,6 +11,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class ImgUtil {
+
+    private static Logger logger = LoggerFactory.getLogger(ImgUtil.class);
 
     public static byte[] redraw(InputStream originImgInputStream, int pixel) throws IOException {
         final BufferedImage originImage = ImageIO.read(originImgInputStream);
@@ -34,6 +39,7 @@ public class ImgUtil {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ImageIO.write(newImage, "jpg", baos);
         byte[] data = baos.toByteArray();
+        logger.info("image after redraw size: {}", data.length);
 
         return data;
     }

@@ -183,14 +183,14 @@ public class StudentController {
     }
 
     @PostMapping("/submitIdcard")
-    public void submitIdcard(@RequestPart MultipartFile Idcard, @RequestAttribute Integer studentId) throws IOException, ClientException {
+    public String submitIdcard(@RequestPart MultipartFile Idcard, @RequestAttribute Integer studentId) throws IOException, ClientException {
         final String contentType = Idcard.getContentType();
         if (!contentType.equals(MediaType.IMAGE_JPEG_VALUE)){
             throw new ClientException(ClientExceptionConstant.NOT_JPEG_FORMAT_ERRCODE, ClientExceptionConstant.NOT_JPEG_FORMAT_ERRMSG);
         }
 
         final long size = Idcard.getSize();
-        if (size > 512 * 1024){
+        if (size > 100 * 1024){
             throw new ClientException(ClientExceptionConstant.IDCARD_TOO_LARGE_ERRCODE, ClientExceptionConstant.IDCARD_TOO_LARGE_ERRMSG);
         }
 
@@ -205,6 +205,8 @@ public class StudentController {
         final Student student = studentService.getByStudentId(studentId);
         student.setRealname(name);
         studentService.updateStudent(student);
+
+        return name;
     }
 
 }

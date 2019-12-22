@@ -78,6 +78,7 @@ var app = new Vue({
                 img.onload = function () {
                     const width = img.naturalWidth;
                     const height = img.naturalHeight;
+                    console.log('width x height: ', width, height);
                     const pixel = 720;
 
                     if (width < height) {
