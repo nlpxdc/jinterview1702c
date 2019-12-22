@@ -36,10 +36,13 @@
 
 
         <van-cell title="点评" :value="interview.note"></van-cell>
+        <br>
 
         <div v-show="interview.examId">
             <van-divider>笔试题</van-divider>
             <van-button type="primary" size="large" @click="handleExamShowTouch">查看笔试题</van-button>
+            <br>
+            <br>
         </div>
 
 
@@ -47,14 +50,17 @@
 
 
         <!-- <van-divider>OFFER截图</van-divider> -->
-        <br>
-        <br>
 
-        <van-button type="primary" size="large" v-show="interview.self" @click="handleUpdateTouch">更新</van-button>
-        <br>
-        <br>
+
+        <div v-show="interview.self">
+            <van-button type="primary" size="large" @click="handleUpdateTouch">更新</van-button>
+            <br>
+            <br>
+        </div>
+
         <van-button size="large" @click="handleBackTouch">返回</van-button>
-        <br><br>
+        <br>
+        <br>
 
     </div>
 
