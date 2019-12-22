@@ -4,11 +4,8 @@ var app = new Vue({
         return {
             examId: '',
             exam: '',
-            images: [],
             show: false,
-            startPosition:0,
-            examIndex:[]
-
+            index: 0
         };
     },
     mounted() {
@@ -22,8 +19,6 @@ var app = new Vue({
     },
     methods: {
         getExamById() {
-             //识别ID
-             this.examIndex.push(this.examId)
             axios.get("exam/getExamById", {
                 params: {
                     examId: this.examId
@@ -32,31 +27,19 @@ var app = new Vue({
                 .then(res => {
                     console.log(res.data);
                     this.exam = res.data;
-                    this.images = this.exam.examPhotoUrls;
-                    
-                    //For循环传入数组examIndex里
-                    res.data.examPhotoUrls.forEach(element => {
-                        this.examIndex.push(element)
-                    });
-                    //识别图片方法
-                    this.distinguish();
                 })
                 .catch(err => {
                     console.error(err);
                 });
         },
-        onChange(index) {
-            console.log(index);
-            this.startPosition = index;
-            this.show=true;
+        handleImageTouch(index) {
+            console.log('image touch');
+            this.index = index;
+            this.show = true;
         },
-
-        
-        distinguish(){
-            axios.post("/interview/distinguish",this.examIndex).then(res=>{
-                console.log(res)
-                this.exam.content=res.data
-            })
+        onChange(index) {
+            console.log('image change');
+            this.index = index;
         }
     }
 });
