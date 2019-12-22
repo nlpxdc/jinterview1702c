@@ -45,7 +45,7 @@ var app = new Vue({
         },
         handleAddressTouch() {
             console.log('address touch');
-            location.href = 'address1.html?name=' + this.interview.address;
+            location.href = 'interview-address.html?address=' + this.interview.address;
         },
         handleBackTouch() {
             console.log('back touch');
