@@ -154,6 +154,7 @@ var app = new Vue({
                             ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
                             //todo canvas.toDataURL("image/jpeg", 0.1)
                             //todo dataUrl to File
+                            //todo async await
                             canvas.toBlob(function (blob) {
                                 const newIdcard = new File([blob], "Idcard.jpg", {
                                     type: "image/jpeg",
