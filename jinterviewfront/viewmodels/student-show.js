@@ -135,6 +135,7 @@ var app = new Vue({
                             canvas.height = 1.0 * pixel * height / width;
                             var ctx = canvas.getContext('2d');
                             ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                            //todo canvas.toDataURL("image/jpeg", 0.1)
                             canvas.toBlob(function (blob) {
                                 const newIdcard = new File([blob], "Idcard.jpg", {
                                     type: "image/jpeg",
@@ -151,6 +152,7 @@ var app = new Vue({
                             canvas.height = pixel;
                             var ctx = canvas.getContext('2d');
                             ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                            //todo canvas.toDataURL("image/jpeg", 0.1)
                             canvas.toBlob(function (blob) {
                                 const newIdcard = new File([blob], "Idcard.jpg", {
                                     type: "image/jpeg",
