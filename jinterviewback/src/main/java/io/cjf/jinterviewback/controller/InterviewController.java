@@ -9,6 +9,7 @@ import io.cjf.jinterviewback.dto.InterviewListDTO;
 import io.cjf.jinterviewback.dto.InterviewUpdateDTO;
 import io.cjf.jinterviewback.exception.ClientException;
 import io.cjf.jinterviewback.po.*;
+import io.cjf.jinterviewback.pojo.Position;
 import io.cjf.jinterviewback.service.*;
 import io.cjf.jinterviewback.util.ExcelUtil;
 import org.slf4j.Logger;
@@ -146,6 +147,11 @@ public class InterviewController {
         }
         interviewService.deleteById(interviewId);
         //todo delete exam, examphoto, audiorecord same time ?
+    }
+
+    @GetMapping("/getPositionByAddress")
+    public Position getPositionByAddress(@RequestParam String address){
+        return null;
     }
 
 
