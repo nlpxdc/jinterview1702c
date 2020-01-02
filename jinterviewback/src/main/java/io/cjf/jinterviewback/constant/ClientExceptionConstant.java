@@ -32,5 +32,7 @@ public class ClientExceptionConstant {
     public static final String IDCARD_TOO_LARGE_ERRMSG = "idcard too large, less than 100KB";
     public static final String PHOTO_TOO_LARGE_ERRCODE = "0015";
     public static final String PHOTO_TOO_LARGE_ERRMSG = "photo too large, less than 1MB";
+    public static final String EMAIL_CAPTCHA_EXPIRED_ERRCODE = "0016";
+    public static final String EMAIL_CAPTCHA_EXPIRED_ERRMSG = "email captcha expired";
 
 }

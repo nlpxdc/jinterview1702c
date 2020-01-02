@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -27,6 +28,7 @@ import java.io.InputStream;
 import java.security.GeneralSecurityException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 
 @RestController
@@ -58,6 +60,9 @@ public class StudentController {
 
     @Autowired
     private MailUtil mailUtil;
+
+    @Autowired
+    private RedisTemplate<String, String> redisTemplate;
 
     private Map<String, String> studentCaptchaMap = new HashMap<>();
 
@@ -116,14 +121,16 @@ public class StudentController {
             final String captcha = randomUtil.getRandomStr();
             smsUtil.sms(mobile, captcha);
             logger.info("mobile captcha: {}, {}", mobile, captcha);
-            studentCaptchaMap.put(CacheKeyConstant.STUDENT_MOBILE_CAPTCHA, captcha);
+            String key = CacheKeyConstant.STUDENT_MOBILE_CAPTCHA + studentId;
+            studentCaptchaMap.put(key, captcha);
         }
     }
 
     @GetMapping("/submitMobileCaptcha")
     public void submitMobileCaptcha(@RequestParam String captcha, @RequestAttribute Integer studentId) throws ClientException {
 
-        final String captchaOirigin = studentCaptchaMap.get(CacheKeyConstant.STUDENT_MOBILE_CAPTCHA);
+        String key = CacheKeyConstant.STUDENT_MOBILE_CAPTCHA + studentId;
+        final String captchaOirigin = studentCaptchaMap.get(key);
 
         if (!captcha.equalsIgnoreCase(captchaOirigin)) {
             throw new ClientException(ClientExceptionConstant.CAPTCHA_INVALID_ERRCODE, ClientExceptionConstant.CAPTCHA_INVALID_ERRMSG);
@@ -162,7 +169,9 @@ public class StudentController {
             mailUtil.mailSend2(email, "面试系统邮箱验证码", captcha);
 
             logger.info("email captcha: {}, {}", email, captcha);
-            studentCaptchaMap.put(CacheKeyConstant.STUDENT_EMAIL_CAPTCHA, captcha);
+            String key = CacheKeyConstant.STUDENT_EMAIL_CAPTCHA + studentId;
+//            studentCaptchaMap.put(key, captcha);
+            redisTemplate.opsForValue().set(key, captcha, 30, TimeUnit.SECONDS);
         }
     }
 
@@ -170,7 +179,12 @@ public class StudentController {
     @GetMapping("/submitMailCaptcha")
     public void submitMailCaptcha(@RequestParam String captcha, @RequestAttribute Integer studentId) throws ClientException {
 
-        final String captchaOirigin = studentCaptchaMap.get(CacheKeyConstant.STUDENT_EMAIL_CAPTCHA);
+        String key = CacheKeyConstant.STUDENT_EMAIL_CAPTCHA + studentId;
+//        final String captchaOirigin = studentCaptchaMap.get(key);
+        final String captchaOirigin = redisTemplate.opsForValue().get(key);
+        if (captchaOirigin == null){
+            throw new ClientException(ClientExceptionConstant.EMAIL_CAPTCHA_EXPIRED_ERRCODE, ClientExceptionConstant.EMAIL_CAPTCHA_EXPIRED_ERRMSG);
+        }
 
         if (!captcha.equalsIgnoreCase(captchaOirigin)) {
             throw new ClientException(ClientExceptionConstant.CAPTCHA_INVALID_ERRCODE, ClientExceptionConstant.CAPTCHA_INVALID_ERRMSG);
