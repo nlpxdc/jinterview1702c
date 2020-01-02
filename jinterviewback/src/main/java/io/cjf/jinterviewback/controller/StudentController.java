@@ -116,14 +116,16 @@ public class StudentController {
             final String captcha = randomUtil.getRandomStr();
             smsUtil.sms(mobile, captcha);
             logger.info("mobile captcha: {}, {}", mobile, captcha);
-            studentCaptchaMap.put(CacheKeyConstant.STUDENT_MOBILE_CAPTCHA, captcha);
+            String key = CacheKeyConstant.STUDENT_MOBILE_CAPTCHA + studentId;
+            studentCaptchaMap.put(key, captcha);
         }
     }
 
     @GetMapping("/submitMobileCaptcha")
     public void submitMobileCaptcha(@RequestParam String captcha, @RequestAttribute Integer studentId) throws ClientException {
 
-        final String captchaOirigin = studentCaptchaMap.get(CacheKeyConstant.STUDENT_MOBILE_CAPTCHA);
+        String key = CacheKeyConstant.STUDENT_MOBILE_CAPTCHA + studentId;
+        final String captchaOirigin = studentCaptchaMap.get(key);
 
         if (!captcha.equalsIgnoreCase(captchaOirigin)) {
             throw new ClientException(ClientExceptionConstant.CAPTCHA_INVALID_ERRCODE, ClientExceptionConstant.CAPTCHA_INVALID_ERRMSG);
@@ -162,7 +164,8 @@ public class StudentController {
             mailUtil.mailSend2(email, "面试系统邮箱验证码", captcha);
 
             logger.info("email captcha: {}, {}", email, captcha);
-            studentCaptchaMap.put(CacheKeyConstant.STUDENT_EMAIL_CAPTCHA, captcha);
+            String key = CacheKeyConstant.STUDENT_EMAIL_CAPTCHA + studentId;
+            studentCaptchaMap.put(key, captcha);
         }
     }
 
@@ -170,7 +173,8 @@ public class StudentController {
     @GetMapping("/submitMailCaptcha")
     public void submitMailCaptcha(@RequestParam String captcha, @RequestAttribute Integer studentId) throws ClientException {
 
-        final String captchaOirigin = studentCaptchaMap.get(CacheKeyConstant.STUDENT_EMAIL_CAPTCHA);
+        String key = CacheKeyConstant.STUDENT_EMAIL_CAPTCHA + studentId;
+        final String captchaOirigin = studentCaptchaMap.get(key);
 
         if (!captcha.equalsIgnoreCase(captchaOirigin)) {
             throw new ClientException(ClientExceptionConstant.CAPTCHA_INVALID_ERRCODE, ClientExceptionConstant.CAPTCHA_INVALID_ERRMSG);
