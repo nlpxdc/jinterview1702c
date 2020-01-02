@@ -1,6 +1,7 @@
 package io.cjf.jinterviewback.dao;
 
 import io.cjf.jinterviewback.dto.InterviewListDTO;
+import io.cjf.jinterviewback.dto.StudentInterviewCountDTO;
 import io.cjf.jinterviewback.po.Interview;
 import io.cjf.jinterviewback.vo.InterviewNotificationVO;
 import org.apache.ibatis.annotations.Param;
@@ -25,7 +26,7 @@ public interface InterviewMapper {
 
     Interview selectByinterview(Integer interviewId);
 
-    List getInterviewCount();
+    List<StudentInterviewCountDTO> selectStudentInterviewCount();
 
     List<InterviewListDTO> search(@Param("keyword") String keyword,
                                   @Param("studentId") Integer studentId,

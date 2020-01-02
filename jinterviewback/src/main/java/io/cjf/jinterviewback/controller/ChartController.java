@@ -1,5 +1,6 @@
 package io.cjf.jinterviewback.controller;
 
+import io.cjf.jinterviewback.dto.StudentInterviewCountDTO;
 import io.cjf.jinterviewback.po.Interview;
 import io.cjf.jinterviewback.service.InterviewService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,16 +28,10 @@ public class ChartController {
     @Autowired
     private InterviewService interviewService;
 
-
-    @GetMapping("/interviewCount")
-    public Map<String, Long> interviewCount(){
-
-
-        List<Interview> interviews = interviewService.getInterviewCount();
-
-        Map<String, Long> interCount = interviews.stream().collect(
-                Collectors.groupingBy(Interview::getRealName, Collectors.counting()));
-        return interCount;
+    @GetMapping("/getStudentInterviewCount")
+    public List<StudentInterviewCountDTO> getStudentInterviewCount(){
+        final List<StudentInterviewCountDTO> studentInterviewCountDTOS = interviewService.getStudentInterviewCount();
+        return studentInterviewCountDTOS;
     }
 
 

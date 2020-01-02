@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import io.cjf.jinterviewback.client.WechatService;
 import io.cjf.jinterviewback.dao.InterviewMapper;
 import io.cjf.jinterviewback.dto.InterviewListDTO;
+import io.cjf.jinterviewback.dto.StudentInterviewCountDTO;
 import io.cjf.jinterviewback.dto.WechatTemplateMessageDTO;
 import io.cjf.jinterviewback.enumeration.InterviewStatus;
 import io.cjf.jinterviewback.po.Interview;
@@ -42,9 +43,9 @@ public class InterviewServiceImpl implements InterviewService {
     }
 
     @Override
-    public List getInterviewCount() {
-        List interviews = interviewMapper.getInterviewCount();
-        return interviews;
+    public List<StudentInterviewCountDTO> getStudentInterviewCount() {
+        final List<StudentInterviewCountDTO> studentInterviewCountDTOS = interviewMapper.selectStudentInterviewCount();
+        return studentInterviewCountDTOS;
     }
 
     @Override
