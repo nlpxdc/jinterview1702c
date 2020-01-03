@@ -1,6 +1,8 @@
 package io.cjf.jinterviewback.dto;
 
-public class StudentInterviewCountDTO {
+import java.io.Serializable;
+
+public class StudentInterviewCountDTO implements Serializable {
     private String studentName;
     private Integer interviewCount;
 

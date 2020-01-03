@@ -4,6 +4,7 @@ import io.cjf.jinterviewback.dto.StudentInterviewCountDTO;
 import io.cjf.jinterviewback.po.Interview;
 import io.cjf.jinterviewback.service.InterviewService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.MediaType;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +29,7 @@ public class ChartController {
     @Autowired
     private InterviewService interviewService;
 
+    @Cacheable("StudentInterviewCount")
     @GetMapping("/getStudentInterviewCount")
     public List<StudentInterviewCountDTO> getStudentInterviewCount(){
         final List<StudentInterviewCountDTO> studentInterviewCountDTOS = interviewService.getStudentInterviewCount();
