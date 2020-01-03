@@ -1,6 +1,7 @@
 package io.cjf.jinterviewback.service;
 
 import io.cjf.jinterviewback.dto.InterviewListDTO;
+import io.cjf.jinterviewback.dto.StudentInterviewCountDTO;
 import io.cjf.jinterviewback.po.Interview;
 import io.cjf.jinterviewback.vo.InterviewNotificationVO;
 
@@ -13,7 +14,7 @@ public interface InterviewService {
 
     void updateById(Interview interview);
 
-    List getInterviewCount();
+    List<StudentInterviewCountDTO> getStudentInterviewCount();
 
     List<InterviewListDTO> search(String keyword, Integer studentId, Date time);
 

@@ -43,6 +43,10 @@
     <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="interview_time" jdbcType="TIMESTAMP" property="interviewTime" />
   </resultMap>
+  <resultMap id="StudentInterviewCountDTO" type="io.cjf.jinterviewback.dto.StudentInterviewCountDTO">
+    <result column="student_name" jdbcType="VARCHAR" property="studentName" />
+    <result column="interview_count" jdbcType="INTEGER" property="interviewCount" />
+  </resultMap>
   <sql id="Base_Column_List">
     interview_id, student_id, company, address, interview_time, create_time, status, 
     stars, note, offer_url
@@ -195,9 +199,9 @@
     FROM `interview` WHERE interview_id=#{interviewId}
   </select>
 
-  <select id="getInterviewCount" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select
-      i.student_id,s.realname from interview i left join student s on i.student_id=s.student_id
+  <select id="selectStudentInterviewCount" resultMap="StudentInterviewCountDTO">
+    SELECT s.student_id, s.nickname as student_name, count(s.student_id) as interview_count FROM interview as i left join student as s on i.student_id = s.student_id
+    group by s.student_id
   </select>
 
   <select id="search" resultMap="InterviewListDTO">
