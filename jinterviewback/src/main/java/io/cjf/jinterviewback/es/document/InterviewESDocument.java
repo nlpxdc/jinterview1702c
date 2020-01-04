@@ -1,9 +1,12 @@
 package io.cjf.jinterviewback.es.document;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
-@Document(indexName = "InterviewDocument")
-public class InterviewDocument {
+@Document(indexName = "interview-es-document")
+public class InterviewESDocument {
+
+    @Id
     private Integer interviewId;
 
     private String studentName;

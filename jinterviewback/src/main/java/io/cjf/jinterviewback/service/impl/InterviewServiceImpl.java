@@ -7,21 +7,34 @@ import io.cjf.jinterviewback.dto.InterviewListDTO;
 import io.cjf.jinterviewback.dto.StudentInterviewCountDTO;
 import io.cjf.jinterviewback.dto.WechatTemplateMessageDTO;
 import io.cjf.jinterviewback.enumeration.InterviewStatus;
+import io.cjf.jinterviewback.es.document.InterviewESDocument;
+import io.cjf.jinterviewback.es.repository.InterviewESRepository;
 import io.cjf.jinterviewback.po.Interview;
+import io.cjf.jinterviewback.po.Student;
 import io.cjf.jinterviewback.service.InterviewService;
+import io.cjf.jinterviewback.service.StudentService;
 import io.cjf.jinterviewback.vo.InterviewNotificationVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class InterviewServiceImpl implements InterviewService {
 
     @Autowired
     private InterviewMapper interviewMapper;
+
+    @Autowired
+    private InterviewESRepository interviewESRepository;
+
+    @Autowired
+    private StudentService studentService;
 
     @Autowired
     private WechatService wechatService;
@@ -33,8 +46,15 @@ public class InterviewServiceImpl implements InterviewService {
     private String interviewUrl;
 
     @Override
-    public void updateById(Interview record) {
-        interviewMapper.updateByPrimaryKey(record);
+    @Transactional
+    public void updateById(Interview interview) {
+        interviewMapper.updateByPrimaryKey(interview);
+
+        final Integer interviewId = interview.getInterviewId();
+        final Optional<InterviewESDocument> interviewESDocumentOpt = interviewESRepository.findById(interviewId);
+        final InterviewESDocument interviewESDocument = interviewESDocumentOpt.get();
+        interviewESDocument.setNote(interview.getNote());
+        interviewESRepository.save(interviewESDocument);
     }
 
     @Override
@@ -50,10 +70,23 @@ public class InterviewServiceImpl implements InterviewService {
 
     @Override
     public List<InterviewListDTO> search(String keyword, Integer studentId, Date time) {
-        return interviewMapper.search(keyword, studentId, time);
+        final List<InterviewListDTO> interviewListDTOS = interviewMapper.search(keyword, studentId, time);
+
+//        final List<InterviewESDocument> interviewESDocuments = interviewESRepository.findByCompanyOrStudentNameOrNote(keyword);
+//        final List<InterviewESDocument> interviewESDocuments = interviewESRepository.findByCompanyOrStudentNameOrNote(keyword);
+        //todo search with multiple field
+
+//        final LinkedList<InterviewListDTO> interviewListDTOS1 = new LinkedList<>();
+//        for (InterviewESDocument interviewESDocument : interviewESDocuments) {
+//            final Integer interviewId = interviewESDocument.getInterviewId();
+//            final Interview interview = interviewMapper.selectByPrimaryKey(interviewId);
+//        }
+
+        return interviewListDTOS;
     }
 
     @Override
+    @Transactional
     public Integer createInterview(String company, String address, Date time, Integer studentId) {
         final Interview interview = new Interview();
         interview.setCompany(company);
@@ -66,6 +99,16 @@ public class InterviewServiceImpl implements InterviewService {
 
         interviewMapper.insert(interview);
         final Integer interviewId = interview.getInterviewId();
+
+        final InterviewESDocument interviewESDocument = new InterviewESDocument();
+        interviewESDocument.setInterviewId(interviewId);
+        interviewESDocument.setCompany(company);
+        final Student student = studentService.getByStudentId(studentId);
+        final String realname = student.getRealname();
+        interviewESDocument.setStudentName(realname);
+
+        final InterviewESDocument save = interviewESRepository.save(interviewESDocument);
+
         return interviewId;
     }
 
